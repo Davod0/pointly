@@ -1,9 +1,15 @@
-This is a [Next.js] project
+This is a web application named Pointly, designed for pointing sessions to estimate the time required for different tickets during development sprints.
+The application is built with Next.js, TypeScript, and Tailwind CSS.
 
 
 
 
-.for running the development server
+
+
+
+To run the development server, first install all dependencies by running 'npm install':
+
+```bash
 npm run dev
 # or
 yarn dev
@@ -13,7 +19,7 @@ pnpm dev
 bun dev
 ```
 
-http://localhost:3000
+
 
 
 
