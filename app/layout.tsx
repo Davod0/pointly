@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pointly",
-  description: "Pointly is a web application that will be used for pointing sessions"
+  description: "Pointly is a tool for tasks estimation during development sprints"
 };
 
 export default function RootLayout({
