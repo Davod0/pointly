@@ -1,6 +1,9 @@
+import MiniVotingCard from "../components/MiniVotingCard";
+
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex items-start">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex">
+      {/* Left content (original position) */}
       <div className="mt-16 ml-16 flex flex-col items-start">
         {/* Top left heading*/}
         <div className="text-lg font-semibold mb-2 text-violet-700">
@@ -23,7 +26,10 @@ export default function HomePage() {
         </span>
         {/* Main large heading*/}
         <div className="mt-12">
-          <h1 className="text-5xl font-serif font-semibold text-gray-900 mb-3" style={{ letterSpacing: "-0.02em" }}>
+          <h1
+            className="text-5xl font-serif font-semibold text-gray-900 mb-3"
+            style={{ letterSpacing: "-0.02em" }}
+          >
             Easier estimation by Pointly
           </h1>
         </div>
@@ -54,6 +60,11 @@ export default function HomePage() {
         <button className="bg-violet-600 hover:bg-violet-700 text-white py-4 px-10 rounded-xl text-xl font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300">
           Start Estimating
         </button>
+      </div>
+      <div className="absolute bottom-[4cm] right-[8cm] flex flex-row items-center gap-[0.5cm]">
+        {[1, 2, 3, 4, 5].map((n) => (
+          <MiniVotingCard key={n} prop={n} />
+        ))}
       </div>
     </div>
   );
