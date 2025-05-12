@@ -17,11 +17,8 @@ export const metadata: Metadata = {
   description: "Pointly is a tool for tasks estimation during development sprints"
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>)
+{
   return (
     <html lang="en">
       <body
