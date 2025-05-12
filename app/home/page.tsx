@@ -1,7 +1,7 @@
-import SmallPointingCard from "../components/SmallPointCard";
+import SmallCardBoard from "../components/SmallCardBoard";
 
 export default function HomePage() {
-  const SmallPointCardValues = ["☕️", 1, 2, 3, 5, 8, 16, 32];
+
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex">
@@ -62,10 +62,8 @@ export default function HomePage() {
           Start Estimating
         </button>
       </div>
-      <div className="absolute bottom-[4cm] right-[5cm] flex flex-row items-center gap-[0.5cm]">
-        {SmallPointCardValues.map((n) => (
-          <SmallPointingCard key={n} prop={n} />
-        ))}
+      <div>
+        <SmallCardBoard />
       </div>
     </div>
   );
