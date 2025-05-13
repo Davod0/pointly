@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react";
 
 export default function Header() {
@@ -14,7 +16,7 @@ export default function Header() {
       <span className="text-2xl font-bold text-violet-600">
         Welcome to Pointly
       </span>
-      <div className="flex items-center ml-[7cm] gap-2">
+      <div className="flex items-center ml-[7cm] gap-1">
         {navOptions.map((option) => (
           <a
             key={option.label}

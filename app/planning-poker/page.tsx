@@ -1,13 +1,15 @@
-'use client';
-import styles from './style.module.css';
+"use client";
+import React from "react";
+import Header from "../components/Header";
+import PlanningPokerContent from "../components/PlanningPokerContent";
 
 export default function PlanningPokerPage() {
   return (
-    <div className={styles.planningContainer}>
-      <h1 className={styles.planningTitle}>Planning Poker</h1>
-      <p className={styles.planningDescription}>
-        This page is for the Planning Poker feature of Pointly. Use this tool to estimate tasks collaboratively and effectively during your development sprints.
-      </p>
+    <div
+      className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col"
+    >
+      <Header />
+      <PlanningPokerContent />
     </div>
   );
 }

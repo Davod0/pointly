@@ -1,55 +1,48 @@
 "use client";
 
-import SmallPointCardContainer from "../components/SmallPointCardContainer";
 import EstimationButton from "../components/EstimationButton";
 import Badge from "../components/Badge";
 import Header from "../components/Header";
 
 export default function HomePage() {
   return (
-    <div
-      className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col"
-    >
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <Header />
-      {/* Main Content */}
-      <div className="flex flex-1">
-        <div className="mt-20 ml-25 flex flex-col items-start">
+
+      <main className="flex flex-1 px-16 py-12">
+        <section className="flex flex-col justify-center flex-1 max-w-xl space-y-8">
           <Badge />
-          <div>
-            <h1
-              className="text-5xl font-serif font-semibold text-gray-900 mb-3"
-              style={{ letterSpacing: "-0.02em" }}
-            >
-              Easier estimation by Pointly
-            </h1>
-          </div>
-          <p className="text-lg text-gray-600 mb-8">
-            Use Pointly for task estimation during development sprints
+
+          <h1
+            className="text-6xl font-serif font-semibold text-gray-900 leading-tight"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            Easier Estimation with <span className="text-violet-700">Pointly</span>
+          </h1>
+
+          <p className="text-lg text-gray-700">
+            Use Pointly for task estimation during development sprints. Improve accuracy, boost collaboration, and start for free with no signup required.
           </p>
-          <ul className="mb-12 space-y-3">
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Improving estimation accuracy</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Boosting team collaboration</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Start for free</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">No signup required</span>
-            </li>
-          </ul>
-          <EstimationButton />
-        </div>
-        <div>
-          <SmallPointCardContainer />
-        </div>
-      </div>
+
+          <div className="flex space-x-6">
+            <EstimationButton />
+            <a
+              href="#features"
+              className="inline-flex items-center px-8 py-4 border-2 border-violet-600 text-violet-600 font-semibold rounded-xl hover:bg-violet-600 hover:text-white transition"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      {/* Features Section */}
+      <section
+        id="features"
+        className="bg-white py-16 px-16 flex justify-center"
+      >
+      </section>
     </div>
   );
 }
