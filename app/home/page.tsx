@@ -1,7 +1,7 @@
-import SmallPointingCard from "../components/SmallPointCard";
+import SmallPointCardContainer from "../components/SmallPointCardContainer";
 
 export default function HomePage() {
-  const SmallPointCardValues = ["☕️", 1, 2, 3, 5, 8, 16, 32];
+
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex">
@@ -58,14 +58,31 @@ export default function HomePage() {
           </li>
         </ul>
         {/* Button*/}
-        <button className="bg-violet-600 hover:bg-violet-700 text-white py-4 px-10 rounded-xl text-xl font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300">
+        <button className="
+                mb-8
+                inline-block
+                px-10 py-4
+                rounded-xl
+                bg-violet-600
+                text-white
+                text-xl
+                font-semibold
+                shadow-lg
+                transition-all
+                duration-200
+                hover:bg-violet-700
+                hover:scale-105
+                focus:outline-none
+                focus:ring-4
+                focus:ring-violet-300
+                cursor-pointer
+                no-underline
+              ">
           Start Estimating
         </button>
       </div>
-      <div className="absolute bottom-[4cm] right-[5cm] flex flex-row items-center gap-[0.5cm]">
-        {SmallPointCardValues.map((n) => (
-          <SmallPointingCard key={n} prop={n} />
-        ))}
+      <div>
+        <SmallPointCardContainer />
       </div>
     </div>
   );
