@@ -1,4 +1,4 @@
-import SmallCardBoard from "../components/SmallCardBoard";
+import SmallPointCardContainer from "../components/SmallPointCardContainer";
 
 export default function HomePage() {
 
@@ -63,7 +63,7 @@ export default function HomePage() {
         </button>
       </div>
       <div>
-        <SmallCardBoard />
+        <SmallPointCardContainer />
       </div>
     </div>
   );
