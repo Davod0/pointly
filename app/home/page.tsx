@@ -1,7 +1,8 @@
 import SmallPointCardContainer from "../components/SmallPointCardContainer";
+import EstimationButton from "../components/EstimationButton";
+
 
 export default function HomePage() {
-
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex">
@@ -57,29 +58,7 @@ export default function HomePage() {
             <span className="text-gray-700">No signup required</span>
           </li>
         </ul>
-        {/* Button*/}
-        <button className="
-                mb-8
-                inline-block
-                px-10 py-4
-                rounded-xl
-                bg-violet-600
-                text-white
-                text-xl
-                font-semibold
-                shadow-lg
-                transition-all
-                duration-200
-                hover:bg-violet-700
-                hover:scale-105
-                focus:outline-none
-                focus:ring-4
-                focus:ring-violet-300
-                cursor-pointer
-                no-underline
-              ">
-          Start Estimating
-        </button>
+        <EstimationButton />
       </div>
       <div>
         <SmallPointCardContainer />
