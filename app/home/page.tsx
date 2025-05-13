@@ -13,7 +13,7 @@ export default function HomePage() {
       <Header />
       {/* Main Content */}
       <div className="flex flex-1">
-        <div className="mt-16 ml-16 flex flex-col items-start">
+        <div className="mt-20 ml-25 flex flex-col items-start">
           <Badge />
           <div>
             <h1

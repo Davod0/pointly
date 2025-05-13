@@ -11,11 +11,9 @@ export default function Header() {
 
   return (
     <header className="w-full flex items-center px-16 py-8">
-      <span className="text-2xl font-bold text-violet-700">
+      <span className="text-2xl font-bold text-violet-600">
         Welcome to Pointly
       </span>
-
-      {/* Middle group: Navigation */}
       <div className="flex items-center ml-[7cm] gap-2">
         {navOptions.map((option) => (
           <a
@@ -26,8 +24,8 @@ export default function Header() {
               text-black font-semibold text-lg px-4 py-2 rounded-lg transition-all duration-200
               ${
                 selectedNav === option.label
-                  ? "bg-violet-100 text-violet-700 shadow"
-                  : "hover:bg-violet-200 hover:text-violet-700"
+                  ? "bg-violet-100 shadow"
+                  : "hover:bg-violet-100"
               }
               cursor-pointer
             `}
@@ -37,13 +35,11 @@ export default function Header() {
           </a>
         ))}
       </div>
-
       {/* Spacer to push Sign In to the right corner*/}
       <div className="flex-1"></div>
-
       <a
         href="#"
-        className="bg-violet-600 hover:bg-violet-700 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
+        className="bg-violet-600 hover:bg-violet-400 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
       >
         Sign In
       </a>
