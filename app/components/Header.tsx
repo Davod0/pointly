@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="w-full flex items-center px-16 py-8">
-      <span className="text-2xl font-bold text-violet-500">
+      <span className="text-2xl font-bold text-violet-800">
         Welcome to Pointly
       </span>
       <div className="flex items-center ml-[7cm] gap-1">

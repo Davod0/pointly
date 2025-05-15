@@ -9,7 +9,7 @@ export default function HomePage() {
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <Header />
 
-      <main className="flex flex-1 px-16 py-12">
+      <main className="flex flex-1 px-16 ml-10">
         <section className="flex flex-col justify-center flex-1 max-w-xl space-y-8">
           <Badge />
 
@@ -17,7 +17,7 @@ export default function HomePage() {
             className="text-6xl font-serif font-semibold text-gray-900 leading-tight"
             style={{ letterSpacing: "-0.02em" }}
           >
-            Easier Estimation with <span className="text-violet-700">Pointly</span>
+            Easier Estimation with <span className="text-violet-800">Pointly</span>
           </h1>
 
           <p className="text-lg text-gray-700">
@@ -28,8 +28,9 @@ export default function HomePage() {
             <EstimationButton />
             <a
               href="#features"
-              className="inline-flex items-center px-8 py-4 border-2 border-violet-600 text-violet-600 font-semibold rounded-xl hover:bg-violet-600 hover:text-white transition"
-            >
+              className="inline-flex items-center px-8 py-4 border-2 border-violet-600
+               text-violet-800 font-semibold rounded-xl hover:bg-violet-400 hover:text-white transition"
+              >
               Learn More
             </a>
           </div>
@@ -37,10 +38,8 @@ export default function HomePage() {
 
       </main>
 
-      {/* Features Section */}
       <section
-        id="features"
-        className="bg-white py-16 px-16 flex justify-center"
+      className="bg-white py-25 -mt-15 flex justify-center"
       >
       </section>
     </div>

@@ -43,6 +43,11 @@ export default function PlanningPokerContent() {
         <div>
           <SmallPointCardContainer />
         </div>
+          <section
+            id="features"
+            className="bg-white py-25"
+            >
+          </section>
       </div>
     )
 }
