@@ -21,24 +21,6 @@ export default function PlanningPokerContainer() {
           <p className="text-lg text-gray-600 mb-8">
             Use Pointly for task estimation during development sprints
           </p>
-          {/* <ul className="mb-12 space-y-3">
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Improving estimation accuracy</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Boosting team collaboration</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">Start for free</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700">No signup required</span>
-            </li>
-          </ul> */}
           <FeatureList
             point1="Improving estimation accuracy"
             point2="Boosting team collaboration"
