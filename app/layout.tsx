@@ -1,8 +1,8 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { ReduxProvider } from "./store/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pointly",
-  description: "Pointly is a tool for tasks estimation during development sprints"
+  description: "Pointly is a tool for tasks estimation and retrospectives during development sprints"
 };
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>)
@@ -24,9 +24,9 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Provider store={store}>
+          <ReduxProvider>
             {children}
-          </Provider>
+          </ReduxProvider>
       </body>
     </html>
   );
