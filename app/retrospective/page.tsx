@@ -1,4 +1,3 @@
-import Badge from "../components/Badge";
 import Header from "../components/Header";
 
 export default function Page() {
