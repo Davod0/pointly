@@ -13,14 +13,14 @@ export default function EstimationButton() {
         inline-block
         px-10 py-4
         rounded-xl
-        bg-violet-600
+        bg-violet-400
         text-white
         text-xl
         font-semibold
         shadow-lg
         transition-all
         duration-200
-        hover:bg-violet-400
+        hover:bg-violet-200
         hover:shadow-xl
         focus:outline-none
         focus:ring-4

@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="w-full flex items-center px-16 py-8">
-      <span className="text-2xl font-bold text-violet-600">
+      <span className="text-2xl font-bold text-violet-500">
         Welcome to Pointly
       </span>
       <div className="flex items-center ml-[7cm] gap-1">
@@ -41,7 +41,7 @@ export default function Header() {
       <div className="flex-1"></div>
       <a
         href="#"
-        className="bg-violet-600 hover:bg-violet-400 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
+        className="bg-violet-400 hover:bg-violet-200 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
       >
         Sign In
       </a>
