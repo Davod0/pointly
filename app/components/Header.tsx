@@ -1,13 +1,22 @@
 'use client';
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from 'next/link';
+import { useAppDispatch } from "../store/hooks";
+import { setBadgeTitle } from "../store/badgeSlice";
 
 export default function Header() {
-  const [selectedNav, setSelectedNav] = useState("Home");
+  const [selectedNav, setSelectedNav] = useState("");
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (selectedNav) {
+      dispatch(setBadgeTitle(selectedNav));
+    }
+  }, [selectedNav, dispatch]);
 
   const navOptions = [
     { label: "Home", href: "/home" },
-    { label: "Retrospective", href: "/home" },
+    { label: "Retrospective", href: "/retrospective" },
     { label: "Planning Poker", href: "/planning-poker" },
   ];
 
@@ -18,7 +27,7 @@ export default function Header() {
       </span>
       <div className="flex items-center ml-[7cm] gap-1">
         {navOptions.map((option) => (
-          <a
+          <Link
             key={option.label}
             href={option.href}
             onClick={() => setSelectedNav(option.label)}
@@ -34,7 +43,7 @@ export default function Header() {
             style={{ fontWeight: selectedNav === option.label ? 700 : 600 }}
           >
             {option.label}
-          </a>
+          </Link>
         ))}
       </div>
       {/* Spacer to push Sign In to the right corner*/}
