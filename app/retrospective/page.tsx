@@ -1,14 +1,16 @@
+'use client';
 import Header from "../components/Header";
+import Badge from "../components/Badge";
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-violet-100 flex flex-col items-center">
         <Header />
+        <Badge />
       <div className="mt-20 mb-20">
         <span className="inline-block bg-violet-100 text-violet-800 font-semibold px-6 py-2 rounded-full shadow-sm text-base border border-violet-200">
           Sprint 24: May 2025
         </span>
-        {/* <Badge /> */}
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl text-center">

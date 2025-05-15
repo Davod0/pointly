@@ -2,6 +2,7 @@ import React from "react";
 import SmallPointCardContainer from "./SmallPointCardContainer";
 import StartButton from "./StartButton";
 import Badge from "./Badge";
+import FeatureList from "./FeatureList";
 
 export default function PlanningPokerContainer() {
 
@@ -20,7 +21,7 @@ export default function PlanningPokerContainer() {
           <p className="text-lg text-gray-600 mb-8">
             Use Pointly for task estimation during development sprints
           </p>
-          <ul className="mb-12 space-y-3">
+          {/* <ul className="mb-12 space-y-3">
             <li className="flex items-center">
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
               <span className="text-gray-700">Improving estimation accuracy</span>
@@ -37,7 +38,13 @@ export default function PlanningPokerContainer() {
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
               <span className="text-gray-700">No signup required</span>
             </li>
-          </ul>
+          </ul> */}
+          <FeatureList
+            point1="Improving estimation accuracy"
+            point2="Boosting team collaboration"
+            point3="Start for free"
+            point4="No signup required"
+          />
           <StartButton title="Start Estimating" />
         </div>
         <div>

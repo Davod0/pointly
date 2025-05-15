@@ -24,7 +24,7 @@ export default function HomePage() {
           <p className="text-lg text-gray-700">
               Streamline your team’s estimation process with Pointly.
               Achieve greater clarity, foster collaboration,
-              and start making confident decisions-no sign-up required.
+              and start making confident decisions
           </p>
 
           <div className="flex space-x-6">
