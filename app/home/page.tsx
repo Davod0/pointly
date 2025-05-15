@@ -10,18 +10,20 @@ export default function HomePage() {
       <Header />
 
       <main className="flex flex-1 px-16 ml-10">
-        <section className="flex flex-col justify-center flex-1 max-w-xl space-y-8">
+        <section className="flex flex-col justify-center flex-1 max-w-xl space-y-4">
           <Badge />
 
           <h1
             className="text-6xl font-serif font-semibold text-gray-900 leading-tight"
             style={{ letterSpacing: "-0.02em" }}
           >
-            Easier Estimation with <span className="text-violet-800">Pointly</span>
+             Smarter Sprint Planning with <span className="text-violet-800">Pointly</span>
           </h1>
 
           <p className="text-lg text-gray-700">
-            Use Pointly for task estimation during development sprints. Improve accuracy, boost collaboration, and start for free with no signup required.
+              Streamline your team’s estimation process with Pointly.
+              Achieve greater clarity, foster collaboration,
+              and start making confident decisions-no sign-up required.
           </p>
 
           <div className="flex space-x-6">
@@ -39,7 +41,7 @@ export default function HomePage() {
       </main>
 
       <section
-      className="bg-white py-25 -mt-15 flex justify-center"
+      className="bg-white py-20 -mt-15 flex justify-center"
       >
       </section>
     </div>

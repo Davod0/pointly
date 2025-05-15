@@ -14,16 +14,14 @@ export const badgeSlice = createSlice({
   name: 'badge',
   initialState,
   reducers: {
-    changeValueBasedOnCurrentPage: (state, action: PayloadAction<string>) => {
+    setBadgeTitle: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     },
   },
 })
 
-export const { changeValueBasedOnCurrentPage } = badgeSlice.actions
+export const { setBadgeTitle } = badgeSlice.actions
 export default badgeSlice.reducer
-
-
 
 
 // Selector to get the badge value from the state
