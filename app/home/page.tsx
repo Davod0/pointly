@@ -1,8 +1,9 @@
 "use client";
 
-import EstimationButton from "../components/EstimationButton";
+import StartButton from "../components/StartButton";
 import Badge from "../components/Badge";
 import Header from "../components/Header";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -27,14 +28,14 @@ export default function HomePage() {
           </p>
 
           <div className="flex space-x-6">
-            <EstimationButton />
-            <a
+            <StartButton title="Start a Session"/>
+            <Link
               href="#features"
               className="inline-flex items-center px-8 py-4 border-2 border-violet-600
                text-violet-800 font-semibold rounded-xl hover:bg-violet-400 hover:text-white transition"
               >
               Learn More
-            </a>
+            </Link>
           </div>
         </section>
 

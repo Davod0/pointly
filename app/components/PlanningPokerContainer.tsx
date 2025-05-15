@@ -1,9 +1,9 @@
 import React from "react";
 import SmallPointCardContainer from "./SmallPointCardContainer";
-import EstimationButton from "./EstimationButton";
+import StartButton from "./StartButton";
 import Badge from "./Badge";
 
-export default function PlanningPokerContent() {
+export default function PlanningPokerContainer() {
 
     return (
         <div className="flex flex-1">
@@ -38,7 +38,7 @@ export default function PlanningPokerContent() {
               <span className="text-gray-700">No signup required</span>
             </li>
           </ul>
-          <EstimationButton />
+          <StartButton title="Start Estimating" />
         </div>
         <div>
           <SmallPointCardContainer />

@@ -2,7 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 
-export default function EstimationButton() {
+
+interface StartButtonProps {
+    title: string;
+}
+
+export default function StartButton({ title }: StartButtonProps) {
     const router = useRouter();
 
     return (
@@ -27,7 +32,7 @@ export default function EstimationButton() {
         focus:ring-violet-300
         cursor-pointer
         no-underline">
-        Start Estimating
+        {title}
       </button>
 
     );
