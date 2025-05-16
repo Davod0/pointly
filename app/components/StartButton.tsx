@@ -5,14 +5,15 @@ import { useRouter } from 'next/navigation';
 
 interface StartButtonProps {
     title: string;
+    route: string;
 }
 
-export default function StartButton({ title }: StartButtonProps) {
+export default function StartButton({ title, route }: StartButtonProps) {
     const router = useRouter();
 
     return (
         <button
-        onClick={() => router.push('/planning-poker')}
+        onClick={() => router.push(route)}
         className="
         mb-8
         inline-block

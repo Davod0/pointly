@@ -22,12 +22,12 @@ export default function PlanningPokerContainer() {
             Use Pointly for task estimation during development sprints
           </p>
           <FeatureList
-            point1="Improving estimation accuracy"
-            point2="Boosting team collaboration"
-            point3="Start for free"
-            point4="No signup required"
+              point3="Collaborate with your team remotely"
+              point4="Keep sprints on track with clear estimates"
+              point1="Improving estimation accuracy"
+              point2="Boosting team collaboration"
           />
-          <StartButton title="Start Estimating" />
+          <StartButton title="Start Estimating" route="/planning-poker" />
         </div>
         <div>
           <SmallPointCardContainer />

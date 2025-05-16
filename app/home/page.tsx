@@ -11,10 +11,10 @@ export default function HomePage() {
       <Header />
 
       <main className="flex flex-1 px-16 ml-10 items-center justify-between">
-        {/* Left: Text Content */}
         <section className="flex flex-col justify-center max-w-xl space-y-4">
-          <Badge />
-
+          <div className="flex items-center -mb-3">
+            <Badge />
+          </div>
           <h1
             className="text-6xl font-serif font-semibold text-gray-900 leading-tight"
             style={{ letterSpacing: "-0.02em" }}
@@ -29,11 +29,11 @@ export default function HomePage() {
           </p>
 
           <div className="flex space-x-6">
-            <StartButton title="Start a Session" />
+            <StartButton title="Start a Session" route="/home" />
             <Link
-              href="#features"
+              href="/home"
               className="inline-flex items-center px-8 py-4 border-2 border-violet-600
-               text-violet-800 font-semibold rounded-xl hover:bg-violet-400 hover:text-white transition"
+               text-violet-800 font-semibold rounded-xl hover:bg-violet-200 hover:text-white transition"
             >
               Learn More
             </Link>
@@ -48,22 +48,22 @@ export default function HomePage() {
             </li>
             <li className="flex items-center">
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700 text-xl">Track progress effortlessly</span>
-            </li>
-            <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
               <span className="text-gray-700 text-xl">Retrospective sessions made simple</span>
             </li>
             <li className="flex items-center">
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
-              <span className="text-gray-700 text-xl">Integrate with your favorite tools</span>
+              <span className="text-gray-700 text-xl">Start for free</span>
+            </li>
+            <li className="flex items-center">
+              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+              <span className="text-gray-700 text-xl">No signup required</span>
             </li>
           </ul>
         </div>
       </main>
 
       <section
-        className="bg-white py-20 -mt-15 flex justify-center"
+        className="bg-white py-23 -mt-13 flex justify-center"
       >
       </section>
     </div>
