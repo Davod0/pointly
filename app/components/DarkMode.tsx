@@ -88,3 +88,12 @@ export default function Home() {
     </div>
   );
 }
+
+{/*
+  Retrospective Basge Example
+  <div className="mt-2 mb-6">
+        <span className="inline-block bg-violet-100 text-violet-800 font-semibold px-6 py-2 rounded-full shadow-sm text-base border border-violet-200">
+          Sprint 24: May 2025
+        </span>
+  </div>
+*/}

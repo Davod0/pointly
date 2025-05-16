@@ -1,6 +1,5 @@
 import { useAppSelector } from "../store/hooks";
 
-
 export default function Badge() {
 
     const badgeValue = useAppSelector((state) => state.badge.value);

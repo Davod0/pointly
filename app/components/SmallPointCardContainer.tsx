@@ -1,13 +1,12 @@
 'use client';
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import SmallPointCard from "./SmallPointCard";
 import styles from "./smallPointCardContainer.module.css";
 
 export default function SmallPointCardContainer() {
   const SmallPointCardValues = ["☕️", 1, 2, 3, 5, 8, 16, 32];
   const [selectedValue, setSelectedValue] = useState<string | number>('');
-  const router = useRouter();
 
   return (
     <div className="absolute bottom-[4cm] right-[5cm] flex flex-col items-center">
@@ -29,8 +28,8 @@ export default function SmallPointCardContainer() {
           </svg>
         </div>
       ) : (
-        <button
-          onClick={() => router.push("/home")}
+        <Link
+          href="/home"
           className="
             mb-8
             inline-block
@@ -54,7 +53,7 @@ export default function SmallPointCardContainer() {
           "
         >
           Create a room and invite your team
-        </button>
+        </Link>
       )}
 
       <div className="flex flex-row items-center gap-[0.5cm]">
