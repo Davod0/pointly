@@ -2,6 +2,7 @@
 
 import Header from "../components/Header";
 import Badge from "../components/Badge";
+import Footer from "../components/Footer";
 
 export default function RetrospectivePage() {
   return (
@@ -44,7 +45,7 @@ export default function RetrospectivePage() {
             </ul>
           </div>
         </div>
-        <section className="bg-white py-23 -mt-13 flex justify-center"></section>
+        <Footer />
       </div>
     </>
   );

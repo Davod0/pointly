@@ -3,6 +3,7 @@ import SmallPointCardContainer from "./SmallPointCardContainer";
 import StartButton from "./StartButton";
 import Badge from "./Badge";
 import FeatureList from "./FeatureList";
+import Footer from "./Footer";
 
 export default function PlanningPokerContainer() {
 
@@ -34,7 +35,7 @@ export default function PlanningPokerContainer() {
                     <SmallPointCardContainer />
                 </div>
             </div>
-            <section className="bg-white py-23 -mt-13 flex justify-center"></section>
+            <Footer />
         </>
     )
 }

@@ -4,6 +4,7 @@ import StartButton from "../components/StartButton";
 import Badge from "../components/Badge";
 import Header from "../components/Header";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   return (
@@ -59,10 +60,7 @@ export default function HomePage() {
           </ul>
         </div>
       </div>
-      <section
-        className="bg-white py-23 -mt-13 flex justify-center"
-      >
-      </section>
+        <Footer />
     </div>
   );
 }
