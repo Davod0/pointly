@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from "react";
-import Link from 'next/link';
 import { useAppDispatch } from "../store/hooks";
 import { setBadgeTitle } from "../store/badgeSlice";
+import Link from "next/link";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
@@ -16,7 +16,7 @@ export default function Header() {
 
   const navOptions = [
     { label: "Home", href: "/home" },
-    { label: "Retrospective", href: "/retrospective" },
+    { label: "Retrospective", href: "/retrospective " },
     { label: "Planning Poker", href: "/planning-poker" },
   ];
 
@@ -25,35 +25,27 @@ export default function Header() {
       <span className="text-2xl font-bold text-violet-800">
         Welcome to Pointly
       </span>
-      <div className="flex items-center ml-[7cm] gap-1">
-        {navOptions.map((option) => (
+      <div className="flex items-center ml-[7cm]">
+          {navOptions.map((option) => (
           <Link
             key={option.label}
             href={option.href}
             onClick={() => setSelectedNav(option.label)}
-            className={`
-              text-black font-semibold text-lg px-4 py-2 rounded-lg transition-all duration-200
-              ${
-                selectedNav === option.label
-                  ? "bg-violet-100 shadow"
-                  : "hover:bg-violet-100"
-              }
-              cursor-pointer
-            `}
-            style={{ fontWeight: selectedNav === option.label ? 700 : 600 }}
-          >
+            className={`text-black text-lg px-5 py-2 rounded-full transition-all duration-200
+              ${selectedNav === option.label ? "bg-violet-100 shadow font-bold" : "hover:bg-violet-100 font-semibold"} cursor-pointer`}
+            >
             {option.label}
-          </Link>
-        ))}
+         </Link>
+          ))}
       </div>
       {/* Spacer to push Sign In to the right corner*/}
       <div className="flex-1"></div>
-      <a
+      <Link
         href="#"
         className="bg-violet-400 hover:bg-violet-200 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
       >
         Sign In
-      </a>
+      </Link>
     </header>
   );
 }
