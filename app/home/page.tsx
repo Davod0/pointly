@@ -9,25 +9,24 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <Header />
-
-      <main className="flex flex-1 px-16 ml-10 items-center justify-between">
-        <section className="flex flex-col justify-center max-w-xl space-y-4">
+      <div className="flex flex-1">
+        <div className="mt-15 ml-27 flex flex-col items-start">
           <div className="flex items-center -mb-3">
             <Badge />
           </div>
           <h1
-            className="text-6xl font-serif font-semibold text-gray-900 leading-tight"
+            className="text-6xl font-serif font-semibold text-gray-900 leading-tight mb-2"
             style={{ letterSpacing: "-0.02em" }}
           >
-            Smarter Sprint Planning with <span className="text-violet-800">Pointly</span>
+            Smarter <br />Sprint Planning <br /> with
+            <span className="text-violet-800"> Pointly</span>
           </h1>
 
-          <p className="text-lg text-gray-700">
-            Streamline your team’s estimation process with Pointly.
+          <p className="text-lg text-gray-700 mb-10">
+            Streamline your team’s estimation process with Pointly.<br />
             Achieve greater clarity, foster collaboration,
             and start making confident decisions
           </p>
-
           <div className="flex space-x-6">
             <StartButton title="Start a Session" route="/home" />
             <Link
@@ -38,9 +37,8 @@ export default function HomePage() {
               Learn More
             </Link>
           </div>
-        </section>
-
-        <div className="flex-1 justify-center ml-50 mb-25">
+        </div>
+        <div className="flex-1 justify-center ml-30 mt-30">
           <ul className="mb-12 space-y-5">
             <li className="flex items-center">
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
@@ -60,8 +58,7 @@ export default function HomePage() {
             </li>
           </ul>
         </div>
-      </main>
-
+      </div>
       <section
         className="bg-white py-23 -mt-13 flex justify-center"
       >

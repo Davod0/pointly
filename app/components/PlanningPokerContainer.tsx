@@ -13,10 +13,10 @@ export default function PlanningPokerContainer() {
                     <Badge />
                     <div>
                         <h1
-                            className="text-5xl font-serif font-semibold text-gray-900 leading-snug mb-2 -mt-3"
+                            className="text-5xl font-serif font-semibold text-gray-900 leading-tight mb-2 -mt-2"
                             style={{ letterSpacing: "-0.02em" }}
                         >
-                            Pointly Makes <br />Easier Estimations
+                            <span className="text-violet-800">Pointly</span> Makes <br />Easier Estimations
                         </h1>
                     </div>
                     <p className="text-lg text-gray-600 mb-4">
