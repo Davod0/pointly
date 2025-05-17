@@ -9,7 +9,7 @@ export default function SmallPointCardContainer() {
   const [selectedValue, setSelectedValue] = useState<string | number>('');
 
   return (
-    <div className="absolute bottom-[4cm] right-[5cm] flex flex-col items-center">
+    <div className="absolute bottom-[4cm] right-[10cm] flex flex-col items-center">
       {selectedValue === '' ? (
         <div className={`relative flex flex-col items-center mb-8 bottom-[0.5cm] ${styles.animateFloatUpDown}`}>
           <span className="bg-violet-200 text-violet-800 px-10 py-4 rounded-full font-bold shadow-md text-2xl">

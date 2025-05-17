@@ -11,7 +11,7 @@ export default function HomePage() {
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <Header />
       <div className="flex flex-1">
-        <div className="mt-15 ml-27 flex flex-col items-start">
+        <div className="mt-15 ml-27 flex flex-col items-start gap-y-3">
           <div className="flex items-center -mb-3">
             <Badge />
           </div>
@@ -23,7 +23,7 @@ export default function HomePage() {
             <span className="text-violet-800"> Pointly</span>
           </h1>
 
-          <p className="text-lg text-gray-700 mb-10">
+          <p className="text-lg text-gray-700 mb-17">
             Streamline your team’s estimation process with Pointly.<br />
             Achieve greater clarity, foster collaboration,
             and start making confident decisions
