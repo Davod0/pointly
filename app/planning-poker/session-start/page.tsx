@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import StartButton from "@/app/components/StartButton";
+import UserNameModal from "@/app/components/UserNameModal";
 
 const fibonacciPresets = [
   { label: "Classic", values: [["☕️", 1, 2, 3, 5, 8, 16, 32]] },
@@ -21,23 +22,18 @@ function getDefaultRoomName() {
 export default function SessionSetupContainer() {
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
+  const [showUserNameModal, setShowUserNameModal] = useState(false);
 
-  function handleStart() {
-    alert(
-      `Room: ${roomName}\nDeck: ${fibonacciPresets[selectedFibIndex].label}\nValues: ${fibonacciPresets[selectedFibIndex].values.join(
-        ", "
-      )}`
-    );
-  }
+
+  const handleUserNameSubmit = () => {
+    setShowUserNameModal(false);
+    // Continue to session or navigate, etc.
+  };
 
   return (
     <>
       <div className="flex min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 items-center justify-center">
         <div className="flex flex-col items-start gap-y-8 max-w-xl w-full px-6">
-          <p className="ml-13 text-lg font-semibold text-gray-600 mb-4">
-            Name your room and choose a Fibonacci <br />
-            deck to kick off your estimation session
-          </p>
           <div className="w-full">
             <label className="block text-gray-700 font-semibold mb-2" htmlFor="roomName">
               Room Name
@@ -63,7 +59,7 @@ export default function SessionSetupContainer() {
                 <button
                   key={preset.label}
                   type="button"
-                  className={`px-6 py-3 rounded-xl border-2 font-semibold transition
+                  className={`px-6 py-3 rounded-xl border-2 font-semibold transition cursor-pointer
                     ${
                       idx === selectedFibIndex
                         ? "bg-violet-200 border-violet-600 text-violet-900"
@@ -84,11 +80,17 @@ export default function SessionSetupContainer() {
             <StartButton
               title="Start Session"
               route="#"
-              onClick={handleStart}
+              onClick={() => setShowUserNameModal(true)}
             />
           </div>
         </div>
       </div>
+      {showUserNameModal && (
+        <UserNameModal
+          onSubmit={handleUserNameSubmit}
+          onClose={() => setShowUserNameModal(false)}
+        />
+      )}
     </>
   );
 }

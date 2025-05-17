@@ -97,3 +97,11 @@ export default function Home() {
         </span>
   </div>
 */}
+
+// function handleStart() {
+  //   alert(
+  //     `Room: ${roomName}\nDeck: ${fibonacciPresets[selectedFibIndex].label}\nValues: ${fibonacciPresets[selectedFibIndex].values.join(
+  //       ", "
+  //     )}`
+  //   );
+  // }
