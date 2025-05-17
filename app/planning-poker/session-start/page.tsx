@@ -18,7 +18,7 @@ function getDefaultRoomName() {
   });
 }
 
-export default function RoomSetupContainer() {
+export default function SessionSetupContainer() {
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
 
