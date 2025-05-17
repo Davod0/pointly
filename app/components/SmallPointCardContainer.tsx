@@ -9,7 +9,8 @@ function useResponsiveCardCount() {
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
-      if (width < 1200) setCount(0);
+      if (width < 1070) setCount(0);
+      else if (width < 1200) setCount(2);
       else if (width < 1400) setCount(4);
       else if (width < 1600) setCount(6);
       else setCount(8);
@@ -30,9 +31,13 @@ export default function SmallPointCardContainer() {
   const showBanner = cardCount > 0;
 
   return (
-    <div className="absolute bottom-[4cm] right-[9cm] flex flex-col items-center">
-      {selectedValue === '' ? (
-        showBanner && (
+    <div
+      className={`absolute bottom-[4cm] ${
+        cardCount >= 4 ? "right-[9cm]" : ""
+      } flex flex-col items-center`}
+    >
+      {showBanner && (
+        selectedValue === '' ? (
           <div
             className={`relative flex flex-col items-center mb-8 bottom-[0.5cm] ${styles.animateFloatUpDown}`}
           >
@@ -51,14 +56,14 @@ export default function SmallPointCardContainer() {
               <polygon points="16,20 0,0 32,0" fill="#C4B5FD" />
             </svg>
           </div>
+        ) : (
+          <Link
+            href="/home"
+            className="mb-8 inline-block px-8 py-3 rounded-full bg-violet-100 text-violet-800 font-semibold text-lg shadow border border-violet-300 transition duration-300 hover:bg-violet-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer no-underline"
+          >
+            Create a room and invite your team
+          </Link>
         )
-      ) : (
-        <Link
-          href="/home"
-          className="mb-8 inline-block px-8 py-3 rounded-full bg-violet-100 text-violet-800 font-semibold text-lg shadow border border-violet-300 transition duration-300 hover:bg-violet-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer no-underline"
-        >
-          Create a room and invite your team
-        </Link>
       )}
 
       {cardCount > 0 && (
