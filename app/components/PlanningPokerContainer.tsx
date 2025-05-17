@@ -10,7 +10,7 @@ export default function PlanningPokerContainer() {
     return (
         <>
             <div className="flex flex-1">
-                <div className="mt-15 ml-27 flex flex-col items-start ">
+                <div className="mt-15 ml-27 flex flex-col items-start gap-y-3">
                     <Badge />
                     <div>
                         <h1
