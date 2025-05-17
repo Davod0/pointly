@@ -49,7 +49,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-violet-600 text-2xl cursor-pointer" // <-- Added cursor-pointer
+            className="absolute top-4 right-4 text-gray-400 hover:text-violet-600 text-2xl cursor-pointer"
             aria-label="Close"
           >
             &times;
@@ -75,7 +75,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
         <button
           type="submit"
           className={`mt-4 px-8 py-3 rounded-xl bg-violet-600 text-white font-semibold text-lg shadow transition
-            hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-300 disabled:opacity-50 cursor-pointer`} // <-- Added cursor-pointer
+            hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-300 disabled:opacity-50 cursor-pointer`}
           disabled={!userName.trim()}
         >
           Join Session

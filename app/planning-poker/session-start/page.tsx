@@ -25,7 +25,7 @@ export default function SessionSetupContainer() {
   const [showUserNameModal, setShowUserNameModal] = useState(false);
 
 
-  const handleUserNameSubmit = (userName: string) => {
+  const handleUserNameSubmit = () => {
     setShowUserNameModal(false);
     // Continue to session or navigate, etc.
   };
