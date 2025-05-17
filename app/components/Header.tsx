@@ -26,25 +26,29 @@ export default function Header() {
         Pointly
       </span>
       <div className="flex items-center ml-[7cm]">
-          {navOptions.map((option) => (
+        {navOptions.map((option) => (
           <Link
             key={option.label}
             href={option.href}
             onClick={() => setSelectedNav(option.label)}
-            className={`text-black text-lg px-5 py-2 rounded-full transition-all duration-200
-              ${selectedNav === option.label ? "bg-violet-100 shadow font-bold" : "hover:bg-violet-100 font-semibold"} cursor-pointer`}
-            >
+            className={`text-black text-lg px-5 py-2 rounded-full transition-all duration-200 cursor-pointer
+              ${selectedNav === option.label
+                ? "font-bold"
+                : " hover:text-violet-800 font-semibold"
+              }`}
+          >
             {option.label}
-         </Link>
-          ))}
+          </Link>
+        ))}
       </div>
-      {/* Spacer to push Sign In to the right corner*/}
       <div className="flex-1"></div>
       <Link
-        href="#"
-        className="bg-violet-400 hover:bg-violet-200 text-white py-2 px-6 rounded-xl text-lg font-semibold shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-violet-300"
-      >
-        Sign In
+          href="#"
+          className={`px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
+                    bg-white border-violet-200 text-gray-700 hover:bg-violet-50
+                    focus:outline-none focus:ring-2 focus:ring-violet-300 text-base`}
+                    >
+          Sign In
       </Link>
     </header>
   );
