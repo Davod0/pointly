@@ -58,7 +58,7 @@ export default function SmallPointCardContainer() {
           </div>
         ) : (
           <Link
-            href="/home"
+            href="/planning-poker/session-start"
             className="mb-8 inline-block px-8 py-3 rounded-full bg-violet-100 text-violet-800 font-semibold text-lg shadow border border-violet-300 transition duration-300 hover:bg-violet-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer no-underline"
           >
             Create a room and invite your team
