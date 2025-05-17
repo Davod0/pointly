@@ -39,7 +39,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="flex-1 justify-center ml-30 mt-30 hidden xl:flex">
+        <div className="mt-30 ml-20 hidden xl:flex">
           <ul className="mb-12 space-y-5">
             <li className="flex items-center">
               <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
