@@ -28,7 +28,7 @@ export default function StartButton({ title, route, onClick }: StartButtonProps)
         shadow-lg
         transition-all
         duration-200
-        hover:bg-violet-200
+        hover:bg-violet-900
         hover:shadow-xl
         focus:outline-none
         focus:ring-4
