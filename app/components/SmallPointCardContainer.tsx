@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SmallPointCard from "./SmallPointCard";
-import styles from "./smallPointCardContainer.module.css";
 
 function useResponsiveCardCount() {
   const [count, setCount] = useState(8);
