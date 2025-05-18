@@ -21,14 +21,14 @@ export default function StartButton({ title, route, onClick }: StartButtonProps)
         inline-block
         px-10 py-4
         rounded-xl
-        bg-violet-400
+        bg-violet-800
         text-white
         text-xl
         font-semibold
         shadow-lg
         transition-all
         duration-200
-        hover:bg-violet-200
+        hover:bg-violet-900
         hover:shadow-xl
         focus:outline-none
         focus:ring-4

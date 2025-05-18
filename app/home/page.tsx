@@ -32,8 +32,9 @@ export default function HomePage() {
             <StartButton title="Start a Session" route="/home" />
             <Link
               href="/home"
-              className="inline-flex items-center px-8 py-4 border-2 border-violet-600
-               text-violet-800 font-semibold rounded-xl hover:bg-violet-200 hover:text-white transition"
+              className="inline-flex items-center px-8 py-4 border-2 border-violet-800
+               text-violet-800 font-semibold rounded-xl hover:bg-violet-50
+                transition bg-white text-base"
             >
               Learn More
             </Link>
@@ -42,19 +43,19 @@ export default function HomePage() {
         <div className="mt-30 ml-20 hidden xl:flex">
           <ul className="mb-12 space-y-5">
             <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+              <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
               <span className="text-gray-700 text-xl">Estimate collaboratively in real-time</span>
             </li>
             <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+              <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
               <span className="text-gray-700 text-xl">Retrospective sessions made simple</span>
             </li>
             <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+              <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
               <span className="text-gray-700 text-xl">Start for free</span>
             </li>
             <li className="flex items-center">
-              <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+              <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
               <span className="text-gray-700 text-xl">No signup required</span>
             </li>
           </ul>
