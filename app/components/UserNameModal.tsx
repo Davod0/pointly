@@ -58,9 +58,6 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
         <h2 className="text-3xl font-serif font-semibold text-gray-900 mb-2 text-center">
           Enter Your Name
         </h2>
-        <p className="text-lg text-gray-600 mb-4 text-center">
-          Let your team know who you are!
-        </p>
         <input
           ref={inputRef}
           type="text"
@@ -74,10 +71,27 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
         />
         <button
           type="submit"
-          className={`mt-4 px-8 py-3 rounded-xl bg-violet-600 text-white font-semibold text-lg shadow transition
-            hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-300 disabled:opacity-50 cursor-pointer`}
+          className="
+            mt-7
+            px-8 py-3
+            rounded-xl
+            bg-violet-400
+            text-white
+            text-lg
+            font-semibold
+            shadow-lg
+            transition-all
+            duration-200
+            hover:bg-violet-200
+            hover:shadow-xl
+            focus:outline-none
+            focus:ring-4
+            focus:ring-violet-300
+            cursor-pointer
+            no-underline
+          "
           disabled={!userName.trim()}
-        >
+          >
           Join Session
         </button>
       </form>

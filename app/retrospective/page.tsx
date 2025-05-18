@@ -27,19 +27,19 @@ export default function RetrospectivePage() {
             </p>
             <ul className="mb-8 space-y-5">
               <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
                 <span className="text-gray-700 text-xl">Share wins and challenges openly</span>
               </li>
               <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
                 <span className="text-gray-700 text-xl">Gather actionable feedback</span>
               </li>
               <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
                 <span className="text-gray-700 text-xl">Track improvements over time</span>
               </li>
               <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
                 <span className="text-gray-700 text-xl">Foster team trust and growth</span>
               </li>
             </ul>

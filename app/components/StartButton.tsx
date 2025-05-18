@@ -21,7 +21,7 @@ export default function StartButton({ title, route, onClick }: StartButtonProps)
         inline-block
         px-10 py-4
         rounded-xl
-        bg-violet-400
+        bg-violet-800
         text-white
         text-xl
         font-semibold

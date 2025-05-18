@@ -13,7 +13,7 @@ const FeatureList = ({ point1, point2, point3, point4 }: FeatureListProps) => {
     <ul className="mb-15 space-y-3">
       {points.map((point, idx) => (
         <li key={idx} className="flex items-center">
-          <span className="w-2 h-2 bg-violet-500 rounded-full mr-3"></span>
+          <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
           <span className="text-gray-700">{point}</span>
         </li>
       ))}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "../store/hooks";
 import { setBadgeTitle } from "../store/badgeSlice";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
@@ -16,16 +17,23 @@ export default function Header() {
 
   const navOptions = [
     { label: "Home", href: "/home" },
-    { label: "Retrospective", href: "/retrospective " },
+    { label: "Retrospective", href: "/retrospective" },
     { label: "Planning Poker", href: "/planning-poker" },
   ];
 
   return (
     <header className="w-full flex items-center px-18 py-8">
-      <span className="text-2xl font-bold text-violet-800">
-        Pointly
-      </span>
-      <div className="flex items-center ml-[7cm]">
+      <Link href="/home" className="flex items-center">
+        <Image
+          src="/pointly-badge.png"
+          alt="Pointly Badge"
+          width={70}
+          height={70}
+          className="rounded-full hover:opacity-90 transition"
+        />
+      </Link>
+
+      <div className="flex items-center ml-[6cm]">
         {navOptions.map((option) => (
           <Link
             key={option.label}
@@ -41,14 +49,16 @@ export default function Header() {
           </Link>
         ))}
       </div>
+
       <div className="flex-1"></div>
+
       <Link
-          href="#"
-          className={`px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
-                    bg-white border-violet-200 text-gray-700 hover:bg-violet-50
-                    focus:outline-none focus:ring-2 focus:ring-violet-300 text-base`}
-                    >
-          Sign In
+        href="#"
+        className="px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
+          bg-white border-violet-200 text-gray-700 hover:bg-violet-50
+          focus:outline-none focus:ring-2 focus:ring-violet-300 text-base"
+      >
+        Sign In
       </Link>
     </header>
   );
