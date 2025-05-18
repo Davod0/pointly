@@ -75,7 +75,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
             mt-7
             px-8 py-3
             rounded-xl
-            bg-violet-400
+            bg-violet-800
             text-white
             text-lg
             font-semibold
