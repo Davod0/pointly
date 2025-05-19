@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import StartButton from "@/app/components/StartButton";
 import UserNameModal from "@/app/components/UserNameModal";
+import { useRouter } from "next/navigation";
 
 const fibonacciPresets = [
   { label: "Classic", values: [["☕️", 1, 2, 3, 5, 8, 16, 32]] },
@@ -19,16 +20,23 @@ function getDefaultRoomName() {
   });
 }
 
-export default function SessionSetupContainer() {
+export default function SessionSetupPage() {
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
   const [showUserNameModal, setShowUserNameModal] = useState(false);
+  const router = useRouter();
 
+  const handleUserNameSubmit = (userName: string) => {
+  setShowUserNameModal(false);
 
-  const handleUserNameSubmit = () => {
-    setShowUserNameModal(false);
-    // Continue to session or navigate, etc.
-  };
+  const sessionId = "102030";
+  // router.push(
+  //   `/planning-poker/session-room/${encodeURIComponent(sessionId)}/${encodeURIComponent(userName)}/${encodeURIComponent(roomName)}`
+  // );
+  router.push(
+    `/planning-poker/session/${sessionId}/${roomName}/${userName}`
+  );
+};
 
   return (
     <>
