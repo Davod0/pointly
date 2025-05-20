@@ -5,8 +5,8 @@ import { mockedUsers } from "@/app/mock-data/data";
 import { User } from "@/app/mock-data/data";
 
 
-const cardValues = ["☕️", 1, 2, 3, 5, 8, 13, 21];
-const ROOM_NAME = "Sprint 42 Poker";
+const fibonacciValues = ["☕️", 1, 2, 3, 5, 8, 13, 21];
+const sessionName = "Sprint 42 Poker";
 
 
 
@@ -51,7 +51,7 @@ export default function SessionPage() {
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <div className="absolute top-15 left-15 flex flex-col items-start z-20 space-y-5">
         <div className="text-2xl font-extrabold text-violet-900 tracking-tight bg-white/80 px-4 py-2 rounded-lg shadow border-l-4 border-violet-400">
-          {ROOM_NAME}
+          {sessionName}
         </div>
         <a
           href="#"
@@ -118,7 +118,7 @@ export default function SessionPage() {
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
               <div className="mb-4 text-lg font-semibold text-gray-700 text-center">Pick your card</div>
               <div className="flex flex-row flex-wrap gap-4 justify-center">
-                {cardValues.map((val) => (
+                {fibonacciValues.map((val) => (
                   <button
                     key={val}
                     onClick={() => handleCardSelect(val)}

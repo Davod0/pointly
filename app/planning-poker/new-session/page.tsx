@@ -4,6 +4,7 @@ import StartButton from "@/app/components/StartButton";
 import UserNameModal from "@/app/components/UserNameModal";
 import { useRouter } from "next/navigation";
 import { fibonacciValues } from "@/app/mock-data/data";
+import { Fibonacci } from "@/app/mock-data/data";
 
 
 
@@ -18,7 +19,7 @@ function getDefaultRoomName() {
 }
 
 export default function SessionSetupPage() {
-  const fibonacci = fibonacciValues;
+  const fibonacci: Fibonacci[] = fibonacciValues;
 
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
@@ -29,9 +30,6 @@ export default function SessionSetupPage() {
   setShowUserNameModal(false);
 
   const sessionId = "102030";
-  // router.push(
-  //   `/planning-poker/session-room/${encodeURIComponent(sessionId)}/${encodeURIComponent(userName)}/${encodeURIComponent(roomName)}`
-  // );
   router.push(
     `/planning-poker/session/${sessionId}/${roomName}/${userName}`
   );
