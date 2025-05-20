@@ -3,12 +3,9 @@ import React, { useState } from "react";
 import StartButton from "@/app/components/StartButton";
 import UserNameModal from "@/app/components/UserNameModal";
 import { useRouter } from "next/navigation";
+import { fibonacciValues } from "@/app/mock-data/data";
 
-const fibonacciPresets = [
-  { label: "Classic", values: [["☕️", 1, 2, 3, 5, 8, 16, 32]] },
-  { label: "Extended", values: [[0.5, 1, 2, 3, 5, 8, 16, 32, 40, 64]] },
-  { label: "T-Shirt", values: [["XS", "S", "M", "L", "XL", "XXL"]] },
-];
+
 
 function getDefaultRoomName() {
   const now = new Date();
@@ -21,6 +18,8 @@ function getDefaultRoomName() {
 }
 
 export default function SessionSetupPage() {
+  const fibonacci = fibonacciValues;
+
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
   const [showUserNameModal, setShowUserNameModal] = useState(false);
@@ -63,7 +62,7 @@ export default function SessionSetupPage() {
               Fibonacci Deck
             </label>
             <div className="flex flex-row gap-4">
-              {fibonacciPresets.map((preset, idx) => (
+              {fibonacci.map((preset, idx) => (
                 <button
                   key={preset.label}
                   type="button"
@@ -81,7 +80,7 @@ export default function SessionSetupPage() {
               ))}
             </div>
             <div className="mt-4 text-gray-500 text-me">
-              {fibonacciPresets[selectedFibIndex].values.join(", ")}
+              {fibonacci[selectedFibIndex].values.join(", ")}
             </div>
           </div>
           <div className="mt-6">

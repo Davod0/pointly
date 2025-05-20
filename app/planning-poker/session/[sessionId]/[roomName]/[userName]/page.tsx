@@ -1,22 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Footer from "@/app/components/Footer";
+import { mockedUsers } from "@/app/mock-data/data";
+import { User } from "@/app/mock-data/data";
 
 
-// Mocked data
-type User = { id: number; name: string; picked: string | number | null };
-const initialUsers: User[] = [
-  { id: 1, name: "Alice", picked: null },
-  { id: 2, name: "Bob", picked: null },
-  { id: 3, name: "Charlie", picked: null },
-];
 const cardValues = ["☕️", 1, 2, 3, 5, 8, 13, 21];
 const ROOM_NAME = "Sprint 42 Poker";
 
 
 
 export default function SessionPage() {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+
+  const AllUsers = mockedUsers;
+
+  const [users, setUsers] = useState<User[]>(AllUsers);
   const [selectedCard, setSelectedCard] = useState<string | number | null>(null);
   const [revealed, setRevealed] = useState(false);
 
