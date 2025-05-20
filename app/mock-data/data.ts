@@ -1,13 +1,13 @@
 
 
 
-export type User = { id: number; name: string; picked: string | number | null };
+export type User = { id: number; name: string; selectedCard: string | number | null };
 
 export const mockedUsers: User[] =
 [
-  { id: 1, name: "Alice", picked: null },
-  { id: 2, name: "Bob", picked: null },
-  { id: 3, name: "Charlie", picked: null },
+  { id: 1, name: "Alice", selectedCard: null },
+  { id: 2, name: "Bob", selectedCard: null },
+  { id: 3, name: "Charlie", selectedCard: null },
 ];
 
 

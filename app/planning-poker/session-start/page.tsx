@@ -1,12 +1,9 @@
 'use client'
 import React, { useState } from "react";
 import StartButton from "@/app/components/StartButton";
-import UserNameModal from "@/app/components/UserNameModal";
 import { useRouter } from "next/navigation";
 import { fibonacciValues } from "@/app/mock-data/data";
 import { Fibonacci } from "@/app/mock-data/data";
-
-
 
 function getDefaultRoomName() {
   const now = new Date();
@@ -23,18 +20,12 @@ export default function SessionSetupPage() {
 
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
-  const [showUserNameModal, setShowUserNameModal] = useState(false);
   const router = useRouter();
 
-  // const handleUserNameSubmit = (userName: string) => {
-  const handleUserNameSubmit = () => {
-  setShowUserNameModal(false);
-
-  const sessionId = "102030";
-  router.push(
-    `/planning-poker/session/${sessionId}`
-  );
-};
+  const handleSessionStart = () => {
+    const sessionId = "102030";
+    router.push(`/planning-poker/session/${sessionId}`);
+  };
 
   return (
     <>
@@ -86,17 +77,11 @@ export default function SessionSetupPage() {
             <StartButton
               title="Start Session"
               route="#"
-              onClick={() => setShowUserNameModal(true)}
+              onClick={handleSessionStart}
             />
           </div>
         </div>
       </div>
-      {showUserNameModal && (
-        <UserNameModal
-          onSubmit={handleUserNameSubmit}
-          onClose={() => setShowUserNameModal(false)}
-        />
-      )}
     </>
   );
 }
