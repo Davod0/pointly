@@ -1,14 +1,9 @@
 'use client'
 import React, { useState } from "react";
 import StartButton from "@/app/components/StartButton";
-import UserNameModal from "@/app/components/UserNameModal";
 import { useRouter } from "next/navigation";
-
-const fibonacciPresets = [
-  { label: "Classic", values: [["☕️", 1, 2, 3, 5, 8, 16, 32]] },
-  { label: "Extended", values: [[0.5, 1, 2, 3, 5, 8, 16, 32, 40, 64]] },
-  { label: "T-Shirt", values: [["XS", "S", "M", "L", "XL", "XXL"]] },
-];
+import { fibonacciValues } from "@/app/mock-data/data";
+import { Fibonacci } from "@/app/mock-data/data";
 
 function getDefaultRoomName() {
   const now = new Date();
@@ -21,22 +16,16 @@ function getDefaultRoomName() {
 }
 
 export default function SessionSetupPage() {
+  const fibonacci: Fibonacci[] = fibonacciValues;
+
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
-  const [showUserNameModal, setShowUserNameModal] = useState(false);
   const router = useRouter();
 
-  const handleUserNameSubmit = (userName: string) => {
-  setShowUserNameModal(false);
-
-  const sessionId = "102030";
-  // router.push(
-  //   `/planning-poker/session-room/${encodeURIComponent(sessionId)}/${encodeURIComponent(userName)}/${encodeURIComponent(roomName)}`
-  // );
-  router.push(
-    `/planning-poker/session/${sessionId}/${roomName}/${userName}`
-  );
-};
+  const handleSessionStart = () => {
+    const sessionId = "102030";
+    router.push(`/planning-poker/session/${sessionId}`);
+  };
 
   return (
     <>
@@ -63,7 +52,7 @@ export default function SessionSetupPage() {
               Fibonacci Deck
             </label>
             <div className="flex flex-row gap-4">
-              {fibonacciPresets.map((preset, idx) => (
+              {fibonacci.map((preset, idx) => (
                 <button
                   key={preset.label}
                   type="button"
@@ -81,24 +70,18 @@ export default function SessionSetupPage() {
               ))}
             </div>
             <div className="mt-4 text-gray-500 text-me">
-              {fibonacciPresets[selectedFibIndex].values.join(", ")}
+              {fibonacci[selectedFibIndex].values.join(", ")}
             </div>
           </div>
           <div className="mt-6">
             <StartButton
               title="Start Session"
               route="#"
-              onClick={() => setShowUserNameModal(true)}
+              onClick={handleSessionStart}
             />
           </div>
         </div>
       </div>
-      {showUserNameModal && (
-        <UserNameModal
-          onSubmit={handleUserNameSubmit}
-          onClose={() => setShowUserNameModal(false)}
-        />
-      )}
     </>
   );
 }
