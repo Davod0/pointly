@@ -26,12 +26,13 @@ export default function SessionSetupPage() {
   const [showUserNameModal, setShowUserNameModal] = useState(false);
   const router = useRouter();
 
-  const handleUserNameSubmit = (userName: string) => {
+  // const handleUserNameSubmit = (userName: string) => {
+  const handleUserNameSubmit = () => {
   setShowUserNameModal(false);
 
   const sessionId = "102030";
   router.push(
-    `/planning-poker/session/${sessionId}/${roomName}/${userName}`
+    `/planning-poker/session/${sessionId}`
   );
 };
 

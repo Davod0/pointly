@@ -29,7 +29,7 @@ export default function PlanningPokerContainer() {
                         point1="Improving estimation accuracy"
                         point2="Boosting team collaboration"
                     />
-                    <StartButton title="Start Estimating" route="/planning-poker/new-session" />
+                    <StartButton title="Start Estimating" route="/planning-poker/session-start" />
                 </div>
                 <div>
                     <SmallPointCardContainer />
