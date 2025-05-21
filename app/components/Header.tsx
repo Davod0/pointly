@@ -24,15 +24,14 @@ export default function Header() {
   return (
     <header className="w-full flex items-center px-18 py-8">
         <Link href="/home" className="flex items-center">
-    <Image
-      src="/p.png"
-      alt="Pointly Badge"
-      width={90}
-      height={90}
-      className="rounded-full hover:opacity-90 transition shadow-md border border-gray-300 max-w-full h-auto"
-    />
-  </Link>
-
+          <Image
+            src="/p.png"
+            alt="Pointly Badge"
+            width={90}
+            height={90}
+            className="rounded-full hover:opacity-90 transition shadow-md border border-gray-300 max-w-full h-auto bg-white"
+          />
+        </Link>
       <div className="flex items-center ml-[6cm]">
         {navOptions.map((option) => (
           <Link
