@@ -1,18 +1,16 @@
+
 export default function Home() {
-  // Accent color for button and welcome text
   const accentColor = "oklch(90.1% 0.058 230.902)";
 
   return (
     <div className="min-h-screen flex items-start bg-gray-900">
       <div className="mt-16 ml-16 flex flex-col items-start">
-        {/* Top left heading, spaced from corner */}
         <div
           className="text-lg font-semibold mb-2"
           style={{ color: accentColor }}
         >
           Welcome to the Pointly
         </div>
-        {/* Improved badge under heading */}
         <span
           className="mb-8 inline-flex items-center text-xs font-bold px-3 py-0.5 rounded-full border"
           style={{
@@ -41,7 +39,6 @@ export default function Home() {
           </span>
           Planning Poker
         </span>
-        {/* Main large heading, white */}
         <div className="mt-12">
           <h1
             className="text-5xl font-serif font-extrabold text-white mb-3"
@@ -50,11 +47,9 @@ export default function Home() {
             Easier estimation by Pointly
           </h1>
         </div>
-        {/* Subheading, white */}
         <p className="text-lg text-white mb-8 opacity-80">
           Pointly is a tool for tasks estimation during development sprints
         </p>
-        {/* Points with green dots */}
         <ul className="mb-12 space-y-3">
           <li className="flex items-center">
             <span className="w-2 h-2 bg-teal-400 rounded-full mr-3"></span>
@@ -73,7 +68,6 @@ export default function Home() {
             <span className="text-white opacity-90">No signup required</span>
           </li>
         </ul>
-        {/* Button, spaced further down */}
         <button
           className="py-4 px-10 rounded-xl text-xl font-semibold shadow-lg transition-all focus:outline-none"
           style={{
@@ -89,19 +83,3 @@ export default function Home() {
   );
 }
 
-{/*
-  Retrospective Basge Example
-  <div className="mt-2 mb-6">
-        <span className="inline-block bg-violet-100 text-violet-800 font-semibold px-6 py-2 rounded-full shadow-sm text-base border border-violet-200">
-          Sprint 24: May 2025
-        </span>
-  </div>
-*/}
-
-// function handleStart() {
-  //   alert(
-  //     `Room: ${roomName}\nDeck: ${fibonacciPresets[selectedFibIndex].label}\nValues: ${fibonacciPresets[selectedFibIndex].values.join(
-  //       ", "
-  //     )}`
-  //   );
-  // }
