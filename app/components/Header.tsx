@@ -23,7 +23,7 @@ export default function Header() {
 
   return (
     <header className="w-full flex items-center px-18 py-8">
-        <Link href="/home" className="flex items-center">
+        <Link href="/home" className="flex items-center" {...{ onClick: () => setSelectedNav("Home") }}>
           <Image
             src="/p.png"
             alt="Pointly Badge"
