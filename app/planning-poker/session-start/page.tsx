@@ -122,7 +122,6 @@ export default function SessionSetupPage() {
         <div className="mt-6">
           <StartButton
             title="Start Session"
-            route="#"
             onClick={handleSessionStart}
           />
         </div>

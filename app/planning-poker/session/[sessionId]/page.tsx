@@ -4,6 +4,8 @@ import Footer from "@/app/components/Footer";
 import { mockedUsers } from "@/app/mock-data/data";
 import { User } from "@/app/mock-data/data";
 import UserNameModal from "@/app/components/UserNameModal";
+import { useParams } from "next/navigation";
+
 
 const fibonacciValues = ["☕️", 1, 2, 3, 5, 8, 13, 21];
 const sessionName = "Sprint 42 Poker";
@@ -15,6 +17,10 @@ export default function SessionPage() {
   const [revealed, setRevealed] = useState(false);
   const [showUserNameModal, setShowUserNameModal] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+
+  const params = useParams();
+  const sessionId = params?.sessionId as string;
+
 
   const handleUserNameSubmit = (userName: string) => {
     const newUser: User = {
@@ -56,6 +62,7 @@ export default function SessionPage() {
     <>
       {showUserNameModal && (
         <UserNameModal
+          sessionId={sessionId}
           onSubmit={handleUserNameSubmit}
           onClose={() => setShowUserNameModal(false)}
         />

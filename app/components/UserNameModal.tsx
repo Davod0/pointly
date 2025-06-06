@@ -1,12 +1,22 @@
 'use client';
-import React, { useEffect, useRef, useState, FormEvent, ChangeEvent, KeyboardEvent } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  KeyboardEvent,
+} from "react";
+import { db } from "../../database/firestoreDbConfig";
+import { addDoc, collection } from "firebase/firestore";
 
 interface UserNameModalProps {
+  sessionId: string;
   onSubmit?: (userName: string) => void;
   onClose?: () => void;
 }
 
-const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
+const UserNameModal: React.FC<UserNameModalProps> = ({ sessionId, onSubmit, onClose }) => {
   const [userName, setUserName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,12 +30,21 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
     setUserName(event.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedName = userName.trim();
-    if (trimmedName) {
-      localStorage.setItem("userName", trimmedName);
+
+    if (!trimmedName) return;
+
+    localStorage.setItem("userName", trimmedName);
+
+    try {
+      await addDoc(collection(db, "sessions", sessionId, "participants"), {
+        name: trimmedName,
+      });
       if (onSubmit) onSubmit(trimmedName);
+    } catch (error) {
+      console.error("Error adding participant:", error);
     }
   };
 
@@ -91,7 +110,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
             no-underline
           "
           disabled={!userName.trim()}
-          >
+        >
           Join Session
         </button>
       </form>
