@@ -29,7 +29,7 @@ export default function HomePage() {
             and start making confident decisions
           </p>
           <div className="flex space-x-6">
-            <StartButton title="Start a Session" route="/home" />
+            <StartButton title="Start a Session" route="/test-firestore" />
             <Link
               href="/home"
               className="inline-flex items-center px-8 py-4 border-2 border-violet-800
