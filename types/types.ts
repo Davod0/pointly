@@ -7,18 +7,19 @@ export interface PlanningSessions{
   status: "active" | "completed";
   isRevealed: boolean;
   currentIssue?: string;
+  roomName: string;
 }
 
 export interface Participants {
-    uid: string;
-    name: string;
+    uid?: string;
+    name?: string;
 }
 
 export interface Votes {
-    uid: string;
-    userName: string;
-    point: string;
-    isPicked: boolean;
+    uid?: string;
+    userName?: string;
+    point?: string;
+    isPicked?: boolean;
 }
 
 export default interface User {
