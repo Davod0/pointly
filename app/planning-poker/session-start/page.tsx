@@ -1,9 +1,10 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import StartButton from "@/app/components/StartButton";
 import { useRouter } from "next/navigation";
-import { fibonacciValues } from "@/app/mock-data/data";
-import { Fibonacci } from "@/app/mock-data/data";
+import { Fibonacci } from "../../../types/types";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../database/firestoreDbConfig";
 
 function getDefaultRoomName() {
   const now = new Date();
@@ -16,11 +17,29 @@ function getDefaultRoomName() {
 }
 
 export default function SessionSetupPage() {
-  const fibonacci: Fibonacci[] = fibonacciValues;
-
   const [roomName, setRoomName] = useState(getDefaultRoomName());
   const [selectedFibIndex, setSelectedFibIndex] = useState(0);
+  const [fibonacci, setFibonacci] = useState<Fibonacci[]>([]);
   const router = useRouter();
+
+  const fetchFibonacciValues = async () => {
+    const querySnapshot = await getDocs(collection(db, "fibonacci"));
+    const fetched: Fibonacci[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      fetched.push({
+        label: data.label,
+        values: data.values,
+      });
+    });
+
+    setFibonacci(fetched);
+  };
+
+  useEffect(() => {
+    fetchFibonacciValues();
+  }, []);
 
   const handleSessionStart = () => {
     const sessionId = "102030";
@@ -47,32 +66,41 @@ export default function SessionSetupPage() {
               required
             />
           </div>
+
           <div className="w-full">
             <label className="block text-gray-700 font-semibold mb-2">
               Fibonacci Deck
             </label>
-            <div className="flex flex-row gap-4">
-              {fibonacci.map((preset, idx) => (
-                <button
-                  key={preset.label}
-                  type="button"
-                  className={`px-6 py-3 rounded-xl border-2 font-semibold transition cursor-pointer
-                    ${
-                      idx === selectedFibIndex
-                        ? "bg-violet-200 border-violet-600 text-violet-900"
-                        : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
-                    }
-                  `}
-                  onClick={() => setSelectedFibIndex(idx)}
-                >
-                  {preset.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 text-gray-500 text-me">
-              {fibonacci[selectedFibIndex].values.join(", ")}
-            </div>
+
+            {fibonacci.length > 0 ? (
+              <>
+                <div className="flex flex-row gap-4">
+                  {fibonacci.map((preset, idx) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      className={`px-6 py-3 rounded-xl border-2 font-semibold transition cursor-pointer
+                        ${
+                          idx === selectedFibIndex
+                            ? "bg-violet-200 border-violet-600 text-violet-900"
+                            : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
+                        }
+                      `}
+                      onClick={() => setSelectedFibIndex(idx)}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4 text-gray-500 text-me">
+                  {fibonacci[selectedFibIndex].values.join(", ")}
+                </div>
+              </>
+            ) : (
+              <div className="text-gray-500 italic">Loading Fibonacci decks...</div>
+            )}
           </div>
+
           <div className="mt-6">
             <StartButton
               title="Start Session"
