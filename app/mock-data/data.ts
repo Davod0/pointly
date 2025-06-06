@@ -17,9 +17,9 @@ export type Fibonacci = {
 };
 
 export const fibonacciValues: Fibonacci[] = [
-  { label: "Classic", values: ["☕️", 1, 2, 3, 5, 8, 16, 32] },
-  { label: "Extended", values: [0.5, 1, 2, 3, 5, 8, 16, 32, 40, 64] },
-  { label: "T-Shirt", values: ["XS", "S", "M", "L", "XL", "XXL"] },
+  { label: "Classic", values: ["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32] },
+  { label: "Extended", values: ["☕️", 0.5, 1, 2, 3, 5, 8, 16, 32, 40, 64] },
+  { label: "T-Shirt", values: ["XXS","XS", "S", "M", "L", "XL", "XXL"] },
 ];
 
 
