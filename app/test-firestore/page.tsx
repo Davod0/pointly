@@ -24,10 +24,18 @@ interface SessionData {
   votes: Votes[];
 }
 
+const fibonacciValues = [
+  { label: "Classic", values: ["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32] },
+  { label: "Extended", values: ["☕️", 0.5, 1, 2, 3, 5, 8, 16, 32, 40, 64] },
+  { label: "T-Shirt", values: ["XXS", "XS", "S", "M", "L", "XL", "XXL"] },
+];
+
+
+
 export default function TestFirestorePage() {
   const [sessions, setSessions] = useState<SessionData[]>([]);
 
-  const handleCreateTestSession = async () => {
+  const handleCreateSession = async () => {
     try {
       const sessionId = uuidv4();
       const sessionRef = doc(db, "sessions", sessionId);
@@ -101,6 +109,25 @@ export default function TestFirestorePage() {
     fetchSessions();
   }, []);
 
+  const handleAddFibonacciSets = async () => {
+  try {
+    const fibonacciCollectionRef = collection(db, "fibonacci");
+
+    for (const fib of fibonacciValues) {
+      const fibDocRef = doc(fibonacciCollectionRef, fib.label); // use label as document ID
+      await setDoc(fibDocRef, {
+        label: fib.label,
+        values: fib.values,
+      });
+    }
+
+    console.log("Fibonacci sets added to Firestore!");
+  } catch (error) {
+    console.error("Error adding Fibonacci sets:", error);
+  }
+};
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 py-10">
       <div className="max-w-3xl mx-auto px-4">
@@ -110,11 +137,21 @@ export default function TestFirestorePage() {
         </p>
 
         <button
-          onClick={handleCreateTestSession}
+          onClick={handleCreateSession}
           className="mb-10 bg-blue-600 text-white font-semibold py-2.5 px-8 rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform focus:ring-2 focus:ring-blue-400 focus:outline-none"
         >
           Create Test Session in Firestore
         </button>
+
+        <button
+          onClick={handleAddFibonacciSets}
+          className="mb-10 ml-4 bg-green-600 text-white font-semibold py-2.5 px-8 rounded-lg shadow-lg
+                    hover:bg-green-700 hover:scale-105 transition-transform
+                    focus:ring-2 focus:ring-green-400 focus:outline-none"
+          >
+          Add Fibonacci Sets to Firestore
+        </button>
+
 
         <div className="space-y-8">
           {sessions.map((session) => (

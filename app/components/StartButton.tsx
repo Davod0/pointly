@@ -2,8 +2,8 @@
 import { useRouter } from 'next/navigation';
 
 interface StartButtonProps {
-    title: string;
-    route: string;
+    title?: string;
+    route?: string;
     onClick?: () => void;
 }
 
@@ -14,7 +14,7 @@ export default function StartButton({ title, route, onClick }: StartButtonProps)
         <button
         onClick={() => {
           if (onClick) onClick();
-          else router.push(route);
+          else if (route) router.push(route);
         }}
         className="
         mb-8

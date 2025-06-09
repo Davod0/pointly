@@ -1,53 +1,127 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
-import { mockedUsers } from "@/app/mock-data/data";
-import { User } from "@/app/mock-data/data";
 import UserNameModal from "@/app/components/UserNameModal";
-
-const fibonacciValues = ["☕️", 1, 2, 3, 5, 8, 13, 21];
-const sessionName = "Sprint 42 Poker";
+import { useParams } from "next/navigation";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  updateDoc,
+  addDoc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../../../../database/firestoreDbConfig";
+import { Participants } from "../../../../types/types";
 
 export default function SessionPage() {
-  const AllUsers = mockedUsers;
-  const [users, setUsers] = useState<User[]>(AllUsers);
+  const [participants, setParticipants] = useState<Participants[]>([]);
   const [selectedCard, setSelectedCard] = useState<string | number | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [showUserNameModal, setShowUserNameModal] = useState(true);
-  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [sessionName, setSessionName] = useState<string>("no name picked");
+  const [fibonacciValues, setFibonacciValues] = useState<(string | number)[]>([]);
 
-  const handleUserNameSubmit = (userName: string) => {
-    const newUser: User = {
-      id: Date.now(),
+  const params = useParams();
+  const sessionId = params?.sessionId as string;
+
+ useEffect(() => {
+  const fetchSessionMeta = async () => {
+    if (!sessionId) return;
+
+    try {
+      const sessionRef = doc(db, "sessions", sessionId);
+      const sessionSnap = await getDoc(sessionRef);
+
+      if (sessionSnap.exists()) {
+        const sessionData = sessionSnap.data();
+        setSessionName(sessionData.roomName || "no name picked");
+
+        const fibonacciLabel = sessionData.fibonacciLabel || "default";
+
+        const fibonacciRef = doc(db, "fibonacci", fibonacciLabel);
+        const fibonacciSnap = await getDoc(fibonacciRef);
+
+        if (fibonacciSnap.exists()) {
+          const fibonacciData = fibonacciSnap.data();
+          if (Array.isArray(fibonacciData.values)) {
+            setFibonacciValues(fibonacciData.values);
+          } else {
+            console.warn("Missing 'values' array in Fibonacci document.");
+            setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
+          }
+        } else {
+          console.warn(`No Fibonacci set found for label: ${fibonacciLabel}`);
+          setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching session metadata or Fibonacci values:", error);
+      setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
+    }
+  };
+
+  fetchSessionMeta();
+}, [sessionId]);
+
+  // Real-time fetch participants
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const q = query(collection(db, "sessions", sessionId, "participants"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedParticipants: Participants[] = snapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+      setParticipants(fetchedParticipants);
+    });
+
+    return () => unsubscribe();
+  }, [sessionId]);
+
+  const handleUserNameSubmit = async (userName: string) => {
+    const userRef = await addDoc(collection(db, "sessions", sessionId, "participants"), {
       name: userName,
       selectedCard: null,
-    };
-    setUsers((prev) => [newUser, ...prev]);
-    setCurrentUserId(newUser.id); // Set the joined user's ID and save it even in the session on the server
+    });
+
+    setCurrentUserId(userRef.id);
     setShowUserNameModal(false);
   };
 
-  const handleCardSelect = (value: string | number) => {
+  const handleCardSelect = async (value: string | number) => {
     setSelectedCard(value);
-    setUsers((prev) =>
-      prev.map((u) =>
-        u.id === currentUserId ? { ...u, selectedCard: value } : u
-      )
-    );
+    if (currentUserId) {
+      await updateDoc(
+        doc(db, "sessions", sessionId, "participants", currentUserId),
+        { selectedCard: value }
+      );
+    }
   };
 
   const handleReveal = () => setRevealed(true);
 
-  const handleRestart = () => {
+  const handleRestart = async () => {
     setRevealed(false);
     setSelectedCard(null);
-    setUsers((prev) => prev.map((u) => ({ ...u, selectedCard: null })));
+    if (sessionId) {
+      const participantsRef = collection(db, "sessions", sessionId, "participants");
+      for (const participant of participants) {
+        if (participant.uid) {
+          await updateDoc(doc(participantsRef, participant.uid), {
+            selectedCard: null,
+          });
+        }
+      }
+    }
   };
 
-  // Calculate average of numeric picks
-  const numericPicks = users
-    .map(u => u.selectedCard)
-    .filter(p => typeof p === "number") as number[];
+  const numericPicks = participants
+    .map((p) => p.selectedCard)
+    .filter((p) => typeof p === "number") as number[];
   const averagePick = numericPicks.length
     ? (numericPicks.reduce((a, b) => a + b, 0) / numericPicks.length).toFixed(2)
     : null;
@@ -87,20 +161,20 @@ export default function SessionPage() {
               <div className="bg-white/80 rounded-xl shadow p-3">
                 <h2 className="text-sm font-semibold text-gray-600 mb-2 text-center">Participants</h2>
                 <ul className="flex flex-col gap-2">
-                  {users.map((user) => (
+                  {participants.map((p) => (
                     <li
-                      key={user.id}
+                      key={p.uid}
                       className={`flex items-center gap-2 px-3 py-1 rounded-lg shadow-sm
-                        ${user.id === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
+                        ${p.uid === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
                       `}
                     >
-                      <span className="font-semibold text-violet-800">{user.name}</span>
+                      <span className="font-semibold text-violet-800">{p.name}</span>
                       <span className="text-gray-500 text-xs">
                         {revealed
-                          ? user.selectedCard !== null
-                            ? <span className="font-bold text-violet-900">{user.selectedCard}</span>
+                          ? p.selectedCard !== null
+                            ? <span className="font-bold text-violet-900">{p.selectedCard}</span>
                             : <span className="italic text-gray-400">No pick</span>
-                          : user.selectedCard !== null
+                          : p.selectedCard !== null
                             ? <span className="text-green-600">Picked</span>
                             : <span className="text-gray-400">Waiting</span>
                         }
@@ -116,10 +190,8 @@ export default function SessionPage() {
                 <button
                   onClick={revealed ? handleRestart : handleReveal}
                   disabled={!revealed && selectedCard === null}
-                  className={`
-                    w-56 px-8 py-3 rounded-xl bg-violet-800 text-white font-semibold text-lg
-                    transition-all duration-200 hover:bg-violet-900 cursor-pointer
-                    text-center mr-30 mt-15
+                  className={`w-56 px-8 py-3 rounded-xl bg-violet-800 text-white font-semibold text-lg
+                    transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center mr-30 mt-15
                     ${!revealed && selectedCard === null ? "opacity-25 cursor-not-allowed" : ""}
                   `}
                 >
@@ -135,8 +207,7 @@ export default function SessionPage() {
                       key={val}
                       onClick={() => handleCardSelect(val)}
                       disabled={revealed}
-                      className={`
-                        w-16 h-24 flex items-center justify-center rounded-xl shadow font-bold text-2xl
+                      className={`w-16 h-24 flex items-center justify-center rounded-xl shadow font-bold text-2xl
                         transition-all duration-200
                         ${selectedCard === val
                           ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"

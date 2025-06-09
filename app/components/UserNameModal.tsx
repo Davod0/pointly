@@ -1,5 +1,12 @@
 'use client';
-import React, { useEffect, useRef, useState, FormEvent, ChangeEvent, KeyboardEvent } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  KeyboardEvent,
+} from "react";
 
 interface UserNameModalProps {
   onSubmit?: (userName: string) => void;
@@ -20,12 +27,18 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
     setUserName(event.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedName = userName.trim();
-    if (trimmedName) {
-      localStorage.setItem("userName", trimmedName);
+
+    if (!trimmedName) return;
+
+    localStorage.setItem("userName", trimmedName);
+
+    try {
       if (onSubmit) onSubmit(trimmedName);
+    } catch (error) {
+      console.error("Error adding participant:", error);
     }
   };
 
@@ -91,7 +104,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
             no-underline
           "
           disabled={!userName.trim()}
-          >
+        >
           Join Session
         </button>
       </form>
