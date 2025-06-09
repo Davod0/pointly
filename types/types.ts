@@ -1,4 +1,3 @@
-
 export interface PlanningSessions{
   id: string;
   createdAt: Date;
@@ -11,21 +10,23 @@ export interface PlanningSessions{
 }
 
 export interface Participants {
-    uid?: string;
-    name?: string;
+  uid?: string;
+  name?: string;
+  selectedCard?: string | number | null;
 }
 
 export interface Votes {
-    uid?: string;
-    userName?: string;
-    point?: string;
-    isPicked?: boolean;
+  uid?: string;
+  userName?: string;
+  point?: string;
+  isPicked?: boolean;
 }
 
 export default interface User {
   uid: string;
   name?: string;
   email?: string;
+  selectedCard?: string | number | null;
 }
 
 export type Fibonacci = {

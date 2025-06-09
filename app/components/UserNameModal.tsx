@@ -7,16 +7,13 @@ import React, {
   ChangeEvent,
   KeyboardEvent,
 } from "react";
-import { db } from "../../database/firestoreDbConfig";
-import { addDoc, collection } from "firebase/firestore";
 
 interface UserNameModalProps {
-  sessionId: string;
   onSubmit?: (userName: string) => void;
   onClose?: () => void;
 }
 
-const UserNameModal: React.FC<UserNameModalProps> = ({ sessionId, onSubmit, onClose }) => {
+const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
   const [userName, setUserName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,9 +36,6 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ sessionId, onSubmit, onCl
     localStorage.setItem("userName", trimmedName);
 
     try {
-      await addDoc(collection(db, "sessions", sessionId, "participants"), {
-        name: trimmedName,
-      });
       if (onSubmit) onSubmit(trimmedName);
     } catch (error) {
       console.error("Error adding participant:", error);
