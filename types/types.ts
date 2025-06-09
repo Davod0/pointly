@@ -4,9 +4,9 @@ export interface PlanningSessions{
   createdBy: string;
   fibonacciLabel?: string;
   status: "active" | "completed";
-  isRevealed: boolean;
   currentIssue?: string;
   roomName: string;
+  isRevealed?: boolean;
 }
 
 export interface Participants {
