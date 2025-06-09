@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
+import InviteLinkPopover from "@/app/components/InviteLinkPopover";
 import { useParams } from "next/navigation";
 import {
   collection,
@@ -22,9 +23,13 @@ export default function SessionPage() {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [sessionName, setSessionName] = useState<string>("no name picked");
   const [fibonacciValues, setFibonacciValues] = useState<(string | number)[]>([]);
+  const [sessionUrl, setSessionUrl] = useState<string>("");
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
+  useEffect(() => {
+    setSessionUrl(window.location.href);
+  }, []);
 
   useEffect(() => {
     const fetchSessionMeta = async () => {
@@ -161,12 +166,7 @@ export default function SessionPage() {
           <div className="text-2xl font-extrabold text-violet-900 tracking-tight bg-white/80 px-4 py-2 rounded-lg shadow border-l-4 border-violet-400">
             {sessionName}
           </div>
-          <a
-            href="#"
-            className="text-lg font-medium text-violet-700 underline hover:text-violet-900 transition px-2"
-          >
-            🔗 Invite others
-          </a>
+          <InviteLinkPopover sessionUrl={sessionUrl} />
           {revealed && (
             <div className="bg-violet-100 rounded-lg px-6 py-4 mb-4 shadow-lg flex items-center gap-3">
               <span className="text-xl font-bold text-violet-800">Average:</span>
