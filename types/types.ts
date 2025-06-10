@@ -1,12 +1,12 @@
 export interface PlanningSessions{
   id: string;
+  roomName: string;
+  fibonacciLabel: string;
   createdAt: Date;
-  createdBy: string;
-  fibonacciLabel?: string;
+  createdBy?: string;
+  isRevealed: boolean;
   status: "active" | "completed";
   currentIssue?: string;
-  roomName: string;
-  isRevealed?: boolean;
 }
 
 export interface Participants {
@@ -16,17 +16,16 @@ export interface Participants {
 }
 
 export interface Votes {
-  uid?: string;
-  userName?: string;
-  point?: string;
-  isPicked?: boolean;
+  uid: string;
+  userName: string;
+  point: string;
+  isPicked: boolean;
 }
 
 export default interface User {
   uid: string;
   name?: string;
-  email?: string;
-  selectedCard?: string | number | null;
+  email: string;
 }
 
 export type Fibonacci = {
