@@ -7,7 +7,7 @@ interface BadgeState {
 }
 
 const initialState: BadgeState = {
-  value: 'Home',
+  value: '',
 }
 
 export const badgeSlice = createSlice({

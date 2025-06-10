@@ -4,16 +4,24 @@ import { useAppDispatch } from "../store/hooks";
 import { setBadgeTitle } from "../store/badgeSlice";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (selectedNav) {
-      dispatch(setBadgeTitle(selectedNav));
-    }
-  }, [selectedNav, dispatch]);
+  const pathToLabelMap: Record<string, string> = {
+    "/home": "Home",
+    "/retrospective": "Retrospective",
+    "/planning-poker": "Planning Poker",
+  };
+
+  const currentLabel = pathToLabelMap[pathname] || "Home";
+  setSelectedNav(currentLabel);
+  dispatch(setBadgeTitle(currentLabel));
+  }, [pathname, dispatch]);
 
   const navOptions = [
     { label: "Home", href: "/home" },
@@ -48,9 +56,7 @@ export default function Header() {
           </Link>
         ))}
       </div>
-
       <div className="flex-1"></div>
-
       <Link
         href="#"
         className="px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
