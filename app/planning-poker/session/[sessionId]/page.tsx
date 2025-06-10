@@ -4,7 +4,7 @@ import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
 import InviteLinkPopover from "@/app/components/InviteLinkPopover";
 import LoadingIndicator from "@/app/components/LoadingIndicator";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   collection,
   query,
@@ -29,6 +29,7 @@ export default function SessionPage() {
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSessionMeta = async () => {
@@ -118,6 +119,19 @@ export default function SessionPage() {
     localStorage.setItem(`session_${sessionId}_userName`, userName);
   };
 
+  useEffect(() => {
+    if (!sessionId) return;
+    const sessionRef = doc(db, "sessions", sessionId);
+    const unsubscribe = onSnapshot(sessionRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.status === "completed") {
+          router.push("/home");
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [sessionId, router]);
 
   const handleCardSelect = async (value: string | number) => {
     if (currentUserId) {
@@ -132,6 +146,16 @@ export default function SessionPage() {
     const sessionRef = doc(db, "sessions", sessionId);
     await updateDoc(sessionRef, {
       isRevealed: true,
+    });
+  };
+
+  const handleSessionCompletion = async () => {
+    localStorage.removeItem(`session_${sessionId}_userId`);
+    localStorage.removeItem(`session_${sessionId}_userName`);
+
+    const sessionRef = doc(db, "sessions", sessionId);
+    await updateDoc(sessionRef, {
+      status: "completed",
     });
   };
 
@@ -179,6 +203,28 @@ export default function SessionPage() {
             {sessionName}
           </div>
           <InviteLinkPopover sessionUrl={sessionUrl} />
+          <button
+            className="
+            mt-7
+            px-4 py-3
+            rounded-xl
+            bg-violet-800
+            text-white
+            text-medium
+            font-semibold
+            shadow-lg
+            transition-all
+            duration-200
+            hover:bg-violet-900
+            hover:shadow-xl
+            focus:outline-none
+            focus:ring-4
+            cursor-pointer
+            no-underline"
+            onClick={handleSessionCompletion}
+            >
+          End Session
+          </button>
           {revealed && (
             <div className="bg-violet-100 rounded-lg px-6 py-4 mb-4 shadow-lg flex items-center gap-3">
               <span className="text-xl font-bold text-violet-800">Average:</span>
