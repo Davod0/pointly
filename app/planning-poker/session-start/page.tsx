@@ -51,7 +51,7 @@ export default function SessionSetupPage() {
       id: sessionId,
       createdAt: Timestamp.fromDate(new Date()),
       fibonacciLabel: fibonacci[selectedFibIndex].label,
-      status: "active" as const,
+      status: "active",
       isRevealed: false,
       roomName: roomName,
     };

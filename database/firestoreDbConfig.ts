@@ -16,38 +16,3 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 
-/*
-   Data models in db
-
-    /sessions
-       /id
-            createdAt: Timestamp
-            createdBy: "uid of the user"
-            isRevealed: boolean
-            fibonacciLabel?: "string"
-            status: "active" | "completed"
-            currentIssue?: "string"
-            id: "string"
-
-            /participants
-                /user_1
-                    uid: "user_1"
-                    name: "string"
-
-                /user_2
-                    uid: "user_2"
-                    name: "string"
-
-            /votes
-                /user_1
-                    uid: "user_1"
-                    userName: "string"
-                    point: "string"
-                    isPicked: boolean
-
-                /user_2
-                    uid: "user_2"
-                    userName: "string"
-                    point: "string"
-                    isPicked: boolean
-*/

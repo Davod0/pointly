@@ -26,4 +26,20 @@ bun dev
 
 
 
+/*
+   Data models in db
 
+    /sessions
+        └── {sessionId}
+                ├── createdAt: Date
+                ├── createdBy: string
+                ├── fibonacciLabel: string
+                ├── status: "active" | "completed"
+                ├── currentIssue: string
+                ├── roomName: string
+                ├── isRevealed: boolean
+                └── /participants
+                        └── {participantId}
+                                ├── name: string
+                                └── selectedCard: string | number | null
+*/

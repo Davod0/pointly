@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
+import InviteLinkPopover from "@/app/components/InviteLinkPopover";
 import { useParams } from "next/navigation";
 import {
   collection,
@@ -17,56 +18,52 @@ import { Participants } from "../../../../types/types";
 
 export default function SessionPage() {
   const [participants, setParticipants] = useState<Participants[]>([]);
-  const [selectedCard, setSelectedCard] = useState<string | number | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [showUserNameModal, setShowUserNameModal] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [sessionName, setSessionName] = useState<string>("no name picked");
   const [fibonacciValues, setFibonacciValues] = useState<(string | number)[]>([]);
+  const [sessionUrl, setSessionUrl] = useState<string>("");
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
 
- useEffect(() => {
-  const fetchSessionMeta = async () => {
-    if (!sessionId) return;
+  useEffect(() => {
+    const fetchSessionMeta = async () => {
+      if (!sessionId) return;
 
-    try {
-      const sessionRef = doc(db, "sessions", sessionId);
-      const sessionSnap = await getDoc(sessionRef);
+      try {
+        const sessionRef = doc(db, "sessions", sessionId);
+        const sessionSnap = await getDoc(sessionRef);
 
-      if (sessionSnap.exists()) {
-        const sessionData = sessionSnap.data();
-        setSessionName(sessionData.roomName || "no name picked");
+        if (sessionSnap.exists()) {
+          const sessionData = sessionSnap.data();
+          setSessionName(sessionData.roomName || "no name picked");
+          const fibonacciLabel = sessionData.fibonacciLabel || "Classic";
+          const fibonacciRef = doc(db, "fibonacci", fibonacciLabel);
+          const fibonacciSnap = await getDoc(fibonacciRef);
 
-        const fibonacciLabel = sessionData.fibonacciLabel || "default";
-
-        const fibonacciRef = doc(db, "fibonacci", fibonacciLabel);
-        const fibonacciSnap = await getDoc(fibonacciRef);
-
-        if (fibonacciSnap.exists()) {
-          const fibonacciData = fibonacciSnap.data();
-          if (Array.isArray(fibonacciData.values)) {
-            setFibonacciValues(fibonacciData.values);
+          if (fibonacciSnap.exists()) {
+            const fibonacciData = fibonacciSnap.data();
+            if (Array.isArray(fibonacciData.values)) {
+              setFibonacciValues(fibonacciData.values);
+            } else {
+              setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
+            }
           } else {
-            console.warn("Missing 'values' array in Fibonacci document.");
             setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
           }
-        } else {
-          console.warn(`No Fibonacci set found for label: ${fibonacciLabel}`);
-          setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
         }
+      } catch (error) {
+        console.error("Error fetching session metadata or Fibonacci values:", error);
+        setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
       }
-    } catch (error) {
-      console.error("Error fetching session metadata or Fibonacci values:", error);
-      setFibonacciValues(["☕️", 0.5, 1, 2, 4, 6, 8, 16, 32]);
-    }
-  };
+    };
 
-  fetchSessionMeta();
-}, [sessionId]);
+    fetchSessionMeta();
+    setSessionUrl(window.location.href);
+  }, [sessionId]);
 
-  // Real-time fetch participants
   useEffect(() => {
     if (!sessionId) return;
 
@@ -77,6 +74,20 @@ export default function SessionPage() {
         ...doc.data(),
       }));
       setParticipants(fetchedParticipants);
+    });
+
+    return () => unsubscribe();
+  }, [sessionId]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const sessionRef = doc(db, "sessions", sessionId);
+    const unsubscribe = onSnapshot(sessionRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setRevealed(data.isRevealed);
+      }
     });
 
     return () => unsubscribe();
@@ -93,7 +104,6 @@ export default function SessionPage() {
   };
 
   const handleCardSelect = async (value: string | number) => {
-    setSelectedCard(value);
     if (currentUserId) {
       await updateDoc(
         doc(db, "sessions", sessionId, "participants", currentUserId),
@@ -102,19 +112,25 @@ export default function SessionPage() {
     }
   };
 
-  const handleReveal = () => setRevealed(true);
+  const handleReveal = async () => {
+    const sessionRef = doc(db, "sessions", sessionId);
+    await updateDoc(sessionRef, {
+      isRevealed: true,
+    });
+  };
 
   const handleRestart = async () => {
-    setRevealed(false);
-    setSelectedCard(null);
-    if (sessionId) {
-      const participantsRef = collection(db, "sessions", sessionId, "participants");
-      for (const participant of participants) {
-        if (participant.uid) {
-          await updateDoc(doc(participantsRef, participant.uid), {
-            selectedCard: null,
-          });
-        }
+    const sessionRef = doc(db, "sessions", sessionId);
+    await updateDoc(sessionRef, {
+      isRevealed: false,
+    });
+
+    const participantsRef = collection(db, "sessions", sessionId, "participants");
+    for (const participant of participants) {
+      if (participant.uid) {
+        await updateDoc(doc(participantsRef, participant.uid), {
+          selectedCard: null,
+        });
       }
     }
   };
@@ -122,9 +138,12 @@ export default function SessionPage() {
   const numericPicks = participants
     .map((p) => p.selectedCard)
     .filter((p) => typeof p === "number") as number[];
+
   const averagePick = numericPicks.length
     ? (numericPicks.reduce((a, b) => a + b, 0) / numericPicks.length).toFixed(2)
     : null;
+
+  const currentParticipant = participants.find((p) => p.uid === currentUserId);
 
   return (
     <>
@@ -139,12 +158,7 @@ export default function SessionPage() {
           <div className="text-2xl font-extrabold text-violet-900 tracking-tight bg-white/80 px-4 py-2 rounded-lg shadow border-l-4 border-violet-400">
             {sessionName}
           </div>
-          <a
-            href="#"
-            className="text-lg font-medium text-violet-700 underline hover:text-violet-900 transition px-2"
-          >
-            🔗 Invite others
-          </a>
+          <InviteLinkPopover sessionUrl={sessionUrl} />
           {revealed && (
             <div className="bg-violet-100 rounded-lg px-6 py-4 mb-4 shadow-lg flex items-center gap-3">
               <span className="text-xl font-bold text-violet-800">Average:</span>
@@ -189,10 +203,10 @@ export default function SessionPage() {
               <div className="flex flex-col items-center mt-40">
                 <button
                   onClick={revealed ? handleRestart : handleReveal}
-                  disabled={!revealed && selectedCard === null}
+                  disabled={!revealed && currentParticipant?.selectedCard === null}
                   className={`w-56 px-8 py-3 rounded-xl bg-violet-800 text-white font-semibold text-lg
                     transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center mr-30 mt-15
-                    ${!revealed && selectedCard === null ? "opacity-25 cursor-not-allowed" : ""}
+                    ${!revealed && currentParticipant?.selectedCard === null ? "opacity-25 cursor-not-allowed" : ""}
                   `}
                 >
                   {revealed ? "Start new voting" : "Reveal"}
@@ -202,22 +216,26 @@ export default function SessionPage() {
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
                 <div className="mb-4 text-lg font-semibold text-gray-700 text-center">Pick your card</div>
                 <div className="flex flex-row flex-wrap gap-4 justify-center">
-                  {fibonacciValues.map((val) => (
-                    <button
-                      key={val}
-                      onClick={() => handleCardSelect(val)}
-                      disabled={revealed}
-                      className={`w-16 h-24 flex items-center justify-center rounded-xl shadow font-bold text-2xl
-                        transition-all duration-200
-                        ${selectedCard === val
-                          ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
-                          : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"}
-                        ${revealed ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
-                      `}
-                    >
-                      {val}
-                    </button>
-                  ))}
+                  {fibonacciValues.map((val) => {
+                    const isMyPick = currentParticipant?.selectedCard === val;
+
+                    return (
+                      <button
+                        key={val}
+                        onClick={() => handleCardSelect(val)}
+                        disabled={revealed}
+                        className={`w-16 h-24 flex items-center justify-center rounded-xl shadow font-bold text-2xl
+                          transition-all duration-200
+                          ${isMyPick
+                            ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
+                            : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"}
+                          ${revealed ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
+                        `}
+                      >
+                        {val}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
