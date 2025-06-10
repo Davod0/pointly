@@ -29,6 +29,15 @@ export default function SessionPage() {
   const sessionId = params?.sessionId as string;
 
   useEffect(() => {
+    const storedUserId = localStorage.getItem(`session_${sessionId}_userId`);
+    const storedUserName = localStorage.getItem(`session_${sessionId}_userName`);
+    if (storedUserId && storedUserName) {
+      setCurrentUserId(storedUserId);
+      setShowUserNameModal(false);
+    }
+  }, [sessionId]);
+
+  useEffect(() => {
     const fetchSessionMeta = async () => {
       if (!sessionId) return;
 
@@ -98,10 +107,13 @@ export default function SessionPage() {
       name: userName,
       selectedCard: null,
     });
-
-    setCurrentUserId(userRef.id);
+    const userId = userRef.id;
+    setCurrentUserId(userId);
     setShowUserNameModal(false);
+    localStorage.setItem(`session_${sessionId}_userId`, userId);
+    localStorage.setItem(`session_${sessionId}_userName`, userName);
   };
+
 
   const handleCardSelect = async (value: string | number) => {
     if (currentUserId) {

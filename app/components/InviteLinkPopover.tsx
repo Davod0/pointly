@@ -21,7 +21,7 @@ export default function InviteLinkPopover({ sessionUrl }: InviteLinkPopoverProps
     <div className="relative inline-block">
       <button
         onClick={() => setVisible(!visible)}
-        className="text-lg font-medium text-violet-700 underline hover:text-violet-900 transition px-2 cursor-pointer"
+        className="text-lg font-medium text-violet-800 underline hover:text-violet-900 transition px-2 cursor-pointer"
       >
         🔗 Invite others
       </button>
