@@ -27,9 +27,6 @@ export default function SessionPage() {
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
-  useEffect(() => {
-    setSessionUrl(window.location.href);
-  }, []);
 
   useEffect(() => {
     const fetchSessionMeta = async () => {
@@ -42,9 +39,7 @@ export default function SessionPage() {
         if (sessionSnap.exists()) {
           const sessionData = sessionSnap.data();
           setSessionName(sessionData.roomName || "no name picked");
-
-          const fibonacciLabel = sessionData.fibonacciLabel || "default";
-
+          const fibonacciLabel = sessionData.fibonacciLabel || "Classic";
           const fibonacciRef = doc(db, "fibonacci", fibonacciLabel);
           const fibonacciSnap = await getDoc(fibonacciRef);
 
@@ -66,6 +61,7 @@ export default function SessionPage() {
     };
 
     fetchSessionMeta();
+    setSessionUrl(window.location.href);
   }, [sessionId]);
 
   useEffect(() => {
@@ -117,8 +113,6 @@ export default function SessionPage() {
   };
 
   const handleReveal = async () => {
-    if (!sessionId) return;
-
     const sessionRef = doc(db, "sessions", sessionId);
     await updateDoc(sessionRef, {
       isRevealed: true,
@@ -126,8 +120,6 @@ export default function SessionPage() {
   };
 
   const handleRestart = async () => {
-    if (!sessionId) return;
-
     const sessionRef = doc(db, "sessions", sessionId);
     await updateDoc(sessionRef, {
       isRevealed: false,
