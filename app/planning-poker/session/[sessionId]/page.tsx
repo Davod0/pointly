@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
 import InviteLinkPopover from "@/app/components/InviteLinkPopover";
-import { useParams } from "next/navigation";
+import LoadingIndicator from "@/app/components/LoadingIndicator";
+import { useParams, useRouter } from "next/navigation";
 import {
   collection,
   query,
@@ -24,9 +25,11 @@ export default function SessionPage() {
   const [sessionName, setSessionName] = useState<string>("no name picked");
   const [fibonacciValues, setFibonacciValues] = useState<(string | number)[]>([]);
   const [sessionUrl, setSessionUrl] = useState<string>("");
+  const [loading, setLoading] = useState(true);
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSessionMeta = async () => {
@@ -93,15 +96,42 @@ export default function SessionPage() {
     return () => unsubscribe();
   }, [sessionId]);
 
+  useEffect(() => {
+    const storedUserId = localStorage.getItem(`session_${sessionId}_userId`);
+    const storedUserName = localStorage.getItem(`session_${sessionId}_userName`);
+    if (storedUserId && storedUserName) {
+      setCurrentUserId(storedUserId);
+      setShowUserNameModal(false);
+    }
+
+    setLoading(false);
+  }, [sessionId]);
+
   const handleUserNameSubmit = async (userName: string) => {
     const userRef = await addDoc(collection(db, "sessions", sessionId, "participants"), {
       name: userName,
       selectedCard: null,
     });
-
-    setCurrentUserId(userRef.id);
+    const userId = userRef.id;
+    setCurrentUserId(userId);
     setShowUserNameModal(false);
+    localStorage.setItem(`session_${sessionId}_userId`, userId);
+    localStorage.setItem(`session_${sessionId}_userName`, userName);
   };
+
+  useEffect(() => {
+    if (!sessionId) return;
+    const sessionRef = doc(db, "sessions", sessionId);
+    const unsubscribe = onSnapshot(sessionRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.status === "completed") {
+          router.push("/home");
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [sessionId, router]);
 
   const handleCardSelect = async (value: string | number) => {
     if (currentUserId) {
@@ -116,6 +146,16 @@ export default function SessionPage() {
     const sessionRef = doc(db, "sessions", sessionId);
     await updateDoc(sessionRef, {
       isRevealed: true,
+    });
+  };
+
+  const handleSessionCompletion = async () => {
+    localStorage.removeItem(`session_${sessionId}_userId`);
+    localStorage.removeItem(`session_${sessionId}_userName`);
+
+    const sessionRef = doc(db, "sessions", sessionId);
+    await updateDoc(sessionRef, {
+      status: "completed",
     });
   };
 
@@ -147,18 +187,44 @@ export default function SessionPage() {
 
   return (
     <>
-      {showUserNameModal && (
-        <UserNameModal
-          onSubmit={handleUserNameSubmit}
-          onClose={() => setShowUserNameModal(false)}
-        />
-      )}
+      {loading ? <LoadingIndicator /> :
+          <>
+            {showUserNameModal && (
+            <UserNameModal
+              onSubmit={handleUserNameSubmit}
+              onClose={() => setShowUserNameModal(false)}
+            />
+          )}
+        </>
+      }
       <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
         <div className="absolute top-15 left-15 flex flex-col items-start z-20 space-y-5">
           <div className="text-2xl font-extrabold text-violet-900 tracking-tight bg-white/80 px-4 py-2 rounded-lg shadow border-l-4 border-violet-400">
             {sessionName}
           </div>
           <InviteLinkPopover sessionUrl={sessionUrl} />
+          <button
+            className="
+            mt-7
+            px-4 py-3
+            rounded-xl
+            bg-violet-800
+            text-white
+            text-medium
+            font-semibold
+            shadow-lg
+            transition-all
+            duration-200
+            hover:bg-violet-900
+            hover:shadow-xl
+            focus:outline-none
+            focus:ring-4
+            cursor-pointer
+            no-underline"
+            onClick={handleSessionCompletion}
+            >
+          End Session
+          </button>
           {revealed && (
             <div className="bg-violet-100 rounded-lg px-6 py-4 mb-4 shadow-lg flex items-center gap-3">
               <span className="text-xl font-bold text-violet-800">Average:</span>
