@@ -3,10 +3,10 @@ export interface PlanningSessions{
   roomName: string;
   fibonacciLabel: string;
   createdAt: Date;
-  createdBy?: string;
   isRevealed: boolean;
   status: "active" | "completed";
-  currentIssue?: string;
+  // createdBy?: string;
+  // currentIssue?: string;
 }
 
 export interface Participants {
