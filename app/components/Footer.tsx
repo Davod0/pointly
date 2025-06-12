@@ -9,7 +9,7 @@ export default function Footer() {
         </p>
         <div className="flex space-x-6 md:-mb-32">
           <Link href="/privacy-policy" className="hover:text-violet-800 transition"> Privacy Policy</Link>
-          <Link  href="/" className="hover:text-violet-800 transition">Terms of Service</Link>
+          <Link  href="/terms-of-service" className="hover:text-violet-800 transition">Terms of Service</Link>
           <Link href="/" className="hover:text-violet-800 transition">Contact</Link>
         </div>
       </div>
