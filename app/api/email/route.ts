@@ -1,6 +1,4 @@
 
-
-
 // export async function GET(req:Request){
 
 //   const data = await req.json();
@@ -11,9 +9,6 @@
 //         headers: { "Content-Type": "application/json" }
 //     });
 // }
-
-
-
 
 
 export async function POST(req: Request) {
