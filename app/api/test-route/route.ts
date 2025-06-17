@@ -2,7 +2,7 @@
 const messages: string[] = [];
 
 
-export async function GET(){
+export async function GET(req: Request){
 
     return new Response(JSON.stringify({ messages }), {
         status: 200,

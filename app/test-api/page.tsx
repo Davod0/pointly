@@ -9,7 +9,7 @@ export default function SendDataPage() {
   const handleSendData = async () => {
     if (!name) return;
 
-    const res = await fetch('/api/email', {
+    const res = await fetch('/api/test-route', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

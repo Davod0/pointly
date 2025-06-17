@@ -1,50 +1,46 @@
-    import type { NextApiRequest, NextApiResponse } from 'next';
-    import nodemailer  from "nodemailer";
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
-    type Data = {
-    message: string;
-    };
-
-    export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<Data>
-    ) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method Not Allowed' });
-    }
-
-    const { name, email, reason, message } = req.body;
+export async function POST(req: Request) {
+  try {
+    const { name, email, reason, message } = await req.json();
 
     if (!name || !email || !reason || !message) {
-        return res.status(400).json({ message: 'Missing required fields' });
+      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    try {
-        const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-        });
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL_SENDER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-        await transporter.sendMail({
-        from: `"Pointly Contact" <${process.env.EMAIL_USER}>`,
-        to: process.env.CONTACT_RECEIVER_EMAIL,
-        subject: `New Contact Message: ${reason}`,
-        html: `
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Reason:</strong> ${reason}</p>
-            <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br/>')}</p>
-        `,
-        });
+    await transporter.sendMail({
+      from: process.env.EMAIL_SENDER,
+      to: process.env.EMAIL_RECEIVER,
+      subject: `New Contact Message: ${reason}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Reason:</strong> ${reason}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br/>')}</p>
+      `,
+    });
 
-        return res.status(200).json({ message: 'Message sent successfully' });
-    } catch (error) {
-        console.error('Email send error:', error);
-        return res.status(500).json({ message: 'Failed to send message' });
-    }
-    }
+    return NextResponse.json({ message: 'Message sent successfully' }, { status: 200 });
+  } catch (error) {
+    console.error('Error sending email to admin:', error);
+    return NextResponse.json({ message: 'Failed to send message' }, { status: 500 });
+  }
+}
+
+// export async function GET() {
+//   return new Response(JSON.stringify({ message: 'contact-admin endpoint ready' }), {
+//     status: 200,
+//     headers: { 'Content-Type': 'application/json' },
+//   });
+// }
