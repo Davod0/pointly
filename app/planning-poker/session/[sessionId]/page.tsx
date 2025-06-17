@@ -218,6 +218,7 @@ export default function SessionPage() {
             hover:bg-violet-900
             hover:shadow-xl
             focus:outline-none
+            focus:ring-violet-300
             focus:ring-4
             cursor-pointer
             no-underline"
