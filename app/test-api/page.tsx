@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function SendDataPage() {
   const [name, setName] = useState('');
-  const [response, setResponse] = useState<string | null>(null);
+  const [messages, setMessages] = useState<string[]>([]);
 
   const handleSendData = async () => {
     if (!name) return;
@@ -18,7 +18,7 @@ export default function SendDataPage() {
     });
 
     const json = await res.json();
-    setResponse(json.names[0]);
+    setMessages(json.messages || json.names);
   };
 
   return (
@@ -40,9 +40,11 @@ export default function SendDataPage() {
         Send
       </button>
 
-      {response && (
-        <div className="mt-4 p-3 bg-green-100 text-green-800 rounded">
-          {response}
+      {messages.length > 0 && (
+        <div className="mt-4 p-3 bg-green-100 text-green-800 rounded space-y-2">
+          {messages.map((msg, index) => (
+            <div key={index}>{msg}</div>
+          ))}
         </div>
       )}
     </div>
