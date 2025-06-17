@@ -125,7 +125,7 @@ export default function Contact() {
               {isSubmitting ? 'Sending...' : 'Send'}
             </button>
             {submitMessage && (
-              <p className={`mt-3 text-xs text-center ${submitMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>
+              <p className={`mt-3 text-xs font-semibold text-center ${submitMessage.includes('Thank you') ? 'text-violet-800' : 'text-red-600'}`}>
                 {submitMessage}
               </p>
             )}
