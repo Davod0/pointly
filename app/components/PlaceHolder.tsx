@@ -30,7 +30,7 @@ export default function PlaceHolder({ onClose }: Props) {
         }}
       >
         <span>
-          This feature is not available yet, but coming soon.
+          This feature is not available yet but coming soon.
         </span>
       </div>
     </section>
