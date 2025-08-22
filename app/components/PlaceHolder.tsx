@@ -10,7 +10,6 @@ export default function PlaceHolder({ onClose }: Props) {
   useEffect(() => {
     const timer1 = setTimeout(() => setVisible(false), 2000);
     const timer2 = setTimeout(() => onClose(), 2300);
-
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
@@ -18,15 +17,16 @@ export default function PlaceHolder({ onClose }: Props) {
   }, [onClose]);
 
   return (
-    <section className="absolute transform -translate-x-1/2 ml-[-130px]">
+    <section className="fixed inset-0 flex items-center justify-center z-50">
       <div
-        className={`flex items-center justify-center px-4 py-2
+        className={`flex items-center justify-center px-6 py-4
         bg-white border-2 border-violet-200
-        rounded-lg shadow-md text-gray-700 font-semibold
+        rounded-lg shadow-lg text-gray-700 font-semibold
+        transition-opacity duration-300
         ${visible ? "animate-fade-in" : "animate-fade-out"}`}
         style={{
-          minWidth: "260px",
-          maxWidth: "80vw",
+          minWidth: "280px",
+          maxWidth: "90vw",
         }}
       >
         <span>
