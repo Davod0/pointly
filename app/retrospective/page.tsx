@@ -1,13 +1,17 @@
 'use client';
 
+import { useState } from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import Footer from "../components/Footer";
+import PlaceHolder from "../components/PlaceHolder";
 
 export default function RetrospectivePage() {
+  const [showPlaceHolder, setShowPlaceHolder] = useState(true);
+
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
+      <div className="min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col relative">
         <Header />
         <div className="flex flex-1">
           <div className="mt-15 ml-27 flex flex-col items-start gap-y-3">
@@ -45,7 +49,14 @@ export default function RetrospectivePage() {
             </ul>
           </div>
         </div>
+
         <Footer />
+
+        {showPlaceHolder && (
+          <div>
+            <PlaceHolder onClose={() => setShowPlaceHolder(false)} />
+          </div>
+        )}
       </div>
     </>
   );

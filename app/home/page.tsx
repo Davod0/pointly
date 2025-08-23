@@ -29,9 +29,9 @@ export default function HomePage() {
             and start making confident decisions
           </p>
           <div className="flex space-x-6">
-            <StartButton title="Start a Session" route="/test-api" />
+            <StartButton title="Start a Session" route="/planning-poker/session-start" />
             <Link
-              href="/home"
+              href="/learn-more"
               className="inline-flex items-center px-8 py-4 border-2 border-violet-800
                text-violet-800 font-semibold rounded-xl hover:bg-violet-50
                 transition bg-white text-base"
