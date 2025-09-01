@@ -6,9 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
+import PlaceHolder from "./PlaceHolder";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
@@ -64,6 +66,7 @@ export default function Header() {
         <button
           onClick={(e) => {
             e.currentTarget.blur();
+            setShowPlaceholder(true);
           }}
           className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
             bg-white border-violet-200 text-gray-700 hover:bg-violet-50
@@ -77,6 +80,9 @@ export default function Header() {
           setSelectedNav={setSelectedNav}
         />
       </div>
+      {showPlaceholder && (
+        <PlaceHolder onClose={() => setShowPlaceholder(false)} />
+      )}
     </header>
   );
 }

@@ -26,7 +26,7 @@ export default function RetrospectivePage() {
               <span className="text-violet-800">Pointly</span> Retrospectives
             </h1>
             <p className="text-base sm:text-lg text-gray-700 mb-8 lg:mb-17 max-w-xl mx-auto sm:mx-0">
-              Look back on your sprints, celebrate wins, and identify opportunities to improve. <br className="hidden sm:block" />
+              Look back on your sprints, celebrate wins, and identify opportunities to improve.
               Pointly makes retrospectives simple, insightful, and actionable for every team.
             </p>
             <ul className="hidden sm:block mb-10 lg:-mt-10 space-y-5">
