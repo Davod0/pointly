@@ -44,7 +44,6 @@ export default function Header() {
           className="rounded-full hover:opacity-90 transition shadow-md border border-gray-300 max-w-full h-auto bg-white"
         />
       </Link>
-
       <nav className="hidden lg:flex items-center ml-10 xl:ml-[6cm]">
         {navOptions.map((option) => (
           <Link
@@ -61,17 +60,17 @@ export default function Header() {
           </Link>
         ))}
       </nav>
-
       <div className="flex items-center ml-auto space-x-3">
         <button
-          onClick={() => alert("Sign In clicked")}
+          onClick={(e) => {
+            e.currentTarget.blur();
+          }}
           className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
             bg-white border-violet-200 text-gray-700 hover:bg-violet-50
             focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
         >
           Sign In
         </button>
-
         <MobileMenu
           navOptions={navOptions}
           selectedNav={selectedNav}
