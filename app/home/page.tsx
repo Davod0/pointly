@@ -4,6 +4,7 @@ import StartButton from "../components/StartButton";
 import Badge from "../components/Badge";
 import Header from "../components/Header";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   return (
@@ -65,6 +66,7 @@ export default function HomePage() {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
