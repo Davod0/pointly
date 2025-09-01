@@ -5,11 +5,10 @@ import { setBadgeTitle } from "../store/badgeSlice";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import PlaceHolder from "./PlaceHolder";
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
-  const [showPlaceHolder, setShowPlaceHolder] = useState(false);
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
@@ -31,7 +30,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full flex items-center px-18 py-8">
+    <header className="w-full flex items-center justify-between px-6 sm:px-10 lg:px-18 py-6 lg:py-8 relative">
       <Link
         href="/home"
         className="flex items-center"
@@ -46,13 +45,13 @@ export default function Header() {
         />
       </Link>
 
-      <div className="flex items-center ml-[6cm]">
+      <nav className="hidden lg:flex items-center ml-10 xl:ml-[6cm]">
         {navOptions.map((option) => (
           <Link
             key={option.label}
             href={option.href}
             onClick={() => setSelectedNav(option.label)}
-            className={`text-black text-lg px-5 py-2 rounded-full transition-all duration-200 cursor-pointer
+            className={`text-black text-base lg:text-lg px-4 lg:px-5 py-2 rounded-full transition-all duration-200 cursor-pointer
               ${selectedNav === option.label
                 ? "font-bold"
                 : " hover:text-violet-800 font-semibold"
@@ -61,21 +60,23 @@ export default function Header() {
             {option.label}
           </Link>
         ))}
-      </div>
-      <div className="flex-1"></div>
-      <div className="relative">
+      </nav>
+
+      <div className="flex items-center ml-auto space-x-3">
         <button
-          onClick={() => setShowPlaceHolder(true)}
-          className="px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
+          onClick={() => alert("Sign In clicked")}
+          className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
             bg-white border-violet-200 text-gray-700 hover:bg-violet-50
-            focus:outline-none focus:ring-2 focus:ring-violet-300 text-base"
+            focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
         >
           Sign In
         </button>
 
-        {showPlaceHolder && (
-          <PlaceHolder onClose={() => setShowPlaceHolder(false)} />
-        )}
+        <MobileMenu
+          navOptions={navOptions}
+          selectedNav={selectedNav}
+          setSelectedNav={setSelectedNav}
+        />
       </div>
     </header>
   );
