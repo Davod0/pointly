@@ -16,7 +16,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pointly",
-  description: "Pointly is a tool for tasks estimation and retrospectives during development sprints"
+  description: "Pointly is a tool for tasks estimation and retrospectives during development sprints",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>)
