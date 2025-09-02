@@ -63,26 +63,28 @@ export default function Header() {
         ))}
       </nav>
       <div className="flex items-center ml-auto space-x-3">
-        <button
-          onClick={(e) => {
-            e.currentTarget.blur();
-            setShowPlaceholder(true);
-          }}
-          className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
-            bg-white border-violet-200 text-gray-700 hover:bg-violet-50
-            focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
-        >
-          Sign In
-        </button>
+        {showPlaceholder ? (
+          <PlaceHolder onClose={() => setShowPlaceholder(false)} />
+        ) : (
+          <button
+            onClick={(e) => {
+              e.currentTarget.blur();
+              setShowPlaceholder(true);
+            }}
+            className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
+              bg-white border-violet-200 text-gray-700 hover:bg-violet-50
+              focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
+          >
+            Sign In
+          </button>
+        )}
+
         <MobileMenu
           navOptions={navOptions}
           selectedNav={selectedNav}
           setSelectedNav={setSelectedNav}
         />
       </div>
-      {showPlaceholder && (
-        <PlaceHolder onClose={() => setShowPlaceholder(false)} />
-      )}
     </header>
   );
 }
