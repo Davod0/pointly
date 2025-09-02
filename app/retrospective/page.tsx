@@ -6,7 +6,6 @@ import Badge from "../components/Badge";
 import Footer from "../components/Footer";
 import ComingSoonPopup from "../components/ComingSoonPopup";
 
-
 export default function RetrospectivePage() {
   const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
 
@@ -26,36 +25,40 @@ export default function RetrospectivePage() {
               Reflect &amp; Grow with <br className="hidden sm:block" />
               <span className="text-violet-800">Pointly</span> Retrospectives
             </h1>
-            <p className="text-base sm:text-lg text-gray-700 mb-8 lg:mb-17 max-w-xl mx-auto sm:mx-0">
-              Look back on your sprints, celebrate wins, and identify opportunities to improve.
-              Pointly makes retrospectives simple, insightful, and actionable for every team.
-            </p>
-            <ul className="hidden sm:block mb-10 lg:-mt-10 space-y-5">
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                <span className="text-gray-700 text-lg lg:text-xl">Share wins and challenges openly</span>
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                <span className="text-gray-700 text-lg lg:text-xl">Gather actionable feedback</span>
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                <span className="text-gray-700 text-lg lg:text-xl">Track improvements over time</span>
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                <span className="text-gray-700 text-lg lg:text-xl">Foster team trust and growth</span>
-              </li>
-            </ul>
+
+            {showComingSoonPopup ? (
+              <div>
+                <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
+              </div>
+            ) : (
+              <>
+                <p className="text-base sm:text-lg text-gray-700 mb-8 lg:mb-17 max-w-xl mx-auto sm:mx-0">
+                  Look back on your sprints, celebrate wins, and identify opportunities to improve.
+                  Pointly makes retrospectives simple, insightful, and actionable for every team.
+                </p>
+                <ul className="hidden sm:block mb-10 lg:-mt-10 space-y-5">
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
+                    <span className="text-gray-700 text-lg lg:text-xl">Share wins and challenges openly</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
+                    <span className="text-gray-700 text-lg lg:text-xl">Gather actionable feedback</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
+                    <span className="text-gray-700 text-lg lg:text-xl">Track improvements over time</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
+                    <span className="text-gray-700 text-lg lg:text-xl">Foster team trust and growth</span>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
         <Footer />
-        {showComingSoonPopup && (
-          <div>
-            <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
-          </div>
-        )}
       </div>
     </>
   );
