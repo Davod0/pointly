@@ -46,6 +46,7 @@ export default function Header() {
           className="rounded-full hover:opacity-90 transition shadow-md border border-gray-300 max-w-full h-auto bg-white"
         />
       </Link>
+
       <nav className="hidden lg:flex items-center ml-10 xl:ml-[6cm]">
         {navOptions.map((option) => (
           <Link
@@ -62,22 +63,26 @@ export default function Header() {
           </Link>
         ))}
       </nav>
+
       <div className="flex items-center ml-auto space-x-3">
-        {showPlaceholder ? (
-          <PlaceHolder onClose={() => setShowPlaceholder(false)} />
-        ) : (
+        <div className="relative hidden lg:block">
           <button
             onClick={(e) => {
               e.currentTarget.blur();
               setShowPlaceholder(true);
             }}
-            className="hidden lg:block px-4 py-2 rounded-lg border-2 font-semibold transition cursor-pointer
+            className="px-2 py-1.5 rounded-lg border-2 font-semibold transition cursor-pointer
               bg-white border-violet-200 text-gray-700 hover:bg-violet-50
               focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
           >
             Sign In
           </button>
-        )}
+          {showPlaceholder && (
+            <div className="absolute top-full right-0.5 mt-2 w-max">
+              <PlaceHolder onClose={() => setShowPlaceholder(false)} />
+            </div>
+          )}
+        </div>
 
         <MobileMenu
           navOptions={navOptions}

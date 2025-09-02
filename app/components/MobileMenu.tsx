@@ -16,7 +16,10 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
         setMenuOpen(false);
       }
     };
@@ -41,7 +44,6 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
         <span className="block w-3.5 h-0.5 bg-black mb-1 sm:w-4"></span>
         <span className="block w-3.5 h-0.5 bg-black sm:w-4"></span>
       </button>
-
       {menuOpen && (
         <div className="absolute right-0 mt-1 w-28 bg-white border border-gray-200 rounded-[6px] shadow-lg z-50 flex flex-col py-0.5
         sm:mt-2 sm:w-32 sm:rounded-md sm:py-1">
@@ -57,16 +59,21 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
               {option.label}
             </Link>
           ))}
-          <button
-            onClick={() => { setShowPlaceHolder(true); setMenuOpen(false); }}
-            className="px-2 py-1 text-xs text-gray-700 hover:bg-violet-50 cursor-pointer font-medium rounded sm:px-3 sm:py-1 sm:text-sm text-left"
-          >
-            Sign In
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => { setShowPlaceHolder(true); setMenuOpen(false); }}
+              className="px-2 py-1 text-xs text-gray-700 hover:bg-violet-50 cursor-pointer font-medium rounded sm:px-3 sm:py-1 sm:text-sm text-left"
+            >
+              Sign In
+            </button>
+          </div>
         </div>
       )}
-
-      {showPlaceHolder && <PlaceHolder onClose={() => setShowPlaceHolder(false)} />}
+      {showPlaceHolder && (
+        <div className="absolute right-0 mt-1 z- w-max">
+          <PlaceHolder onClose={() => setShowPlaceHolder(false)} />
+        </div>
+      )}
     </div>
   );
 }
