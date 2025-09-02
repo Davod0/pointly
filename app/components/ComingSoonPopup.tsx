@@ -4,7 +4,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function PlaceHolder({ onClose }: Props) {
+export default function ComingSoonPopup({ onClose }: Props) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {

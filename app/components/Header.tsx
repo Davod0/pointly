@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
-import PlaceHolder from "./PlaceHolder";
+import ComingSoonPopup from "./ComingSoonPopup";
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
@@ -79,7 +79,7 @@ export default function Header() {
           </button>
           {showPlaceholder && (
             <div className="absolute top-full right-0.5 mt-2 w-max">
-              <PlaceHolder onClose={() => setShowPlaceholder(false)} />
+              <ComingSoonPopup onClose={() => setShowPlaceholder(false)} />
             </div>
           )}
         </div>

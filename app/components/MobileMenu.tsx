@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import PlaceHolder from "./PlaceHolder";
+import ComingSoonPopup from "./ComingSoonPopup";
 
 interface MobileMenuProps {
   navOptions: { label: string; href: string }[];
@@ -11,7 +11,7 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: MobileMenuProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showPlaceHolder, setShowPlaceHolder] = useState(false);
+  const [showComingSoonPopup, setShowComingSoonPopup] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
           ))}
           <div className="relative">
             <button
-              onClick={() => { setShowPlaceHolder(true); setMenuOpen(false); }}
+              onClick={() => { setShowComingSoonPopup(true); setMenuOpen(false); }}
               className="px-2 py-1 text-xs text-gray-700 hover:bg-violet-50 cursor-pointer font-medium rounded sm:px-3 sm:py-1 sm:text-sm text-left"
             >
               Sign In
@@ -69,9 +69,9 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
           </div>
         </div>
       )}
-      {showPlaceHolder && (
+      {showComingSoonPopup && (
         <div className="absolute right-0 mt-1 z- w-max">
-          <PlaceHolder onClose={() => setShowPlaceHolder(false)} />
+          <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
         </div>
       )}
     </div>

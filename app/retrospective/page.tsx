@@ -4,10 +4,11 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import Footer from "../components/Footer";
-import PlaceHolder from "../components/PlaceHolder";
+import ComingSoonPopup from "../components/ComingSoonPopup";
+
 
 export default function RetrospectivePage() {
-  const [showPlaceHolder, setShowPlaceHolder] = useState(true);
+  const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
 
   return (
     <>
@@ -50,9 +51,9 @@ export default function RetrospectivePage() {
           </div>
         </div>
         <Footer />
-        {showPlaceHolder && (
+        {showComingSoonPopup && (
           <div>
-            <PlaceHolder onClose={() => setShowPlaceHolder(false)} />
+            <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
           </div>
         )}
       </div>
