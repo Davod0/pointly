@@ -68,62 +68,66 @@ export default function SessionSetupPage() {
     }
   };
 
-return (
-  <div className="flex min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 items-center justify-center">
-    {loading && <LoadingIndicator />}
-    <div className="flex flex-col items-start gap-y-8 max-w-xl w-full px-6">
-      <div className="w-full">
-        <label className="block text-gray-700 font-semibold mb-2" htmlFor="roomName">
-          Room Name
-        </label>
-        <input
-          id="roomName"
-          type="text"
-          value={roomName}
-          onChange={(e) => setRoomName(e.target.value)}
-          className="w-full px-5 py-3 rounded-xl border-2 border-violet-200
-            focus:border-violet-400 focus:ring-2 focus:ring-violet-200 text-lg outline-none transition text-gray-600"
-          placeholder="e.g. Sprint 35, Team Alpha"
-          maxLength={32}
-          required
-        />
-      </div>
-      <div className="w-full">
-        <label className="block text-gray-700 font-semibold mb-2">
-          Fibonacci Deck
-        </label>
-        {fibonacci.length > 0 ? (
-          <>
-            <div className="flex flex-row gap-4">
-              {fibonacci.map((preset, idx) => (
-                <button
-                  key={preset.label}
-                  type="button"
-                  className={`px-6 py-3 rounded-xl border-2 font-semibold transition cursor-pointer
-                    ${
-                      idx === selectedFibIndex
-                        ? "bg-violet-200 border-violet-600 text-violet-900"
-                        : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
-                    }
-                  `}
-                  onClick={() => setSelectedFibIndex(idx)}
-                >
-                  {preset.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 text-gray-500 text-me">
-              {fibonacci[selectedFibIndex].values.join(", ")}
-            </div>
-          </>
-        ) : (
-          <div className="text-gray-500 italic">Loading Fibonacci decks...</div>
-        )}
-      </div>
-      <div className="mt-6">
-        <StartButton title="Start Session" onClick={handleSessionStart} />
+  return (
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 items-center justify-center p-4 sm:p-6 md:p-10">
+      {loading && <LoadingIndicator />}
+      <div className="flex flex-col items-start gap-y-6 sm:gap-y-8 max-w-lg sm:max-w-xl md:max-w-2xl w-full">
+        <div className="w-full">
+            <label
+              className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base"
+              htmlFor="roomName"
+            >
+              Room Name
+            </label>
+            <input
+              id="roomName"
+              type="text"
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+              className="w-full px-4 py-2 sm:px-5 sm:py-3 rounded-xl border-2 border-violet-200
+                focus:border-violet-400 focus:ring-2 focus:ring-violet-200
+                text-sm sm:text-base md:text-lg outline-none transition text-gray-600"
+              placeholder="e.g. Sprint 35, Team Alpha"
+              maxLength={32}
+              required
+            />
+        </div>
+        <div className="w-full">
+          <label className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">
+            Fibonacci Deck
+          </label>
+          {fibonacci.length > 0 ? (
+            <>
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                {fibonacci.map((preset, idx) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    className={`px-4 py-2 sm:px-6 sm:py-3 rounded-xl border-2 font-semibold transition cursor-pointer text-sm sm:text-base
+                      ${
+                        idx === selectedFibIndex
+                          ? "bg-violet-200 border-violet-600 text-violet-900"
+                          : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
+                      }
+                    `}
+                    onClick={() => setSelectedFibIndex(idx)}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-3 sm:mt-4 text-gray-500 text-sm sm:text-base">
+                {fibonacci[selectedFibIndex].values.join(", ")}
+              </div>
+            </>
+          ) : (
+            <div className="text-gray-500 italic">Loading Fibonacci decks...</div>
+          )}
+        </div>
+        <div className="mt-4 sm:mt-6">
+          <StartButton title="Start Session" onClick={handleSessionStart} />
+        </div>
       </div>
     </div>
-  </div>
- );
+  );
 }
