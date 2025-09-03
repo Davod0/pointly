@@ -22,7 +22,8 @@ export default function SmallPointCardContainer() {
       ) : (
         <Link
           href="/planning-poker/session-start"
-          className="mb-6 inline-block px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-full bg-violet-100 text-violet-800 font-semibold text-sm sm:text-base md:text-lg shadow
+          className="mb-6 inline-block px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-full
+            bg-violet-100 text-violet-800 font-semibold text-sm sm:text-base md:text-lg shadow
             border border-violet-300 transition duration-300 hover:bg-violet-200 hover:scale-105
             focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer no-underline"
         >
@@ -33,19 +34,11 @@ export default function SmallPointCardContainer() {
       <div
         className="
           flex flex-wrap justify-center items-center
-          gap-3 sm:gap-4 md:gap-6 lg:gap-4 xl:gap-6
+          gap-3 sm:gap-4 md:gap-4 lg:gap-3 xl:gap-4
         "
       >
         {SmallPointCardValues.map((n) => (
-          <div
-            key={n}
-            className="
-            w-12 h-18 text-md        /* mobile*/
-            sm:w-14 sm:h-18 sm:text-1xl  /* tablet */
-            md:w-16 md:h-22 md:text-2xl  /* small desktop */
-            lg:w-16 lg:h-26 lg:text-2xl  /* desktop */
-            xl:w-18 xl:h-28 xl:text-3xl  /* large desktop */
-            ">
+          <div key={n}>
             <SmallPointCard
               value={n}
               isSelected={selectedValue === n}

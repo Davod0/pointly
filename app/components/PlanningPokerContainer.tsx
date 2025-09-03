@@ -39,14 +39,14 @@ export default function PlanningPokerContainer() {
                 />
             </div>
         </div>
-        <div className="hidden lg:block absolute right-0 xl:right-30 2xl:right-50 -bottom-4">
+        <div className="hidden lg:block absolute right-0 xl:right-10 2xl:right-40 -bottom-4">
             <SmallPointCardContainer />
         </div>
         <div className="lg:hidden flex justify-center">
           <SmallPointCardContainer />
         </div>
       </div>
-      <Footer />
+        <Footer />
     </div>
   );
 }

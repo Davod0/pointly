@@ -2,11 +2,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <section className="bg-white py-10 flex justify-center sm:mt-auto">
+    <section className="bg-white py-2 sm:py-3 md:py-10 flex justify-center sm:mt-auto">
       <div
         className="w-full max-w-xs sm:max-w-md md:max-w-7xl px-4
                    flex flex-col md:flex-row justify-between items-center
-                   text-gray-600 text-xs sm:text-sm md:text-base lg:text-base
+                   text-gray-600 text-xs sm:text-xs md:text-sm lg:text-sm
                    text-center md:text-left space-y-4 md:space-y-0 md:mt-14 md:-mb-5"
       >
         <p>
