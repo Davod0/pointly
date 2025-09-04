@@ -289,14 +289,17 @@ export default function SessionPage() {
                  ">
               {/* Cards */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
-                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg font-semibold text-gray-700 text-center flex flex-col">
+                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg
+                     font-semibold text-gray-700 text-center flex flex-col
+                     ">
                   <button
                     onClick={revealed ? handleRestart : handleReveal}
                     disabled={!revealed && currentParticipant?.selectedCard === null}
                     className={`w-24 sm:w-36 md:w-56
                       px-2 sm:px-4 md:px-8
                       py-1 sm:py-2 md:py-3
-                      rounded-lg sm:rounded-xl bg-violet-800 text-white font-semibold
+                      rounded-lg sm:rounded-xl
+                      bg-violet-800 text-white font-semibold
                       text-[10px] text-xs sm:text-sm md:text-base
                       transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center
                       mb-[15rem] sm:mb-40
@@ -325,9 +328,9 @@ export default function SessionPage() {
                           sm:w-12 sm:h-18 sm:text-lg
                           md:w-14 md:h-22 md:text-xl
                           lg:w-16 lg:h-24 lg:text-2xl
-                          flex items-center justify-center rounded-xl shadow
+                          flex items-center justify-center rounded-md shadow
                           font-bold transition-all duration-200
-                          max-[340px]:w-5 max-[340px]:h-8 max-[340px]:text-[8px] max-[340px]:rounded-none
+                          max-[340px]:w-5 max-[340px]:h-8 max-[340px]:text-[8px] max-[340px]:rounded-sm
                           ${
                             isMyPick
                               ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
