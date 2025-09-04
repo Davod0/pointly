@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
-import InviteLinkPopover from "@/app/components/InviteLinkPopover";
+import InviteLinkPopUp from "@/app/components/InviteLinkPopUp";
 import LoadingIndicator from "@/app/components/LoadingIndicator";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -185,117 +185,202 @@ export default function SessionPage() {
 
   const currentParticipant = participants.find((p) => p.uid === currentUserId);
 
+  const isCompact = participants.length > 5;
+
+  const compactScaleMd =
+    participants.length > 10
+      ? "md:scale-[0.85] lg:scale-[0.85]"
+      : participants.length > 8
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : participants.length > 6
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : participants.length > 5
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : "";
+
+
   return (
     <>
-      {loading ? <LoadingIndicator /> :
-          <>
-            {showUserNameModal && (
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          {showUserNameModal && (
             <UserNameModal
               onSubmit={handleUserNameSubmit}
               onClose={() => setShowUserNameModal(false)}
             />
           )}
         </>
-      }
+      )}
+
       <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
-        <div className="absolute top-15 left-15 flex flex-col items-start z-20 space-y-5">
-          <div className="text-2xl font-extrabold text-violet-900 tracking-tight bg-white/80 px-4 py-2 rounded-lg shadow border-l-4 border-violet-400">
+        {/* Top-left controls */}
+        <div className="absolute top-2 left-2 sm:top-6 sm:left-6 flex flex-col items-start z-20
+             space-y-2 sm:space-y-4 md:space-y-5
+             ">
+          {/* Session name */}
+          <div className="text-xs sm:text-sm md:text-lg font-extrabold
+               text-violet-900 tracking-tight bg-white/80 px-1 sm:px-2
+               md:px-4 py-0.5 sm:py-1 md:py-2 rounded-lg shadow border-l-4
+               border-violet-400 lg:px-4 lg:py-3
+               ">
             {sessionName}
           </div>
-          <InviteLinkPopover sessionUrl={sessionUrl} />
+
+          <div className="scale-90 sm:scale-100">
+            <InviteLinkPopUp sessionUrl={sessionUrl} />
+          </div>
+          {/* End Session button */}
           <button
-            className="
-            mt-7
-            px-4 py-3
-            rounded-xl
-            bg-violet-800
-            text-white
-            text-medium
-            font-semibold
-            shadow-lg
-            transition-all
-            duration-200
-            hover:bg-violet-900
-            hover:shadow-xl
-            focus:outline-none
-            focus:ring-violet-300
-            focus:ring-4
-            cursor-pointer
-            no-underline"
-            onClick={handleSessionCompletion}
-            >
-          End Session
+            className="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg
+            sm:rounded-xl bg-violet-800 text-[10px] sm:text-sm md:text-base
+            text-white font-semibold shadow-md sm:shadow-lg transition-all
+            duration-200 hover:bg-violet-900 focus:outline-none focus:ring-violet-300
+            focus:ring-2 sm:focus:ring-4 cursor-pointer no-underline"
+            onClick={handleSessionCompletion}>
+            End Session
           </button>
+
           {revealed && (
-            <div className="bg-violet-100 rounded-lg px-6 py-4 mb-4 shadow-lg flex items-center gap-3">
-              <span className="text-xl font-bold text-violet-800">Average:</span>
-              <span className="text-2xl font-extrabold text-violet-800 drop-shadow">
+            <div className="bg-violet-100 rounded-lg px-3 py-2 sm:px-6 sm:py-4 mb-4 shadow-lg
+                  flex items-center gap-2 sm:gap-3
+                  ">
+              <span className="text-xs sm:text-xl font-bold text-violet-800">Average:</span>
+              <span className="text-sm sm:text-2xl font-extrabold text-violet-800 drop-shadow">
                 {averagePick !== null ? averagePick : "N/A"}
               </span>
             </div>
           )}
         </div>
-
         <main className="flex-1 flex flex-col items-center justify-center px-4">
-          <div className="relative bg-white/90 rounded-2xl shadow-2xl px-12 py-10 max-w-3xl w-full border border-violet-200 mt-10 flex">
-            <div className="absolute left-0 top-40 -translate-y-1/2 pl-4">
-              <div className="bg-white/80 rounded-xl shadow p-3">
-                <h2 className="text-sm font-semibold text-gray-600 mb-2 text-center">Participants</h2>
-                <ul className="flex flex-col gap-2">
+          <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12
+               py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex
+               ">
+            {/* Participants list */}
+            <div
+              className={`
+                absolute left-0 pl-1 sm:pl-2 md:pl-4
+                top-40 -translate-y-1/2        /* keep current mobile behavior */
+                md:top-12 md:translate-y-0     /* on tablet/desktop: grow downward, no upward creep */
+                md:origin-top-left
+                ${compactScaleMd}              /* shrink only when >5 (md+) */
+              `}
+            >
+              <div className="bg-white/80 rounded-lg sm:rounded-xl shadow p-1.5 sm:p-2 md:p-3">
+                <h2
+                  className={`
+                    text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center
+                    ${isCompact ? "md:text-[11px] md:mb-1" : ""}
+                  `}
+                >
+                  Participants
+                </h2>
+
+                <ul
+                  className={`
+                    flex flex-col gap-1.5 sm:gap-1.5
+                    ${isCompact ? "md:gap-3 lg:gap-3" : "md:gap-3 lg:gap-3"}
+                  `}
+                >
                   {participants.map((p) => (
                     <li
                       key={p.uid}
-                      className={`flex items-center gap-2 px-3 py-1 rounded-lg shadow-sm
+                      className={`
+                        flex items-center
+                        ${isCompact ? "md:gap-1 md:px-2 md:py-[2px]" : "md:gap-2 md:px-3 md:py-1"}
+                        gap-1 sm:gap-2 px-1.5 sm:px-2 py-0.5
+                        rounded-md sm:rounded-lg shadow-sm
                         ${p.uid === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
                       `}
                     >
-                      <span className="font-semibold text-violet-800">{p.name}</span>
-                      <span className="text-gray-500 text-xs">
-                        {revealed
-                          ? p.selectedCard !== null
-                            ? <span className="font-bold text-violet-900">{p.selectedCard}</span>
-                            : <span className="italic text-gray-400">No pick</span>
-                          : p.selectedCard !== null
-                            ? <span className="text-green-600">Picked</span>
-                            : <span className="text-gray-400">Waiting</span>
-                        }
+                      <span
+                        className={`
+                          font-semibold text-violet-800
+                          text-[10px] sm:text-xs
+                          ${isCompact ? "md:text-xs lg:text-sm" : "md:text-sm lg:text-base"}
+                        `}
+                      >
+                        {p.name}
+                      </span>
+
+                      <span
+                        className={`
+                          text-gray-500
+                          text-[8px] sm:text-[10px]
+                          ${isCompact ? "md:text-[10px] lg:text-xs" : "md:text-xs lg:text-sm"}
+                        `}
+                      >
+                        {revealed ? (
+                          p.selectedCard !== null ? (
+                            <span className="font-bold text-violet-900">{p.selectedCard}</span>
+                          ) : (
+                            <span className="italic text-gray-400">No pick</span>
+                          )
+                        ) : p.selectedCard !== null ? (
+                          <span className="text-green-600">Picked</span>
+                        ) : (
+                          <span className="text-gray-400">Waiting</span>
+                        )}
                       </span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-
-            <div className="flex flex-col flex-1 items-center justify-between min-h-[500px] w-full ml-36">
-              <div className="flex flex-col items-center mt-40">
-                <button
-                  onClick={revealed ? handleRestart : handleReveal}
-                  disabled={!revealed && currentParticipant?.selectedCard === null}
-                  className={`w-56 px-8 py-3 rounded-xl bg-violet-800 text-white font-semibold text-lg
-                    transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center mr-30 mt-15
-                    ${!revealed && currentParticipant?.selectedCard === null ? "opacity-25 cursor-not-allowed" : ""}
-                  `}
-                >
-                  {revealed ? "Start new voting" : "Reveal"}
-                </button>
-              </div>
-
+            {/* Center area */}
+            <div className="flex flex-col flex-1 items-center justify-between
+                 min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2 -mt-3">
+              {/* Cards */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
-                <div className="mb-4 text-lg font-semibold text-gray-700 text-center">Pick your card</div>
-                <div className="flex flex-row flex-wrap gap-4 justify-center">
+                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg
+                     font-semibold text-gray-700 text-center flex flex-col
+                     ">
+                  <button
+                    onClick={revealed ? handleRestart : handleReveal}
+                    disabled={!revealed && currentParticipant?.selectedCard === null}
+                    className={`w-24 sm:w-36 md:w-56
+                      px-2 sm:px-4 md:px-8
+                      py-1 sm:py-2 md:py-3
+                      rounded-lg sm:rounded-xl
+                      bg-violet-800 text-white font-semibold
+                      text-[10px] text-xs sm:text-sm md:text-base
+                      transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center
+                      mb-[15rem] sm:mb-40
+                      ${
+                        !revealed && currentParticipant?.selectedCard === null
+                          ? "opacity-25 cursor-not-allowed"
+                          : ""
+                      }
+                      ${isCompact ? "max-[360px]:absolute max-[360px]:right-2 max-[360px]:bottom-22" : ""}
+                    `}
+                  >
+                    {revealed ? "Start new voting" : "Reveal"}
+                  </button>
+                  <span>Pick your card</span>
+                </div>
+                <div className="flex flex-row justify-center gap-1.5 sm:gap-3 md:gap-4 w-full px-1 sm:px-2">
                   {fibonacciValues.map((val) => {
                     const isMyPick = currentParticipant?.selectedCard === val;
-
                     return (
                       <button
                         key={val}
                         onClick={() => handleCardSelect(val)}
                         disabled={revealed}
-                        className={`w-16 h-24 flex items-center justify-center rounded-xl shadow font-bold text-2xl
-                          transition-all duration-200
-                          ${isMyPick
-                            ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
-                            : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"}
+                        className={`flex-shrink-0
+                          text-[10px]
+                          w-7 h-12 text-sm
+                          sm:w-12 sm:h-18 sm:text-lg
+                          md:w-14 md:h-22 md:text-xl
+                          lg:w-16 lg:h-24 lg:text-2xl
+                          flex items-center justify-center rounded-md shadow
+                          font-bold transition-all duration-200
+                          max-[340px]:w-5 max-[340px]:h-8 max-[340px]:text-[8px] max-[340px]:rounded-sm
+                          ${
+                            isMyPick
+                              ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
+                              : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"
+                          }
                           ${revealed ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
                         `}
                       >
@@ -308,7 +393,9 @@ export default function SessionPage() {
             </div>
           </div>
         </main>
-        <Footer />
+        <div className="hidden [@media(min-width:1085px)]:block">
+          <Footer />
+        </div>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function PlaceHolder({ onClose }: Props) {
+export default function ComingSoonPopup({ onClose }: Props) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -17,22 +17,20 @@ export default function PlaceHolder({ onClose }: Props) {
   }, [onClose]);
 
   return (
-    <section className="fixed inset-0 flex items-center justify-center z-50">
-      <div
-        className={`flex items-center justify-center px-6 py-4
+    <div
+      className={`inline-flex items-center justify-center
+        px-1.5 py-0.5 text-[0.65rem]
+        sm:px-4 sm:py-2 sm:text-sm
         bg-white border-2 border-violet-200
-        rounded-lg shadow-lg text-gray-700 font-semibold
+        rounded-lg shadow text-gray-700 font-semibold
         transition-opacity duration-300
         ${visible ? "animate-fade-in" : "animate-fade-out"}`}
-        style={{
-          minWidth: "280px",
-          maxWidth: "90vw",
-        }}
-      >
-        <span>
-          This feature is not available yet but coming soon.
-        </span>
-      </div>
-    </section>
+      style={{
+        minWidth: "140px",
+        maxWidth: "100%",
+      }}
+    >
+      <span>This feature is not available yet but coming soon</span>
+    </div>
   );
 }
