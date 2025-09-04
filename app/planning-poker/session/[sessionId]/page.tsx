@@ -185,6 +185,20 @@ export default function SessionPage() {
 
   const currentParticipant = participants.find((p) => p.uid === currentUserId);
 
+  const isCompact = participants.length > 5;
+
+  const compactScaleMd =
+    participants.length > 10
+      ? "md:scale-[0.85] lg:scale-[0.85]"
+      : participants.length > 8
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : participants.length > 6
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : participants.length > 5
+      ? "md:scale-[0.95] lg:scale-[0.95]"
+      : "";
+
+
   return (
     <>
       {loading ? (
@@ -239,31 +253,64 @@ export default function SessionPage() {
             </div>
           )}
         </div>
-
         <main className="flex-1 flex flex-col items-center justify-center px-4">
           <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12
                py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex
                ">
             {/* Participants list */}
-            <div className="absolute left-0 top-40 -translate-y-1/2 pl-1 sm:pl-2 md:pl-4">
+            <div
+              className={`
+                absolute left-0 pl-1 sm:pl-2 md:pl-4
+                top-40 -translate-y-1/2        /* keep current mobile behavior */
+                md:top-12 md:translate-y-0     /* on tablet/desktop: grow downward, no upward creep */
+                md:origin-top-left
+                ${compactScaleMd}              /* shrink only when >5 (md+) */
+              `}
+            >
               <div className="bg-white/80 rounded-lg sm:rounded-xl shadow p-1.5 sm:p-2 md:p-3">
-                <h2 className="text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center">
+                <h2
+                  className={`
+                    text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center
+                    ${isCompact ? "md:text-[11px] md:mb-1" : ""}
+                  `}
+                >
                   Participants
                 </h2>
-                <ul className="flex flex-col gap-0.5 sm:gap-1 md:gap-2">
+
+                <ul
+                  className={`
+                    flex flex-col gap-1.5 sm:gap-1.5
+                    ${isCompact ? "md:gap-3 lg:gap-3" : "md:gap-3 lg:gap-3"}
+                  `}
+                >
                   {participants.map((p) => (
                     <li
                       key={p.uid}
-                      className={`flex items-center gap-1 sm:gap-2 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg shadow-sm ${
-                        p.uid === currentUserId
-                          ? "bg-violet-100 border border-violet-300"
-                          : "bg-gray-100"
-                      }`}
+                      className={`
+                        flex items-center
+                        ${isCompact ? "md:gap-1 md:px-2 md:py-[2px]" : "md:gap-2 md:px-3 md:py-1"}
+                        gap-1 sm:gap-2 px-1.5 sm:px-2 py-0.5
+                        rounded-md sm:rounded-lg shadow-sm
+                        ${p.uid === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
+                      `}
                     >
-                      <span className="font-semibold text-violet-800 text-[10px] sm:text-xs md:text-sm lg:text-base">
+                      <span
+                        className={`
+                          font-semibold text-violet-800
+                          text-[10px] sm:text-xs
+                          ${isCompact ? "md:text-xs lg:text-sm" : "md:text-sm lg:text-base"}
+                        `}
+                      >
                         {p.name}
                       </span>
-                      <span className="text-gray-500 text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
+
+                      <span
+                        className={`
+                          text-gray-500
+                          text-[8px] sm:text-[10px]
+                          ${isCompact ? "md:text-[10px] lg:text-xs" : "md:text-xs lg:text-sm"}
+                        `}
+                      >
                         {revealed ? (
                           p.selectedCard !== null ? (
                             <span className="font-bold text-violet-900">{p.selectedCard}</span>
@@ -281,7 +328,6 @@ export default function SessionPage() {
                 </ul>
               </div>
             </div>
-
             {/* Center area */}
             <div className="flex flex-col flex-1 items-center justify-between
                  min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2 -mt-3">
@@ -306,6 +352,7 @@ export default function SessionPage() {
                           ? "opacity-25 cursor-not-allowed"
                           : ""
                       }
+                      ${isCompact ? "max-[360px]:absolute max-[360px]:right-2 max-[360px]:bottom-22" : ""}
                     `}
                   >
                     {revealed ? "Start new voting" : "Reveal"}
@@ -346,9 +393,9 @@ export default function SessionPage() {
             </div>
           </div>
         </main>
-          <div className="hidden [@media(min-width:1085px)]:block">
-            <Footer />
-          </div>
+        <div className="hidden [@media(min-width:1085px)]:block">
+          <Footer />
+        </div>
       </div>
     </>
   );
