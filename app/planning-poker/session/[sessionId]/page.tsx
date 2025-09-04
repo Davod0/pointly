@@ -187,60 +187,51 @@ export default function SessionPage() {
 
   return (
     <>
-      {loading ? <LoadingIndicator /> :
-          <>
-            {showUserNameModal && (
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          {showUserNameModal && (
             <UserNameModal
               onSubmit={handleUserNameSubmit}
               onClose={() => setShowUserNameModal(false)}
             />
           )}
         </>
-      }
+      )}
+
       <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
         {/* Top-left controls */}
-        <div className="absolute top-2 left-2 sm:top-6 sm:left-6 flex flex-col items-start z-20 space-y-2 sm:space-y-4 md:space-y-5">
+        <div className="absolute top-2 left-2 sm:top-6 sm:left-6 flex flex-col items-start z-20
+             space-y-2 sm:space-y-4 md:space-y-5
+             ">
           {/* Session name */}
-          <div
-            className="
-              text-xs sm:text-sm md:text-lg
-              font-extrabold text-violet-900 tracking-tight 
-              bg-white/80 px-1 sm:px-2 md:px-4 py-0.5 sm:py-1 md:py-2 
-              rounded-lg shadow border-l-4 border-violet-400
-              lg:px-6 lg:py-4
-            "
-          >
+          <div className="text-xs sm:text-sm md:text-lg font-extrabold
+               text-violet-900 tracking-tight bg-white/80 px-1 sm:px-2
+               md:px-4 py-0.5 sm:py-1 md:py-2 rounded-lg shadow border-l-4
+               border-violet-400 lg:px-6 lg:py-4
+               ">
             {sessionName}
           </div>
 
-          {/* Invite link */}
           <div className="scale-90 sm:scale-100">
             <InviteLinkPopUp sessionUrl={sessionUrl} />
           </div>
-
           {/* End Session button */}
           <button
-            className="
-              px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3
-              rounded-lg sm:rounded-xl
-              bg-violet-800
-              text-[10px] sm:text-sm md:text-base
-              text-white font-semibold
-              shadow-md sm:shadow-lg
-              transition-all duration-200
-              hover:bg-violet-900
-              focus:outline-none
-              focus:ring-violet-300 focus:ring-2 sm:focus:ring-4
-              cursor-pointer
-              no-underline
-            "
-            onClick={handleSessionCompletion}
-          >
+            className="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg
+            sm:rounded-xl bg-violet-800 text-[10px] sm:text-sm md:text-base
+            text-white font-semibold shadow-md sm:shadow-lg transition-all
+            duration-200 hover:bg-violet-900 focus:outline-none focus:ring-violet-300
+            focus:ring-2 sm:focus:ring-4 cursor-pointer no-underline"
+            onClick={handleSessionCompletion}>
             End Session
           </button>
 
           {revealed && (
-            <div className="bg-violet-100 rounded-lg px-3 py-2 sm:px-6 sm:py-4 mb-4 shadow-lg flex items-center gap-2 sm:gap-3">
+            <div className="bg-violet-100 rounded-lg px-3 py-2 sm:px-6 sm:py-4 mb-4 shadow-lg
+                  flex items-center gap-2 sm:gap-3
+                  ">
               <span className="text-xs sm:text-xl font-bold text-violet-800">Average:</span>
               <span className="text-sm sm:text-2xl font-extrabold text-violet-800 drop-shadow">
                 {averagePick !== null ? averagePick : "N/A"}
@@ -250,29 +241,40 @@ export default function SessionPage() {
         </div>
 
         <main className="flex-1 flex flex-col items-center justify-center px-4">
-          <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12 py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex">
+          <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12
+               py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex
+               ">
             {/* Participants list */}
             <div className="absolute left-0 top-40 -translate-y-1/2 pl-1 sm:pl-2 md:pl-4">
               <div className="bg-white/80 rounded-lg sm:rounded-xl shadow p-1.5 sm:p-2 md:p-3">
-                <h2 className="text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center">Participants</h2>
+                <h2 className="text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center">
+                  Participants
+                </h2>
                 <ul className="flex flex-col gap-0.5 sm:gap-1 md:gap-2">
                   {participants.map((p) => (
                     <li
                       key={p.uid}
-                      className={`flex items-center gap-1 sm:gap-2 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg shadow-sm
-                        ${p.uid === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
-                      `}
+                      className={`flex items-center gap-1 sm:gap-2 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-lg shadow-sm ${
+                        p.uid === currentUserId
+                          ? "bg-violet-100 border border-violet-300"
+                          : "bg-gray-100"
+                      }`}
                     >
-                      <span className="font-semibold text-violet-800 text-[10px] sm:text-xs md:text-sm lg:text-base">{p.name}</span>
+                      <span className="font-semibold text-violet-800 text-[10px] sm:text-xs md:text-sm lg:text-base">
+                        {p.name}
+                      </span>
                       <span className="text-gray-500 text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
-                        {revealed
-                          ? p.selectedCard !== null
-                            ? <span className="font-bold text-violet-900">{p.selectedCard}</span>
-                            : <span className="italic text-gray-400">No pick</span>
-                          : p.selectedCard !== null
-                            ? <span className="text-green-600">Picked</span>
-                            : <span className="text-gray-400">Waiting</span>
-                        }
+                        {revealed ? (
+                          p.selectedCard !== null ? (
+                            <span className="font-bold text-violet-900">{p.selectedCard}</span>
+                          ) : (
+                            <span className="italic text-gray-400">No pick</span>
+                          )
+                        ) : p.selectedCard !== null ? (
+                          <span className="text-green-600">Picked</span>
+                        ) : (
+                          <span className="text-gray-400">Waiting</span>
+                        )}
                       </span>
                     </li>
                   ))}
@@ -280,37 +282,34 @@ export default function SessionPage() {
               </div>
             </div>
 
-{/* Center area */}
-<div className="
-  flex flex-col flex-1 items-center justify-between
-  min-h-[350px] sm:min-h-[420px] md:min-h-[500px]
-  w-full px-2 sm:px-6 md:px-12 lg:px-0   /* Added responsive horizontal padding */
-  ml-12 sm:ml-20 md:ml-28 lg:ml-36
-">
-  {/* Reveal button */}
-  <div className="flex flex-col items-center mt-16 sm:mt-28 md:mt-40 w-full sm:mr-32">
-    <button
-      onClick={revealed ? handleRestart : handleReveal}
-      disabled={!revealed && currentParticipant?.selectedCard === null}
-      className={`w-24 sm:w-36 md:w-56
-        px-2 sm:px-4 md:px-8
-        py-1 sm:py-2 md:py-3
-        rounded-lg sm:rounded-xl bg-violet-800 text-white font-semibold
-        text-xs sm:text-sm md:text-base
-        transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center
-        ${!revealed && currentParticipant?.selectedCard === null ? "opacity-25 cursor-not-allowed" : ""}
-      `}
-    >
-      {revealed ? "Start new voting" : "Reveal"}
-    </button>
-  </div>
-
-
-
+            {/* Center area */}
+            <div className="flex flex-col flex-1 items-center justify-between
+                 min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2
+                 sm:px-6 md:px-12 lg:px-0 ml-12 sm:ml-20 md:ml-28 lg:ml-36
+                 ">
               {/* Cards */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
-                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg font-semibold text-gray-700 text-center">
-                  Pick your card
+                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg font-semibold text-gray-700 text-center flex flex-col">
+                  <button
+                    onClick={revealed ? handleRestart : handleReveal}
+                    disabled={!revealed && currentParticipant?.selectedCard === null}
+                    className={`w-24 sm:w-36 md:w-56
+                      px-2 sm:px-4 md:px-8
+                      py-1 sm:py-2 md:py-3
+                      rounded-lg sm:rounded-xl bg-violet-800 text-white font-semibold
+                      text-[10px] text-xs sm:text-sm md:text-base
+                      transition-all duration-200 hover:bg-violet-900 cursor-pointer text-center
+                      mb-[15rem] sm:mb-40
+                      ${
+                        !revealed && currentParticipant?.selectedCard === null
+                          ? "opacity-25 cursor-not-allowed"
+                          : ""
+                      }
+                    `}
+                  >
+                    {revealed ? "Start new voting" : "Reveal"}
+                  </button>
+                  <span>Pick your card</span>
                 </div>
                 <div className="flex flex-row justify-center gap-1.5 sm:gap-3 md:gap-4 w-full px-1 sm:px-2">
                   {fibonacciValues.map((val) => {
@@ -321,16 +320,19 @@ export default function SessionPage() {
                         onClick={() => handleCardSelect(val)}
                         disabled={revealed}
                         className={`flex-shrink-0
-                          w-7 h-12 text-sm          /* 📱 Extra small for mobile */
+                          text-[10px]
+                          w-7 h-12 text-sm
                           sm:w-12 sm:h-18 sm:text-lg
                           md:w-14 md:h-22 md:text-xl
                           lg:w-16 lg:h-24 lg:text-2xl
                           flex items-center justify-center rounded-xl shadow
-                          font-bold
-                          transition-all duration-200
-                          ${isMyPick
-                            ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
-                            : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"}
+                          font-bold transition-all duration-200
+                          max-[340px]:w-5 max-[340px]:h-8 max-[340px]:text-[8px] max-[340px]:rounded-none
+                          ${
+                            isMyPick
+                              ? "bg-violet-200 text-violet-900 scale-110 ring-4 ring-violet-300"
+                              : "bg-white text-gray-800 hover:bg-violet-100 hover:scale-105"
+                          }
                           ${revealed ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
                         `}
                       >
@@ -340,10 +342,10 @@ export default function SessionPage() {
                   })}
                 </div>
               </div>
-              
             </div>
           </div>
         </main>
+
         <div className="hidden lg:block">
           <Footer />
         </div>
