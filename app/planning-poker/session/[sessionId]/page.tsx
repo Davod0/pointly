@@ -209,7 +209,7 @@ export default function SessionPage() {
           <div className="text-xs sm:text-sm md:text-lg font-extrabold
                text-violet-900 tracking-tight bg-white/80 px-1 sm:px-2
                md:px-4 py-0.5 sm:py-1 md:py-2 rounded-lg shadow border-l-4
-               border-violet-400 lg:px-6 lg:py-4
+               border-violet-400 lg:px-4 lg:py-3
                ">
             {sessionName}
           </div>
@@ -284,9 +284,7 @@ export default function SessionPage() {
 
             {/* Center area */}
             <div className="flex flex-col flex-1 items-center justify-between
-                 min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2
-                 sm:px-6 md:px-12 lg:px-0 ml-12 sm:ml-20 md:ml-28 lg:ml-36
-                 ">
+                 min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2 -mt-3">
               {/* Cards */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
                 <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg
@@ -348,10 +346,9 @@ export default function SessionPage() {
             </div>
           </div>
         </main>
-
-        <div className="hidden lg:block">
-          <Footer />
-        </div>
+          <div className="hidden [@media(min-width:1085px)]:block">
+            <Footer />
+          </div>
       </div>
     </>
   );
