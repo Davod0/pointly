@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
-import SmallPointCard from "./SmallPointCard";
+import PointCard from "./PointCard";
 
-export default function SmallPointCardContainer() {
-  const SmallPointCardValues = ["☕️", 1, 2, 3, 5, 8, 16, 32];
+export default function PointCardContainer() {
+  const PointCardValues = ["☕️", 1, 2, 3, 5, 8, 16, 32];
   const [selectedValue, setSelectedValue] = useState<string | number>("");
 
   return (
@@ -37,9 +37,9 @@ export default function SmallPointCardContainer() {
           gap-3 sm:gap-4 md:gap-4 lg:gap-3 xl:gap-4
         "
       >
-        {SmallPointCardValues.map((n) => (
+        {PointCardValues.map((n) => (
           <div key={n}>
-            <SmallPointCard
+            <PointCard
               value={n}
               isSelected={selectedValue === n}
               onClick={() => setSelectedValue(n)}

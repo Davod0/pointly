@@ -1,5 +1,5 @@
 import React from "react";
-import SmallPointCardContainer from "./SmallPointCardContainer";
+import PointCardContainer from "./PointCardContainer";
 import StartButton from "./StartButton";
 import Badge from "./Badge";
 import FeatureList from "./FeatureList";
@@ -40,10 +40,10 @@ export default function PlanningPokerContainer() {
             </div>
         </div>
         <div className="hidden lg:block absolute right-0 xl:right-10 2xl:right-40 -bottom-4">
-            <SmallPointCardContainer />
+            <PointCardContainer />
         </div>
         <div className="lg:hidden flex justify-center">
-          <SmallPointCardContainer />
+          <PointCardContainer />
         </div>
       </div>
         <Footer />

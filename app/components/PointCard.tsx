@@ -6,7 +6,7 @@ interface SmallPointCardProps {
   onClick?: () => void;
 }
 
-export default function SmallPointCard({ value, isSelected = false, onClick }: SmallPointCardProps) {
+export default function PointCard({ value, isSelected = false, onClick }: SmallPointCardProps) {
   return (
     <div
       onClick={onClick}
