@@ -20,7 +20,7 @@ function getDefaultRoomName() {
 
 export default function SessionSetupPage() {
   const [roomName, setRoomName] = useState(getDefaultRoomName());
-  const [selectedFibIndex, setSelectedFibIndex] = useState(0);
+  const [selectedFibLabel, setSelectedFibLabel] = useState<string | null>(null);
   const [fibonacci, setFibonacci] = useState<Fibonacci[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -38,6 +38,8 @@ export default function SessionSetupPage() {
     });
 
     setFibonacci(fetched);
+    const classic = fetched.find((f) => f.label === "Classic");
+    setSelectedFibLabel(classic ? classic.label : fetched[0]?.label || null);
     setLoading(false);
   };
 
@@ -46,14 +48,14 @@ export default function SessionSetupPage() {
   }, []);
 
   const handleSessionStart = async () => {
-    if (fibonacci.length === 0) return;
+    if (fibonacci.length === 0 || !selectedFibLabel) return;
 
     const sessionId = uuidv4();
 
     const newSession = {
       id: sessionId,
       createdAt: Timestamp.fromDate(new Date()),
-      fibonacciLabel: fibonacci[selectedFibIndex].label,
+      fibonacciLabel: selectedFibLabel,
       status: "active",
       isRevealed: false,
       roomName: roomName,
@@ -73,24 +75,24 @@ export default function SessionSetupPage() {
       {loading && <LoadingIndicator />}
       <div className="flex flex-col items-start gap-y-6 sm:gap-y-8 max-w-lg sm:max-w-xl md:max-w-2xl w-full">
         <div className="w-full">
-            <label
-              className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base"
-              htmlFor="roomName"
-            >
-              Room Name
-            </label>
-            <input
-              id="roomName"
-              type="text"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              className="w-full px-4 py-2 sm:px-5 sm:py-3 rounded-xl border-2 border-violet-200
-                focus:border-violet-400 focus:ring-2 focus:ring-violet-200
-                text-sm sm:text-base md:text-lg outline-none transition text-gray-600"
-              placeholder="e.g. Sprint 35, Team Alpha"
-              maxLength={32}
-              required
-            />
+          <label
+            className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base"
+            htmlFor="roomName"
+          >
+            Room Name
+          </label>
+          <input
+            id="roomName"
+            type="text"
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+            className="w-full px-4 py-2 sm:px-5 sm:py-3 rounded-xl border-2 border-violet-200
+              focus:border-violet-400 focus:ring-2 focus:ring-violet-200
+              text-sm sm:text-base md:text-lg outline-none transition text-gray-600"
+            placeholder="e.g. Sprint 35, Team Alpha"
+            maxLength={32}
+            required
+          />
         </div>
         <div className="w-full">
           <label className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">
@@ -99,25 +101,29 @@ export default function SessionSetupPage() {
           {fibonacci.length > 0 ? (
             <>
               <div className="flex flex-wrap gap-3 sm:gap-4">
-                {fibonacci.map((preset, idx) => (
-                  <button
-                    key={preset.label}
-                    type="button"
-                    className={`px-4 py-2 sm:px-6 sm:py-3 rounded-xl border-2 font-semibold transition cursor-pointer text-sm sm:text-base
-                      ${
-                        idx === selectedFibIndex
-                          ? "bg-violet-200 border-violet-600 text-violet-900"
-                          : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
-                      }
-                    `}
-                    onClick={() => setSelectedFibIndex(idx)}
-                  >
-                    {preset.label}
-                  </button>
-                ))}
+                {fibonacci
+                  .filter((preset) => preset.label !== "Extended") // exclude ExtendedOption temporarily
+                  .map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      className={`px-4 py-2 sm:px-6 sm:py-3 rounded-xl border-2 font-semibold transition cursor-pointer text-sm sm:text-base
+                        ${
+                          preset.label === selectedFibLabel
+                            ? "bg-violet-200 border-violet-600 text-violet-900"
+                            : "bg-white border-violet-200 text-gray-700 hover:bg-violet-50"
+                        }
+                      `}
+                      onClick={() => setSelectedFibLabel(preset.label)}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
               </div>
+
               <div className="mt-3 sm:mt-4 text-gray-500 text-sm sm:text-base">
-                {fibonacci[selectedFibIndex].values.join(", ")}
+                {selectedFibLabel &&
+                  fibonacci.find((f) => f.label === selectedFibLabel)?.values.join(", ")}
               </div>
             </>
           ) : (
