@@ -38,6 +38,8 @@ export default function SessionSetupPage() {
     });
 
     setFibonacci(fetched);
+    const classic = fetched.find((f) => f.label === "Classic");
+    setSelectedFibLabel(classic ? classic.label : fetched[0]?.label || null);
     setLoading(false);
   };
 
