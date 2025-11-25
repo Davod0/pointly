@@ -20,7 +20,7 @@ export default function SessionLimitNotice({ onClose }: Props) {
     <div
       className={`inline-flex items-center justify-center
         px-1.5 py-0.5 text-[0.65rem]
-        sm:px-4 sm:py-2 sm:text-sm
+        sm:px-6 sm:py-4 sm:text-lg
         bg-white border-2 border-violet-200
         rounded-lg shadow text-gray-700 font-semibold
         transition-opacity duration-300
@@ -30,7 +30,7 @@ export default function SessionLimitNotice({ onClose }: Props) {
         maxWidth: "100%",
       }}
     >
-      <span>Participant limit reached, additional joins are not allowed at this time</span>
+      <span>The maximum number of participants has been reached, no more participants can join</span>
     </div>
   );
 }

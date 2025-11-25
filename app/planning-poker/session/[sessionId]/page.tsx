@@ -18,10 +18,8 @@ import {
 import { db } from "../../../../database/firestoreDbConfig";
 import { Participants } from "../../../../types/types";
 
-
 export default function SessionPage() {
   const [participants, setParticipants] = useState<Participants[]>([]);
-  const sessionIsFull = participants.length >= 3;
   const [revealed, setRevealed] = useState(false);
   const [showUserNameModal, setShowUserNameModal] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -102,13 +100,9 @@ export default function SessionPage() {
   }, [sessionId]);
 
   useEffect(() => {
-    if (participants.length >= 3 && showUserNameModal) {
+    if (participants.length >= 11 && showUserNameModal) {
       setShowUserNameModal(false);
       setShowLimitNotice(true);
-
-      setTimeout(() => {
-        router.push("/home");
-      }, 2500);
     }
 
     const storedUserId = localStorage.getItem(`session_${sessionId}_userId`);
@@ -220,13 +214,13 @@ export default function SessionPage() {
         <LoadingIndicator />
       ) : (
         <>
-          {sessionIsFull && (
-            <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+          {showLimitNotice && (
+            <div className="fixed top-15 sm:top-4 left-1/2 -translate-x-1/2 z-50">
               <SessionLimitNotice onClose={() => setShowLimitNotice(false)} />
             </div>
           )}
 
-          {!sessionIsFull && showUserNameModal && (
+          {!showLimitNotice && showUserNameModal && (
             <UserNameModal
               onSubmit={handleUserNameSubmit}
               onClose={() => setShowUserNameModal(false)}
