@@ -4,6 +4,7 @@ import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
 import InviteLinkPopUp from "@/app/components/InviteLinkPopUp";
 import LoadingIndicator from "@/app/components/LoadingIndicator";
+import SessionLimitNotice from "@/app/components/SessionLimitNotice";
 import { useParams, useRouter } from "next/navigation";
 import {
   collection,
@@ -26,6 +27,8 @@ export default function SessionPage() {
   const [fibonacciValues, setFibonacciValues] = useState<(string | number)[]>([]);
   const [sessionUrl, setSessionUrl] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [showLimitNotice, setShowLimitNotice] = useState(false);
+
 
   const params = useParams();
   const sessionId = params?.sessionId as string;
@@ -97,6 +100,11 @@ export default function SessionPage() {
   }, [sessionId]);
 
   useEffect(() => {
+    if (participants.length >= 11 && showUserNameModal) {
+      setShowUserNameModal(false);
+      setShowLimitNotice(true);
+    }
+
     const storedUserId = localStorage.getItem(`session_${sessionId}_userId`);
     const storedUserName = localStorage.getItem(`session_${sessionId}_userName`);
     if (storedUserId && storedUserName) {
@@ -104,8 +112,10 @@ export default function SessionPage() {
       setShowUserNameModal(false);
     }
 
-    setLoading(false);
-  }, [sessionId]);
+    setTimeout(() => {
+      setLoading(false);
+      }, 2000);
+  }, [sessionId, participants, showUserNameModal, router]);
 
   const handleUserNameSubmit = async (userName: string) => {
     const userRef = await addDoc(collection(db, "sessions", sessionId, "participants"), {
@@ -198,148 +208,154 @@ export default function SessionPage() {
       ? "md:scale-[0.95] lg:scale-[0.95]"
       : "";
 
-
   return (
     <>
-      {loading ? (
+    {loading ? (
         <LoadingIndicator />
       ) : (
         <>
-          {showUserNameModal && (
+          {showLimitNotice && (
+            <div className="fixed top-15 sm:top-4 left-1/2 -translate-x-1/2 z-50">
+              <SessionLimitNotice onClose={() => setShowLimitNotice(false)} />
+            </div>
+          )}
+
+          {!showLimitNotice && showUserNameModal && (
             <UserNameModal
               onSubmit={handleUserNameSubmit}
               onClose={() => setShowUserNameModal(false)}
             />
           )}
         </>
-      )}
+      )
+    }
 
-      <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
-        {/* Top-left controls */}
-        <div className="absolute top-2 left-2 sm:top-6 sm:left-6 flex flex-col items-start z-20
-             space-y-2 sm:space-y-4 md:space-y-5
-             ">
-          {/* Session name */}
-          <div className="text-xs sm:text-sm md:text-lg font-extrabold
-               text-violet-900 tracking-tight bg-white/80 px-1 sm:px-2
-               md:px-4 py-0.5 sm:py-1 md:py-2 rounded-lg shadow border-l-4
-               border-violet-400 lg:px-4 lg:py-3
-               ">
-            {sessionName}
-          </div>
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
+      {/* Top-left controls */}
+      <div className="absolute top-2 left-2 sm:top-6 sm:left-6 flex flex-col items-start z-20
+            space-y-2 sm:space-y-4 md:space-y-5
+            ">
+        {/* Session name */}
+        <div className="text-xs sm:text-sm md:text-lg font-extrabold
+              text-violet-900 tracking-tight bg-white/80 px-1 sm:px-2
+              md:px-4 py-0.5 sm:py-1 md:py-2 rounded-lg shadow border-l-4
+              border-violet-400 lg:px-4 lg:py-3
+              ">
+          {sessionName}
+        </div>
 
-          <div className="scale-90 sm:scale-100">
-            <InviteLinkPopUp sessionUrl={sessionUrl} />
-          </div>
-          {/* End Session button */}
-          <button
-            className="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg
+        <div className="scale-90 sm:scale-100">
+          <InviteLinkPopUp sessionUrl={sessionUrl} />
+        </div>
+        {/* End Session button */}
+        <button
+          className="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg
             sm:rounded-xl bg-violet-800 text-[10px] sm:text-sm md:text-base
             text-white font-semibold shadow-md sm:shadow-lg transition-all
             duration-200 hover:bg-violet-900 focus:outline-none focus:ring-violet-300
             focus:ring-2 sm:focus:ring-4 cursor-pointer no-underline"
-            onClick={handleSessionCompletion}>
-            End Session
-          </button>
+          onClick={handleSessionCompletion}>
+          End Session
+        </button>
 
-          {revealed && (
-            <div className="bg-violet-100 rounded-lg px-3 py-2 sm:px-6 sm:py-4 mb-4 shadow-lg
+        {revealed && (
+          <div className="bg-violet-100 rounded-lg px-3 py-2 sm:px-6 sm:py-4 mb-4 shadow-lg
                   flex items-center gap-2 sm:gap-3
                   ">
-              <span className="text-xs sm:text-xl font-bold text-violet-800">Average:</span>
-              <span className="text-sm sm:text-2xl font-extrabold text-violet-800 drop-shadow">
-                {averagePick !== null ? averagePick : "N/A"}
-              </span>
-            </div>
-          )}
-        </div>
-        <main className="flex-1 flex flex-col items-center justify-center px-4">
-          <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12
-               py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex
-               ">
-            {/* Participants list */}
-            <div
-              className={`
+            <span className="text-xs sm:text-xl font-bold text-violet-800">Average:</span>
+            <span className="text-sm sm:text-2xl font-extrabold text-violet-800 drop-shadow">
+              {averagePick !== null ? averagePick : "N/A"}
+            </span>
+          </div>
+        )}
+      </div>
+      <main className="flex-1 flex flex-col items-center justify-center px-4">
+        <div className="relative bg-white/90 rounded-2xl shadow-2xl px-8 sm:px-12
+              py-6 sm:py-10 max-w-3xl w-full border border-violet-200 mt-10 flex
+              ">
+          {/* Participants list */}
+          <div
+            className={`
                 absolute left-0 pl-1 sm:pl-2 md:pl-4
-                top-40 -translate-y-1/2        /* keep current mobile behavior */
-                md:top-12 md:translate-y-0     /* on tablet/desktop: grow downward, no upward creep */
+                top-40 -translate-y-1/2
+                md:top-12 md:translate-y-0
                 md:origin-top-left
-                ${compactScaleMd}              /* shrink only when >5 (md+) */
+                ${compactScaleMd}
               `}
-            >
-              <div className="bg-white/80 rounded-lg sm:rounded-xl shadow p-1.5 sm:p-2 md:p-3">
-                <h2
-                  className={`
+          >
+            <div className="bg-white/80 rounded-lg sm:rounded-xl shadow p-1.5 sm:p-2 md:p-3">
+              <h2
+                className={`
                     text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 mb-1 sm:mb-2 text-center
                     ${isCompact ? "md:text-[11px] md:mb-1" : ""}
                   `}
-                >
-                  Participants
-                </h2>
+              >
+                Participants
+              </h2>
 
-                <ul
-                  className={`
+              <ul
+                className={`
                     flex flex-col gap-1.5 sm:gap-1.5
                     ${isCompact ? "md:gap-3 lg:gap-3" : "md:gap-3 lg:gap-3"}
                   `}
-                >
-                  {participants.map((p) => (
-                    <li
-                      key={p.uid}
-                      className={`
+              >
+                {participants.map((p) => (
+                  <li
+                    key={p.uid}
+                    className={`
                         flex items-center
                         ${isCompact ? "md:gap-1 md:px-2 md:py-[2px]" : "md:gap-2 md:px-3 md:py-1"}
                         gap-1 sm:gap-2 px-1.5 sm:px-2 py-0.5
                         rounded-md sm:rounded-lg shadow-sm
                         ${p.uid === currentUserId ? "bg-violet-100 border border-violet-300" : "bg-gray-100"}
                       `}
-                    >
-                      <span
-                        className={`
+                  >
+                    <span
+                      className={`
                           font-semibold text-violet-800
                           text-[10px] sm:text-xs
                           ${isCompact ? "md:text-xs lg:text-sm" : "md:text-sm lg:text-base"}
                         `}
-                      >
-                        {p.name}
-                      </span>
+                    >
+                      {p.name}
+                    </span>
 
-                      <span
-                        className={`
+                    <span
+                      className={`
                           text-gray-500
                           text-[8px] sm:text-[10px]
                           ${isCompact ? "md:text-[10px] lg:text-xs" : "md:text-xs lg:text-sm"}
                         `}
-                      >
-                        {revealed ? (
-                          p.selectedCard !== null ? (
-                            <span className="font-bold text-violet-900">{p.selectedCard}</span>
-                          ) : (
-                            <span className="italic text-gray-400">No pick</span>
-                          )
-                        ) : p.selectedCard !== null ? (
-                          <span className="text-green-600">Picked</span>
+                    >
+                      {revealed ? (
+                        p.selectedCard !== null ? (
+                          <span className="font-bold text-violet-900">{p.selectedCard}</span>
                         ) : (
-                          <span className="text-gray-400">Waiting</span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                          <span className="italic text-gray-400">No pick</span>
+                        )
+                      ) : p.selectedCard !== null ? (
+                        <span className="text-green-600">Picked</span>
+                      ) : (
+                        <span className="text-gray-400">Waiting</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            {/* Center area */}
-            <div className="flex flex-col flex-1 items-center justify-between
-                 min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2 -mt-3">
-              {/* Cards */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
-                <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg
-                     font-semibold text-gray-700 text-center flex flex-col
-                     ">
-                  <button
-                    onClick={revealed ? handleRestart : handleReveal}
-                    disabled={!revealed && currentParticipant?.selectedCard === null}
-                    className={`w-24 sm:w-36 md:w-56
+          </div>
+          {/* Center area */}
+          <div className="flex flex-col flex-1 items-center justify-between
+                min-h-[350px] sm:min-h-[420px] md:min-h-[500px] w-full px-2 -mt-3">
+            {/* Cards */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full flex flex-col items-center">
+              <div className="mb-2 sm:mb-3 md:mb-4 text-xs sm:text-base md:text-lg
+                    font-semibold text-gray-700 text-center flex flex-col
+                    ">
+                <button
+                  onClick={revealed ? handleRestart : handleReveal}
+                  disabled={!revealed && currentParticipant?.selectedCard === null}
+                  className={`w-24 sm:w-36 md:w-56
                       px-2 sm:px-4 md:px-8
                       py-1 sm:py-2 md:py-3
                       rounded-lg sm:rounded-xl
@@ -354,20 +370,20 @@ export default function SessionPage() {
                       }
                       ${isCompact ? "max-[360px]:absolute max-[360px]:right-2 max-[360px]:bottom-22" : ""}
                     `}
-                  >
-                    {revealed ? "Start new voting" : "Reveal"}
-                  </button>
-                  <span>Pick your card</span>
-                </div>
-                <div className="flex flex-row justify-center gap-1.5 sm:gap-3 md:gap-4 w-full px-1 sm:px-2">
-                  {fibonacciValues.map((val) => {
-                    const isMyPick = currentParticipant?.selectedCard === val;
-                    return (
-                      <button
-                        key={val}
-                        onClick={() => handleCardSelect(val)}
-                        disabled={revealed}
-                        className={`flex-shrink-0
+                >
+                  {revealed ? "Start new voting" : "Reveal"}
+                </button>
+                <span>Pick your card</span>
+              </div>
+              <div className="flex flex-row justify-center gap-1.5 sm:gap-3 md:gap-4 w-full px-1 sm:px-2">
+                {fibonacciValues.map((val) => {
+                  const isMyPick = currentParticipant?.selectedCard === val;
+                  return (
+                    <button
+                      key={val}
+                      onClick={() => handleCardSelect(val)}
+                      disabled={revealed}
+                      className={`flex-shrink-0
                           text-[10px]
                           w-7 h-12 text-sm
                           sm:w-12 sm:h-18 sm:text-lg
@@ -383,20 +399,20 @@ export default function SessionPage() {
                           }
                           ${revealed ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
                         `}
-                      >
-                        {val}
-                      </button>
-                    );
-                  })}
-                </div>
+                    >
+                      {val}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
-        </main>
-        <div className="hidden [@media(min-width:1085px)]:block">
-          <Footer />
         </div>
+      </main>
+      <div className="hidden [@media(min-width:1085px)]:block">
+        <Footer />
       </div>
-    </>
+    </div>
+  </>
   );
 }
