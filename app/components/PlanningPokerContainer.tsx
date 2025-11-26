@@ -21,7 +21,7 @@ export default function PlanningPokerContainer() {
             Easier Estimations
           </h1>
           <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
-            Use Pointly for task estimation during development sprints
+            Use Pointly for task estimation during development sprints.
           </p>
           <div className="hidden lg:block">
             <FeatureList
@@ -32,7 +32,7 @@ export default function PlanningPokerContainer() {
             />
           </div>
 
-            <div className="">
+            <div>
                 <StartButton
                     title="Start Estimating"
                     route="/planning-poker/session-start"
