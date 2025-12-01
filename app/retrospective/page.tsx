@@ -67,7 +67,7 @@ export default function RetrospectivePage() {
                     <div className="">
                               <StartButton
                                   title="Start Retrospective"
-                                  route="/"
+                                  route="/retrospective/session-start"
                                   marginBottom="mb-0"
                               />
                     </div>
