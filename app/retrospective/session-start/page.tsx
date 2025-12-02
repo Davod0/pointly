@@ -61,10 +61,58 @@ export default function SessionSetupPage() {
           />
         </div>
 
+        <div className="w-full">
+          <h3 className="text-gray-700 font-semibold mb-3 text-sm sm:text-base">
+            Template
+          </h3>
+
+          <div className="flex flex-row flex-nowrap gap-3 sm:gap-4">
+            {[
+              {
+                label: "Start",
+                color: "bg-sky-500",
+                hint: "New ideas",
+              },
+              {
+                label: "Stop",
+                color: "bg-red-500",
+                hint: "Practices to avoid",
+              },
+              {
+                label: "Continue",
+                color: "bg-emerald-500",
+                hint: "Wins we want to keep",
+              },
+              {
+                label: "Improve",
+                color: "bg-amber-500",
+                hint: "Practices to refine",
+              },
+            ].map((col) => (
+              <div
+                key={col.label}
+                className="bg-white border-2 border-violet-200 rounded-xl px-4 py-3 shadow-sm
+                  text-gray-700 text-sm sm:text-base flex flex-col items-start
+                  flex-1 min-w-0"
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`inline-block w-3 h-3 rounded-full ${col.color}`}
+                    aria-hidden="true"
+                  />
+                  <span className="font-medium">{col.label}</span>
+                </div>
+                <span className="text-xs text-gray-500 mt-2">
+                  {col.hint}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-4 sm:mt-6">
           <StartButton title="Start the Session" onClick={handleSessionStart} />
         </div>
-
       </div>
     </div>
   );
@@ -72,30 +120,3 @@ export default function SessionSetupPage() {
 
 
 
-{/*
-    Database
-
-retroSessions/
-    sessionId/
-        roomName
-        createdAt
-        createdBy
-        completed
-
-        participants/
-            uid/
-                name
-
-        notes/
-            noteId/
-                categoryName
-                text
-                userId
-                votes
-                voters: ["uid"]
-
-                comments/
-                    commentId/
-                        userId
-                        text
-*/}
