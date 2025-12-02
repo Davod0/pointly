@@ -1,15 +1,15 @@
 'use client';
 
-import { useState } from "react";
+// import { useState } from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import Footer from "../components/Footer";
-import ComingSoonPopup from "../components/ComingSoonPopup";
+// import ComingSoonPopup from "../components/ComingSoonPopup";
 import FeatureList from "../components/FeatureList";
 import StartButton from "../components/StartButton";
 
 export default function RetrospectivePage() {
-  const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
+  // const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
 
   return (
     <>
@@ -36,26 +36,7 @@ export default function RetrospectivePage() {
               <>
                 <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
                   Look back on your sprints, celebrate wins and identify opportunities to improve.
-                  {/* Pointly makes retrospectives simple, insightful, and actionable for every team. */}
                 </p>
-                {/* <ul className="hidden sm:block mb-10 lg:-mt-10 space-y-5">
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Share wins and challenges openly</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Gather actionable feedback</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Track improvements over time</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Foster team trust and growth</span>
-                  </li>
-                </ul> */}
                      <div className="hidden lg:block">
                       <FeatureList
                         point3="Share wins and challenges openly"
@@ -66,7 +47,7 @@ export default function RetrospectivePage() {
                     </div>
                     <div className="">
                               <StartButton
-                                  title="Start Retrospective"
+                                  title="Start Reflecting"
                                   route="/retrospective/session-start"
                                   marginBottom="mb-0"
                               />

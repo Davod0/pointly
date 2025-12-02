@@ -131,7 +131,7 @@ export default function SessionSetupPage() {
           )}
         </div>
         <div className="mt-4 sm:mt-6">
-          <StartButton title="Start Session" onClick={handleSessionStart} />
+          <StartButton title="Start the Session" onClick={handleSessionStart} />
         </div>
       </div>
     </div>
