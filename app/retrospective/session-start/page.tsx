@@ -76,7 +76,7 @@ export default function SessionSetupPage() {
               {
                 label: "Stop",
                 color: "bg-red-500",
-                hint: "Practices to avoid",
+                hint: "habits to discontinue",
               },
               {
                 label: "Continue",
