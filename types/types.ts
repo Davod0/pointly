@@ -33,4 +33,21 @@ export type Fibonacci = {
   values: (string | number)[];
 };
 
+export interface Comment {
+  id: string;
+  text: string;
+}
+
+export interface Note {
+  id: string;
+  categoryName: string;
+  text: string;
+  userId: string;
+  votes: number;
+  voters: string[];
+  comments?: Comment[];
+}
+
+
+
 

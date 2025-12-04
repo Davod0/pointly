@@ -9,25 +9,15 @@ import {
   updateDoc,
   getDoc,
   Timestamp,
+  CollectionReference,
 } from "firebase/firestore";
 import { db } from "@/database/firestoreDbConfig";
 import UserNameModal from "@/app/components/UserNameModal";
 import InviteLinkPopUp from "@/app/components/InviteLinkPopUp";
 import LoadingIndicator from "@/app/components/LoadingIndicator";
+import CategoryColumn from "@/app/components/CategoryColumn";
+import { Note, Participants } from "../../../../types/types";
 
-interface Participant {
-  uid: string;
-  name: string;
-}
-
-interface Note {
-  id: string;
-  categoryName: string;
-  text: string;
-  userId: string;
-  votes: number;
-  voters: string[];
-}
 
 export default function RetroSessionPage() {
   const params = useParams();
@@ -36,7 +26,7 @@ export default function RetroSessionPage() {
 
   const [sessionUrl, setSessionUrl] = useState("");
   const [sessionName, setSessionName] = useState("Retrospective");
-  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [participants, setParticipants] = useState<Participants[]>([]);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [showUserNameModal, setShowUserNameModal] = useState(true);
 
@@ -80,18 +70,25 @@ export default function RetroSessionPage() {
 
     fetchSession();
     setSessionUrl(window.location.href);
-  }, [sessionId]);
+  }, [router, sessionId]);
 
 
   useEffect(() => {
     if (!sessionId) return;
 
-    const q = collection(db, "retroSessions", sessionId, "participants");
+    const q = collection(
+      db,
+      "retroSessions",
+      sessionId,
+      "participants"
+    ) as CollectionReference<Omit<Participants, "uid">>;
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
+      const data: Participants[] = snapshot.docs.map((doc) => ({
         uid: doc.id,
-        ...(doc.data() as any),
+        ...doc.data(),
       }));
+
       setParticipants(data);
     });
 
@@ -99,20 +96,29 @@ export default function RetroSessionPage() {
   }, [sessionId]);
 
 
+
   useEffect(() => {
     if (!sessionId) return;
 
-    const q = collection(db, "retroSessions", sessionId, "notes");
+    const q = collection(
+      db,
+      "retroSessions",
+      sessionId,
+      "notes"
+    ) as CollectionReference<Omit<Note, "id">>;
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
+      const data: Note[] = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...(doc.data() as any),
+        ...doc.data(),
       }));
+
       setNotes(data);
     });
 
     return () => unsubscribe();
   }, [sessionId]);
+
 
 
   useEffect(() => {
@@ -270,78 +276,4 @@ return (
   </>
 );
 
-
-function CategoryColumn({
-  category,
-  notes,
-  onAddNote,
-  onVote,
-  currentUserId,
-}: {
-  category: string;
-  notes: Note[];
-  onAddNote: (c: string, t: string) => void;
-  onVote: (n: Note) => void;
-  currentUserId: string | null;
-}) {
-  const [text, setText] = useState("");
-
-  return (
-    <div className="bg-white p-4 rounded-xl shadow border border-violet-200">
-      <h3 className="flex items-center gap-2 text-lg font-semibold text-violet-800 mb-3">
-        <span
-          className={`inline-block w-3 h-3 rounded-full ${
-            category === "Start"
-              ? "bg-sky-500"
-              : category === "Stop"
-              ? "bg-red-500"
-              : category === "Continue"
-              ? "bg-emerald-500"
-              : "bg-amber-500"
-          }`}
-        ></span>
-
-        {category}
-      </h3>
-
-      <textarea
-        className="w-full p-2 border rounded-lg text-sm mb-2
-         text-gray-700 placeholder-gray-700 border-gray-300
-         outline-gray-200"
-        placeholder="Write a note..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-
-      <button
-        onClick={() => {
-          onAddNote(category, text);
-          setText("");
-        }}
-        className="w-full bg-violet-800 hover:bg-violet-900 cursor-pointer text-white py-1 rounded-lg text-sm font-semibold"
-      >
-        Add Note
-      </button>
-
-      <ul className="mt-4 space-y-3">
-        {notes.map((note) => (
-          <li key={note.id} className="border rounded-lg p-3 bg-gray-50">
-            <p className="text-sm text-gray-700">{note.text}</p>
-
-            <button
-              onClick={() => onVote(note)}
-              className={`mt-2 px-2 py-1 text-xs rounded-md ${
-                note.voters.includes(currentUserId || "")
-                  ? "bg-violet-300 text-violet-900"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              👍 {note.votes}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 }
