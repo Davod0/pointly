@@ -64,11 +64,38 @@ export default function RetroSessionPage() {
 
       if (!snap.exists()) return router.push("/home");
       setSessionName(snap.data().roomName || "Retrospective");
+
+      const completed = snap.data().completed;
+      if (completed === true) {
+        router.push("/home");
+      }
     };
 
     fetchSession();
     setSessionUrl(window.location.href);
   }, [router, sessionId]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const ref = doc(db, "retroSessions", sessionId);
+
+    const unsubscribe = onSnapshot(ref, (snap) => {
+      if (!snap.exists()) return;
+
+      const data = snap.data();
+
+      if (data.roomName) {
+        setSessionName(data.roomName);
+      }
+
+      if (data.completed === true) {
+        router.push("/home");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [sessionId]);
 
   useEffect(() => {
     if (!sessionId) return;
