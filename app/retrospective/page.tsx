@@ -1,15 +1,11 @@
 'use client';
-
-// import { useState } from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import Footer from "../components/Footer";
-// import ComingSoonPopup from "../components/ComingSoonPopup";
 import FeatureList from "../components/FeatureList";
 import StartButton from "../components/StartButton";
 
 export default function RetrospectivePage() {
-  // const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
 
   return (
     <>
@@ -27,12 +23,6 @@ export default function RetrospectivePage() {
               Reflect &amp; Grow with <br className="hidden sm:block" />
               <span className="text-violet-800">Pointly</span> Retrospectives
             </h1>
-
-            {/* {showComingSoonPopup ? (
-              <div>
-                <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
-              </div>
-            ) : ( */}
               <>
                 <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
                   Look back on your sprints, celebrate wins and identify opportunities to improve.
@@ -53,7 +43,6 @@ export default function RetrospectivePage() {
                               />
                     </div>
               </>
-            {/* )} */}
           </div>
         </div>
         <Footer />

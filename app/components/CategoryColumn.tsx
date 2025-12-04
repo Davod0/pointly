@@ -1,14 +1,15 @@
 "use client";
-
-import React, { useState } from "react";
 import { Note } from "../../types/types";
+import { useState } from "react";
+import CommentSection from "./CommentSection";
 
-interface Props {
+interface CategoryColumnProps {
   category: string;
   notes: Note[];
   onAddNote: (category: string, text: string) => void;
   onVote: (note: Note) => void;
   currentUserId: string | null;
+  sessionId: string;
 }
 
 export default function CategoryColumn({
@@ -17,7 +18,8 @@ export default function CategoryColumn({
   onAddNote,
   onVote,
   currentUserId,
-}: Props) {
+  sessionId,
+}: CategoryColumnProps) {
   const [text, setText] = useState("");
 
   return (
@@ -39,7 +41,7 @@ export default function CategoryColumn({
 
       <textarea
         className="w-full p-2 border rounded-lg text-sm mb-2
-         text-gray-700 placeholder-gray-700 border-gray-300
+         text-gray-700 border-gray-300
          outline-gray-200"
         placeholder="Write a note..."
         value={text}
@@ -51,7 +53,8 @@ export default function CategoryColumn({
           onAddNote(category, text);
           setText("");
         }}
-        className="w-full bg-violet-800 hover:bg-violet-900 cursor-pointer text-white py-1 rounded-lg text-sm font-semibold"
+        className="w-full bg-violet-800 hover:bg-violet-900 cursor-pointer
+         text-white py-1 rounded-lg text-sm font-semibold"
       >
         Add Note
       </button>
@@ -63,7 +66,7 @@ export default function CategoryColumn({
 
             <button
               onClick={() => onVote(note)}
-              className={`mt-2 px-2 py-1 text-xs rounded-md ${
+              className={`mt-2 px-2 py-1 text-xs rounded-md cursor-pointer ${
                 note.voters.includes(currentUserId || "")
                   ? "bg-violet-300 text-violet-900"
                   : "bg-gray-200 text-gray-700"
@@ -71,6 +74,12 @@ export default function CategoryColumn({
             >
               👍 {note.votes}
             </button>
+
+            <CommentSection
+              noteId={note.id}
+              currentUserId={currentUserId}
+              sessionId={sessionId}
+            />
           </li>
         ))}
       </ul>
