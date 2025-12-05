@@ -31,10 +31,13 @@ export default function CommentSection({ sessionId, noteId, currentUserId }: Pro
     ) as CollectionReference<Omit<Comment, "id">>;
 
     const unsub = onSnapshot(q, (snapshot) => {
-      const list: Comment[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const list: Comment[] = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+
       setComments(list);
     });
 
@@ -65,6 +68,7 @@ export default function CommentSection({ sessionId, noteId, currentUserId }: Pro
             className="bg-gray-100 px-3 py-2 rounded-md border border-gray-300"
           >
             <p className="text-gray-800 text-sm">{c.text}</p>
+            {/* <p className="text-[10px] text-gray-500 mt-1">{c.createdAt.toDate().toLocaleString()}</p> */}
           </li>
         ))}
       </ul>
@@ -85,7 +89,6 @@ export default function CommentSection({ sessionId, noteId, currentUserId }: Pro
           className="flex-1 border border-gray-300 rounded-lg px-3 py-1.5
           text-sm outline-gray-200 text-gray-700"
         />
-
       </div>
     </div>
   );
