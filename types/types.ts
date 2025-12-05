@@ -49,6 +49,7 @@ export interface Note {
   votes: number;
   voters: string[];
   comments?: Comment[];
+  createdAt?: Timestamp;
 }
 
 

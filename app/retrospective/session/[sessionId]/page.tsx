@@ -130,13 +130,16 @@ export default function RetroSessionPage() {
     ) as CollectionReference<Omit<Note, "id">>;
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data: Note[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const data: Note[] = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .sort((a, b) => (a.createdAt?.seconds ?? 0) - (b.createdAt?.seconds ?? 0));
 
       setNotes(data);
     });
+
 
     return () => unsubscribe();
   }, [sessionId]);
