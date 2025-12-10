@@ -68,7 +68,6 @@ export default function CommentSection({ sessionId, noteId, currentUserId }: Pro
             className="bg-gray-100 px-3 py-2 rounded-md border border-gray-300"
           >
             <p className="text-gray-800 text-sm">{c.text}</p>
-            {/* <p className="text-[10px] text-gray-500 mt-1">{c.createdAt.toDate().toLocaleString()}</p> */}
           </li>
         ))}
       </ul>
@@ -76,17 +75,18 @@ export default function CommentSection({ sessionId, noteId, currentUserId }: Pro
       <div className="flex gap-2">
         <button
           onClick={addComment}
-          className="bg-violet-800 hover:bg-violet-900 cursor-pointer text-white px-3 py-1.5
+          className="shrink-0 bg-violet-800 hover:bg-violet-900 cursor-pointer text-white px-3 py-1.5
           rounded-lg text-sm font-semibold transition"
         >
           Add
         </button>
+
         <input
           type="text"
           placeholder="Write a comment..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="flex-1 border border-gray-300 rounded-lg px-3 py-1.5
+          className="flex-1 min-w-0 border border-gray-300 rounded-lg px-3 py-1.5
           text-sm outline-gray-200 text-gray-700"
         />
       </div>
