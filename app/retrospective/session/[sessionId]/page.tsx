@@ -287,6 +287,7 @@ export default function RetroSessionPage() {
               onVote={toggleVote}
               currentUserId={currentUserId}
               sessionId={sessionId}
+              participants={participants}
             />
           ))}
         </div>

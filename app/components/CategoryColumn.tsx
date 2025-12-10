@@ -1,5 +1,5 @@
 "use client";
-import { Note } from "../../types/types";
+import { Note, Participants } from "../../types/types";
 import { useState } from "react";
 import CommentSection from "./CommentSection";
 
@@ -10,6 +10,7 @@ interface CategoryColumnProps {
   onVote: (note: Note) => void;
   currentUserId: string | null;
   sessionId: string;
+  participants: Participants[];
 }
 
 export default function CategoryColumn({
@@ -19,8 +20,14 @@ export default function CategoryColumn({
   onVote,
   currentUserId,
   sessionId,
+  participants,
 }: CategoryColumnProps) {
   const [text, setText] = useState("");
+
+  const getAuthorName = (userId: string) => {
+    const participant = participants.find((p) => p.uid === userId);
+    return participant ? participant.name : "Unknown";
+  };
 
   return (
     <div className="bg-white p-4 rounded-xl shadow border border-violet-200">
@@ -62,7 +69,16 @@ export default function CategoryColumn({
       <ul className="mt-4 space-y-3">
         {notes.map((note) => (
           <li key={note.id} className="border rounded-lg p-3 bg-gray-50">
-            <p className="text-sm text-gray-700">{note.text}</p>
+            <p
+              className="
+                font-semibold text-violet-800
+                sm:text-xs md:text-sm lg:text-base
+              "
+            >
+              {getAuthorName(note.userId)}
+            </p>
+
+            <p className="text-sm text-gray-700 mt-1">{note.text}</p>
 
             <button
               onClick={() => onVote(note)}
