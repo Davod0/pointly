@@ -1,6 +1,7 @@
 "use client";
 import { Note, Participants } from "../../types/types";
 import { useState } from "react";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import CommentSection from "./CommentSection";
 
 interface CategoryColumnProps {
@@ -8,6 +9,7 @@ interface CategoryColumnProps {
   notes: Note[];
   onAddNote: (category: string, text: string) => void;
   onVote: (note: Note) => void;
+  onDeleteNote: (note: Note) => void;
   currentUserId: string | null;
   sessionId: string;
   participants: Participants[];
@@ -18,6 +20,7 @@ export default function CategoryColumn({
   notes,
   onAddNote,
   onVote,
+  onDeleteNote,
   currentUserId,
   sessionId,
   participants,
@@ -69,14 +72,25 @@ export default function CategoryColumn({
       <ul className="mt-4 space-y-3">
         {notes.map((note) => (
           <li key={note.id} className="border rounded-lg p-3 bg-gray-50">
-            <p
-              className="
-                font-semibold text-violet-800
-                sm:text-xs md:text-sm lg:text-base
-              "
-            >
-              {getAuthorName(note.userId)}
-            </p>
+            <div className="flex justify-between items-center">
+              <p
+                className="
+                  font-semibold text-violet-800
+                  sm:text-xs md:text-sm lg:text-base
+                "
+              >
+                {getAuthorName(note.userId)}
+              </p>
+
+              <button
+                onClick={() => onDeleteNote(note)}
+                className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-semibold
+                          text-red-600 hover:bg-red-100 hover:border-red-100 hover:text-red-700
+                          transition-colors cursor-pointer"
+              >
+                <TrashIcon className="w-5 h-6" />
+              </button>
+            </div>
 
             <p className="text-sm text-gray-700 mt-1">{note.text}</p>
 

@@ -10,6 +10,7 @@ import {
   getDoc,
   Timestamp,
   CollectionReference,
+  deleteDoc
 } from "firebase/firestore";
 import { db } from "@/database/firestoreDbConfig";
 import UserNameModal from "@/app/components/UserNameModal";
@@ -182,6 +183,14 @@ export default function RetroSessionPage() {
     });
   };
 
+  const deleteNote = async (note: Note) => {
+    try {
+      await deleteDoc(doc(db, "retroSessions", sessionId, "notes", note.id));
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
+
   const toggleVote = async (note: Note) => {
     if (!currentUserId) return;
 
@@ -288,6 +297,7 @@ export default function RetroSessionPage() {
               currentUserId={currentUserId}
               sessionId={sessionId}
               participants={participants}
+              onDeleteNote={deleteNote}
             />
           ))}
         </div>
