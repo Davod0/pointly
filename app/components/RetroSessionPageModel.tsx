@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import InviteLinkPopUp from "./InviteLinkPopUp";
 
 export default function RetroSessionPageModel() {
   const categories = ["Start", "Stop", "Continue", "Improve"];
@@ -28,30 +29,36 @@ export default function RetroSessionPageModel() {
   return (
     <div className="h-auto bg-gradient-to-br from-gray-100
     to-violet-100 p-2 select-none scale-[0.85] origin-top-left rounded-lg">
+
       <div className="flex justify-between items-start">
         <div>
           <h1
             className="
-              text-[10px] font-extrabold text-violet-900 tracking-tight bg-white/80
-              px-2 py-0.5 rounded-md shadow border-l-2 border-violet-400
+              text-[14px] font-extrabold text-violet-900 tracking-tight bg-white/80
+              px-4 py-2 rounded-md shadow border-l-2 border-violet-400
             "
           >
-            Retrospective (Preview Model)
+            Retrospective Session
           </h1>
+
+          <div className="mt-2 -ml-1">
+            <InviteLinkPopUp sessionUrl="https://preview-session-link.example" />
+          </div>
 
           <button
             className="
-              mt-2 ml-0.5 px-2 py-0.5 rounded-md text-[10px] font-semibold
+              mt-2 mb-2 ml-0.5 px-3 py-2 rounded-md text-[10px] font-semibold
               bg-violet-800 text-white shadow hover:bg-violet-900
             "
           >
-            End Session
+            End the Session
           </button>
         </div>
+
         <div className="relative">
           <button
             className="
-              px-2 py-0.5 rounded-md border font-semibold text-[10px]
+              px-4 py-1 rounded-md border font-semibold text-[15px]
               bg-white border-violet-200 text-gray-700 hover:bg-violet-50
             "
           >
@@ -78,6 +85,7 @@ export default function RetroSessionPageModel() {
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-2">
         {categories.map((cat) => (
           <div
@@ -101,6 +109,7 @@ export default function RetroSessionPageModel() {
               ></span>
               {cat}
             </h3>
+
             <textarea
               className="
                 w-full p-1 border rounded-md text-[11px] mb-1
@@ -118,6 +127,7 @@ export default function RetroSessionPageModel() {
             >
               Add Note
             </button>
+
             <ul className="mt-2 space-y-1">
               {mockNotes.map((note) => (
                 <li
@@ -148,6 +158,7 @@ export default function RetroSessionPageModel() {
                   >
                     👍 {note.votes}
                   </button>
+
                   <div className="mt-2 p-2 bg-white/60 rounded-md border border-violet-200">
                     <ul className="space-y-1 mb-2 max-h-20 overflow-y-auto pr-1">
                       {mockComments.map((c) => (
@@ -189,6 +200,7 @@ export default function RetroSessionPageModel() {
           </div>
         ))}
       </div>
+
     </div>
   );
 }
