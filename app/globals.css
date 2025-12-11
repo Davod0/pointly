@@ -40,3 +40,9 @@ body {
 .animate-fade-out {
   animation: fade-out 0.3s ease forwards;
 }
+
+@media (min-width: 1360px) {
+  .show-1360 {
+    display: flex !important;
+  }
+}
