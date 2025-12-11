@@ -2,7 +2,7 @@
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
-export default function RetroSessionPageModelSmall() {
+export default function RetroSessionPageModel() {
   const categories = ["Start", "Stop", "Continue", "Improve"];
 
   const mockNotes = [

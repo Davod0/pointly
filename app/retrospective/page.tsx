@@ -4,7 +4,7 @@ import Badge from "../components/Badge";
 import Footer from "../components/Footer";
 import FeatureList from "../components/FeatureList";
 import StartButton from "../components/StartButton";
-import RetroSessionPageModelSmall from "../components/RetroSessionPageModelSmall";
+import RetroSessionPageModel from "../components/RetroSessionPageModel";
 
 export default function RetrospectivePage() {
 
@@ -52,7 +52,7 @@ export default function RetrospectivePage() {
           </div>
 
           <div className="hidden show-1360 flex-1 justify-center items-start -mb-1">
-            <RetroSessionPageModelSmall />
+            <RetroSessionPageModel />
           </div>
 
         </div>
