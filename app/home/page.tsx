@@ -30,7 +30,7 @@ export default function HomePage() {
             and start making confident decisions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6 w-full sm:w-auto justify-center sm:justify-start">
-            <StartButton title="Start a Session" route="/planning-poker/session-start" />
+            <StartButton title="Start a Session" route="/planning-poker" />
             <Link
               href="/learn-more"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-violet-800

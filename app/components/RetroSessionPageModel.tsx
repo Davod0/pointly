@@ -27,8 +27,8 @@ export default function RetroSessionPageModel() {
   ];
 
   return (
-    <div className="h-auto bg-gradient-to-br from-gray-100
-    to-violet-100 p-2 select-none scale-[0.85] origin-top-left rounded-lg">
+    <div className="h-auto bg-gradient-to-br from-gray-100 shadow-xl p-4
+    to-violet-100 select-none scale-[0.85] origin-top-left rounded-lg">
 
       <div className="flex justify-between items-start">
         <div>
@@ -48,7 +48,7 @@ export default function RetroSessionPageModel() {
           <button
             className="
               mt-2 mb-2 ml-0.5 px-3 py-2 rounded-md text-[10px] font-semibold
-              bg-violet-800 text-white shadow hover:bg-violet-900
+              bg-violet-800 text-white shadow hover:bg-violet-900 cursor-pointer
             "
           >
             End the Session
@@ -59,7 +59,7 @@ export default function RetroSessionPageModel() {
           <button
             className="
               px-4 py-1 rounded-md border font-semibold text-[15px]
-              bg-white border-violet-200 text-gray-700 hover:bg-violet-50
+              bg-white border-violet-200 text-gray-700 hover:bg-violet-50 cursor-pointer
             "
           >
             Participants
@@ -122,7 +122,7 @@ export default function RetroSessionPageModel() {
             <button
               className="
                 w-full bg-violet-800 hover:bg-violet-900
-                text-white py-1 rounded-md text-[11px] font-semibold
+                text-white py-1 rounded-md text-[11px] font-semibold cursor-pointer
               "
             >
               Add Note
@@ -142,7 +142,7 @@ export default function RetroSessionPageModel() {
                     <button
                       className="
                         px-1 py-0.5 rounded-full text-[10px] font-semibold
-                        text-red-600 hover:bg-red-100 cursor-default flex items-center
+                        text-red-600 hover:bg-red-100 flex items-center cursor-pointer
                       "
                     >
                       <TrashIcon className="w-4 h-4" />
@@ -177,7 +177,7 @@ export default function RetroSessionPageModel() {
                       <button
                         className="
                           bg-violet-800 text-white px-2 py-1
-                          rounded-md text-[11px] font-semibold
+                          rounded-md text-[11px] font-semibold cursor-pointer
                         "
                       >
                         Add

@@ -46,7 +46,7 @@ export default function RetrospectivePage() {
               </div>
             </>
           </div>
-          <div className="hidden show-1360 flex-1 justify-center items-start -mb-20">
+          <div className="hidden show-1360 flex-1 justify-center items-start mt-10 -mb-35">
             <RetroSessionPageModel />
           </div>
         </div>

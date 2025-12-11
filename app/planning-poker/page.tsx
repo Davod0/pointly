@@ -7,20 +7,23 @@ import StartButton from "../components/StartButton";
 import PointCardContainer from "../components/PointCardContainer";
 import Footer from "../components/Footer";
 
-
+import PlanningPokerSessionPageModal from "../components/PlanningPokerSessionPageModal";
 
 export default function PlanningPokerPage() {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col">
       <Header />
       <div className="flex flex-1 flex-col lg:flex-row relative">
-        <div className="mt-10 lg:mt-15 px-6 sm:px-10 lg:ml-27 flex flex-col items-center sm:items-start gap-y-3 text-center sm:text-left">
+        <div className="mt-10 lg:mt-15 px-6 sm:px-10 lg:ml-27 flex flex-col
+                        items-center sm:items-start gap-y-3 text-center sm:text-left">
           <Badge />
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold text-gray-900 leading-tight mb-2 -mt-2"
+            className="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold text-gray-900
+                       leading-tight mb-2 -mt-2"
             style={{ letterSpacing: "-0.02em" }}
           >
-            <span className="text-violet-800">Pointly</span> Makes <br className="hidden sm:block" />
+            <span className="text-violet-800">Pointly</span> Makes
+            <br className="hidden sm:block" />
             Easier Estimations
           </h1>
           <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
@@ -34,26 +37,26 @@ export default function PlanningPokerPage() {
               point2="Boosting team collaboration"
             />
           </div>
-
-            <div>
-                <StartButton
-                    title="Start Estimating"
-                    route="/planning-poker/session-start"
-                />
-            </div>
+          <div>
+            <StartButton
+              title="Start Estimating"
+              route="/planning-poker/session-start"
+            />
+          </div>
         </div>
-        <div className="hidden lg:block absolute right-0 xl:right-10 2xl:right-40 -bottom-4">
+        <div className="relative flex-1 flex items-start justify-center">
+          <div className="hidden show-1670 absolute top-8 z-20">
+            <PlanningPokerSessionPageModal />
+          </div>
+          <div className="hidden lg:block absolute right-0 xl:right-10 2xl:right-40 -bottom-4">
             <PointCardContainer />
-        </div>
-        <div className="lg:hidden flex justify-center">
-          <PointCardContainer />
+          </div>
+          <div className="lg:hidden flex justify-center">
+            <PointCardContainer />
+          </div>
         </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 }
-
-
-
-
