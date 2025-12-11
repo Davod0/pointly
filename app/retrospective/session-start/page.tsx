@@ -63,7 +63,7 @@ export default function SessionSetupPage() {
 
         <div className="w-full">
           <h3 className="text-gray-700 font-semibold mb-3 text-sm sm:text-base">
-            Template
+            Standard Template
           </h3>
 
           <div className="flex flex-row flex-nowrap gap-3 sm:gap-4">

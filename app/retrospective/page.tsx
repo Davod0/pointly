@@ -12,7 +12,6 @@ export default function RetrospectivePage() {
     <>
       <div className="min-h-screen overflow-hidden bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col relative">
         <Header />
-
         <div className="flex flex-1 flex-col lg:flex-row">
           <div className="mt-10 lg:mt-15 px-6 sm:px-10 lg:ml-27 flex flex-col items-center sm:items-start gap-y-3 text-center sm:text-left flex-1">
             <div className="flex justify-center sm:justify-start items-center -mb-3">
@@ -26,12 +25,10 @@ export default function RetrospectivePage() {
               Reflect &amp; Grow with <br className="hidden sm:block" />
               <span className="text-violet-800">Pointly</span> Retrospectives
             </h1>
-
             <>
               <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
                 Look back on your sprints, celebrate wins and identify opportunities to improve.
               </p>
-
               <div className="hidden lg:block">
                 <FeatureList
                   point3="Share wins and challenges openly"
@@ -40,8 +37,7 @@ export default function RetrospectivePage() {
                   point2="Foster team trust and growth"
                 />
               </div>
-
-              <div className="">
+              <div>
                 <StartButton
                   title="Start Reflecting"
                   route="/retrospective/session-start"
@@ -50,13 +46,10 @@ export default function RetrospectivePage() {
               </div>
             </>
           </div>
-
           <div className="hidden show-1360 flex-1 justify-center items-start -mb-20">
             <RetroSessionPageModel />
           </div>
-
         </div>
-
         <Footer />
       </div>
     </>
