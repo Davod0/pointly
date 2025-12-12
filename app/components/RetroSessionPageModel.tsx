@@ -6,17 +6,13 @@ import InviteLinkPopUp from "./InviteLinkPopUp";
 export default function RetroSessionPageModel() {
   const categories = ["Start", "Stop", "Continue", "Improve"];
 
-  const mockNotes = [
+  const baseNotes = [
     {
       id: "1",
-      author: "Anna Lindberg",
-      text: "Improve cross-team communication and create clearer ownership.",
       votes: 3,
     },
     {
       id: "2",
-      author: "Simon Keller",
-      text: "Streamline daily standups to keep them focused.",
       votes: 1,
     },
   ];
@@ -25,6 +21,33 @@ export default function RetroSessionPageModel() {
     { id: "c1", text: "Totally agree with this." },
     { id: "c2", text: "Yes, this would help a lot." },
   ];
+
+  const authorMap: Record<string, string[]> = {
+    Start: ["Sofie", "Anna"],
+    Stop: ["Somin", "Sofie"],
+    Continue: ["Anna", "David"],
+    Improve: ["Sofie", "David"],
+  };
+
+
+  const noteTextMap: Record<string, string[]> = {
+    Start: [
+      "Start documenting decisions more clearly so everyone stays aligned.",
+      "Start having short weekly syncs to avoid misunderstandings.",
+    ],
+    Stop: [
+      "Stop having long unstructured meetings that slow progress.",
+      "Stop switching tasks too frequently during the week.",
+    ],
+    Continue: [
+      "Continue supporting each other during high-pressure sprints.",
+      "Continue refining the code review workflow—it works well.",
+    ],
+    Improve: [
+      "Improve our estimation accuracy to reduce sprint spillover.",
+      "Improve handoff between design and development teams.",
+    ],
+  };
 
   return (
     <div className="h-auto bg-gradient-to-br from-gray-100 shadow-xl p-4
@@ -73,13 +96,16 @@ export default function RetroSessionPageModel() {
           >
             <ul className="space-y-1">
               <li className="p-1 rounded-md bg-violet-100 border border-violet-300">
-                <p className="text-gray-700 text-[11px]">You (Maria Duarte)</p>
+                <p className="text-gray-700 text-[11px]">You (Sofie)</p>
               </li>
               <li className="p-1 rounded-md bg-gray-100">
-                <p className="text-gray-700 text-[11px]">Anna Lindberg</p>
+                <p className="text-gray-700 text-[11px]">Anna</p>
               </li>
               <li className="p-1 rounded-md bg-gray-100">
-                <p className="text-gray-700 text-[11px]">Simon Keller</p>
+                <p className="text-gray-700 text-[11px]">Simon</p>
+              </li>
+              <li className="p-1 rounded-md bg-gray-100">
+                <p className="text-gray-700 text-[11px]">David</p>
               </li>
             </ul>
           </div>
@@ -129,14 +155,14 @@ export default function RetroSessionPageModel() {
             </button>
 
             <ul className="mt-2 space-y-1">
-              {mockNotes.map((note) => (
+              {baseNotes.map((note, i) => (
                 <li
-                  key={note.id}
+                  key={note.id + cat}
                   className="border rounded-md p-2 bg-gray-50 text-[11px]"
                 >
                   <div className="flex justify-between items-center">
                     <p className="font-semibold text-violet-800">
-                      {note.author}
+                      {authorMap[cat][i]}
                     </p>
 
                     <button
@@ -149,7 +175,9 @@ export default function RetroSessionPageModel() {
                     </button>
                   </div>
 
-                  <p className="text-gray-700 mt-1">{note.text}</p>
+                  <p className="text-gray-700 mt-1">
+                    {noteTextMap[cat][i]}
+                  </p>
 
                   <button
                     className="

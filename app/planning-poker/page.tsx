@@ -45,7 +45,7 @@ export default function PlanningPokerPage() {
           </div>
         </div>
         <div className="relative flex-1 flex items-start justify-center">
-          <div className="hidden show-1670 absolute top-8 z-20">
+          <div className="hidden show-1670 absolute top-16 z-20">
             <PlanningPokerSessionPageModal />
           </div>
           <div className="hidden lg:block absolute right-0 xl:right-10 2xl:right-40 -bottom-4">

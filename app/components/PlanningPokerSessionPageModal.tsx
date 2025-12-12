@@ -4,7 +4,7 @@ export default function PlanningPokerSessionPageModal() {
   return (
     <div className="relative bg-gradient-to-br from-gray-100 to-violet-100 p-4 rounded-2xl
     shadow-xl w-[500px] mx-auto">
-        <div className="flex flex-col items-start space-y-2">
+        {/* <div className="flex flex-col items-start space-y-2">
         <h1
             className="
             text-[12px] font-extrabold text-violet-900 bg-white/70
@@ -30,7 +30,7 @@ export default function PlanningPokerSessionPageModal() {
         >
             End the Session
         </button>
-        </div>
+        </div> */}
       <main className="flex flex-col items-center justify-center px-2 pt-4">
         <div className="relative bg-white/90 rounded-xl shadow-xl px-6 py-5 w-full border border-violet-200 flex">
           <div className="absolute left-0 pl-2 top-6 origin-top-left">
@@ -52,7 +52,7 @@ export default function PlanningPokerSessionPageModal() {
                   <span className="text-gray-500 text-[10px]">Waiting</span>
                 </li>
                 <li className="flex items-center gap-1 px-2 py-1 rounded-md shadow-sm bg-violet-100 border border-violet-300">
-                  <span className="font-semibold text-violet-800 text-xs">You</span>
+                  <span className="font-semibold text-violet-800 text-xs">David</span>
                   <span className="text-green-600 text-[10px]">Picked</span>
                 </li>
               </ul>
