@@ -59,14 +59,14 @@ export default function MobileMenu({ navOptions, selectedNav, setSelectedNav }: 
               {option.label}
             </Link>
           ))}
-          <div className="relative">
+          {/* <div className="relative">
             <button
               onClick={() => { setShowComingSoonPopup(true); setMenuOpen(false); }}
               className="px-2 py-1 text-xs text-gray-700 hover:bg-violet-50 cursor-pointer font-medium rounded sm:px-3 sm:py-1 sm:text-sm text-left"
             >
               Sign In
             </button>
-          </div>
+          </div> */}
         </div>
       )}
       {showComingSoonPopup && (
