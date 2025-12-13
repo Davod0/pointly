@@ -1,4 +1,4 @@
-
+// This component is not used currently but kept for future reference
 export default function Home() {
   const accentColor = "oklch(90.1% 0.058 230.902)";
 

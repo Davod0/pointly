@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import FeatureList from "../components/FeatureList";

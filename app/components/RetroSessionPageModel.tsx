@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import { TrashIcon } from "@heroicons/react/24/outline";
 import InviteLinkPopUp from "./InviteLinkPopUp";
 

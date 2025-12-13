@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import StartButton from "@/app/components/StartButton";
 import { useRouter } from "next/navigation";
 import { Fibonacci } from "../../../types/types";

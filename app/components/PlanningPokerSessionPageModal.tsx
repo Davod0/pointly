@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PlanningPokerSessionPageModal() {
   return (
     <div className="relative bg-gradient-to-br from-gray-100 to-violet-100 p-4 rounded-2xl

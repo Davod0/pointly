@@ -1,4 +1,3 @@
-import React from "react";
 import PointCardContainer from "./PointCardContainer";
 import StartButton from "./StartButton";
 import Badge from "./Badge";
