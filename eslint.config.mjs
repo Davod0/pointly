@@ -1,6 +1,15 @@
-import next from "eslint-config-next/flat";
+// eslint.config.mjs
+import { FlatCompat } from "@eslint/eslintrc";
+import { fixupConfigRules } from "@eslint/compat";
 
+const compat = new FlatCompat();
+
+/** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
-  ...next.coreWebVitals,
-  ...next.typescript,
+  ...fixupConfigRules(
+    compat.extends("next/core-web-vitals")  // or "next"
+  ),
+  {
+    ignores: [".next"]
+  }
 ];
