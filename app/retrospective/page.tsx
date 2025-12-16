@@ -1,23 +1,23 @@
 'use client';
-
-import { useState } from "react";
 import Header from "../components/Header";
 import Badge from "../components/Badge";
 import Footer from "../components/Footer";
-import ComingSoonPopup from "../components/ComingSoonPopup";
+import FeatureList from "../components/FeatureList";
+import StartButton from "../components/StartButton";
+import RetroSessionPageModel from "../components/RetroSessionPageModel";
 
 export default function RetrospectivePage() {
-  const [showComingSoonPopup, setShowComingSoonPopup] = useState(true);
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col relative">
+      <div className="min-h-screen overflow-hidden bg-gradient-to-br from-gray-100 to-violet-100 flex flex-col relative">
         <Header />
         <div className="flex flex-1 flex-col lg:flex-row">
-          <div className="mt-10 lg:mt-15 px-6 sm:px-10 lg:ml-27 flex flex-col items-center sm:items-start gap-y-3 text-center sm:text-left">
+          <div className="mt-10 lg:mt-15 px-6 sm:px-10 lg:ml-27 flex flex-col items-center sm:items-start gap-y-3 text-center sm:text-left flex-1">
             <div className="flex justify-center sm:justify-start items-center -mb-3">
               <Badge />
             </div>
+
             <h1
               className="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold text-gray-900 leading-tight mb-2"
               style={{ letterSpacing: "-0.02em" }}
@@ -25,37 +25,29 @@ export default function RetrospectivePage() {
               Reflect &amp; Grow with <br className="hidden sm:block" />
               <span className="text-violet-800">Pointly</span> Retrospectives
             </h1>
-
-            {showComingSoonPopup ? (
-              <div>
-                <ComingSoonPopup onClose={() => setShowComingSoonPopup(false)} />
+            <>
+              <p className="text-base sm:text-lg text-gray-600 mb-4 max-w-xl mx-auto sm:mx-0">
+                Look back on your sprints, celebrate wins and identify opportunities to improve.
+              </p>
+              <div className="hidden lg:block">
+                <FeatureList
+                  point3="Share wins and challenges openly"
+                  point4="Gather actionable feedback"
+                  point1="Track improvements over time"
+                  point2="Foster team trust and growth"
+                />
               </div>
-            ) : (
-              <>
-                <p className="text-base sm:text-lg text-gray-700 mb-8 lg:mb-17 max-w-xl mx-auto sm:mx-0">
-                  Look back on your sprints, celebrate wins, and identify opportunities to improve.
-                  Pointly makes retrospectives simple, insightful, and actionable for every team.
-                </p>
-                <ul className="hidden sm:block mb-10 lg:-mt-10 space-y-5">
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Share wins and challenges openly</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Gather actionable feedback</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Track improvements over time</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-violet-800 rounded-full mr-3"></span>
-                    <span className="text-gray-700 text-lg lg:text-xl">Foster team trust and growth</span>
-                  </li>
-                </ul>
-              </>
-            )}
+              <div>
+                <StartButton
+                  title="Start Reflecting"
+                  route="/retrospective/session-start"
+                  marginBottom="mb-0"
+                />
+              </div>
+            </>
+          </div>
+          <div className="hidden show-1360 flex-1 justify-center items-start mt-10 -mb-35">
+            <RetroSessionPageModel />
           </div>
         </div>
         <Footer />

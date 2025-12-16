@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface SmallPointCardProps {
   value: string | number;

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import { useAppDispatch } from "../store/hooks";
 import { setBadgeTitle } from "../store/badgeSlice";
@@ -6,11 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
-import ComingSoonPopup from "./ComingSoonPopup";
+
 
 export default function Header() {
   const [selectedNav, setSelectedNav] = useState("");
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
@@ -35,55 +34,56 @@ export default function Header() {
     <header className="w-full flex items-center justify-between px-6 sm:px-10 lg:px-18 py-6 lg:py-8 relative">
       <Link
         href="/home"
-        className="flex items-center"
-        {...{ onClick: () => setSelectedNav("Home") }}
+        className="flex items-center group"
+        onClick={() => setSelectedNav("Home")}
       >
-        <Image
-          src="/p.png"
-          alt="Pointly Logo"
-          width={90}
-          height={90}
-          className="rounded-full hover:opacity-90 transition shadow-md border border-gray-300 max-w-full h-auto bg-white"
-        />
+        <div className="relative">
+          <Image
+            src="/p.png"
+            alt="Pointly Logo"
+            width={90}
+            height={90}
+            className="rounded-2xl shadow-lg border border-gray-200 bg-white/80 backdrop-blur-sm transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl"
+          />
+          <span className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-violet-200/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+        </div>
+
+        <div className="ml-3 hidden sm:flex flex-col">
+          <span className="text-sm font-semibold tracking-[0.18em] uppercase text-gray-500">
+            Pointly
+          </span>
+          <span className="text-xs text-gray-400">
+            Agile sessions made simple
+          </span>
+        </div>
       </Link>
 
-      <nav className="hidden lg:flex items-center ml-10 xl:ml-[6cm]">
-        {navOptions.map((option) => (
-          <Link
-            key={option.label}
-            href={option.href}
-            onClick={() => setSelectedNav(option.label)}
-            className={`text-black text-base lg:text-lg px-4 lg:px-5 py-2 rounded-full transition-all duration-200 cursor-pointer
-              ${selectedNav === option.label
-                ? "font-bold"
-                : " hover:text-violet-800 font-semibold"
-              }`}
-          >
-            {option.label}
-          </Link>
-        ))}
+      <nav
+        className="hidden lg:flex items-center ml-25 xl:ml-[12cm] space-x-1
+        rounded-full bg-white/70 backdrop-blur-sm border border-violet-100 px-1.5 py-1 shadow-sm"
+      >
+        {navOptions.map((option) => {
+          const isActive = selectedNav === option.label;
+          return (
+            <Link
+              key={option.label}
+              href={option.href}
+              onClick={() => setSelectedNav(option.label)}
+              className={[
+                "relative px-4 lg:px-5 py-2 text-sm lg:text-base rounded-full transition-all duration-200 cursor-pointer",
+                "font-medium",
+                isActive
+                  ? "text-violet-800 bg-violet-50 shadow-[0_0_0_1px_rgba(139,92,246,0.15)]"
+                  : "text-gray-700 hover:text-violet-800 hover:bg-violet-50/70",
+              ].join(" ")}
+            >
+              {option.label}
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="flex items-center ml-auto space-x-3">
-        <div className="relative hidden lg:block">
-          <button
-            onClick={(e) => {
-              e.currentTarget.blur();
-              setShowPlaceholder(true);
-            }}
-            className="px-2 py-1.5 rounded-lg border-2 font-semibold transition cursor-pointer
-              bg-white border-violet-200 text-gray-700 hover:bg-violet-50
-              focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base"
-          >
-            Sign In
-          </button>
-          {showPlaceholder && (
-            <div className="absolute top-full right-0.5 mt-2 w-max">
-              <ComingSoonPopup onClose={() => setShowPlaceholder(false)} />
-            </div>
-          )}
-        </div>
-
         <MobileMenu
           navOptions={navOptions}
           selectedNav={selectedNav}

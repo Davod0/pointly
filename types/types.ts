@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface PlanningSessions{
   id: string;
   roomName: string;
@@ -32,5 +34,24 @@ export type Fibonacci = {
   label: string;
   values: (string | number)[];
 };
+
+export interface Comment {
+  id: string;
+  text: string;
+  createdAt: Timestamp;
+}
+
+export interface Note {
+  id: string;
+  categoryName: string;
+  text: string;
+  userId: string;
+  votes: number;
+  voters: string[];
+  comments?: Comment[];
+  createdAt?: Timestamp;
+}
+
+
 
 

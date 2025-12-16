@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer";
 import UserNameModal from "@/app/components/UserNameModal";
 import InviteLinkPopUp from "@/app/components/InviteLinkPopUp";
@@ -255,7 +255,7 @@ export default function SessionPage() {
             duration-200 hover:bg-violet-900 focus:outline-none focus:ring-violet-300
             focus:ring-2 sm:focus:ring-4 cursor-pointer no-underline"
           onClick={handleSessionCompletion}>
-          End Session
+          End the Session
         </button>
 
         {revealed && (

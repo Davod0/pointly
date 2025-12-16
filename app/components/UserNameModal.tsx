@@ -108,7 +108,7 @@ const UserNameModal: React.FC<UserNameModalProps> = ({ onSubmit, onClose }) => {
           "
           disabled={!userName.trim()}
         >
-          Join Session
+          Join the Session
         </button>
       </form>
     </div>

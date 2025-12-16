@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import StartButton from "@/app/components/StartButton";
 import { useRouter } from "next/navigation";
 import { Fibonacci } from "../../../types/types";
@@ -131,7 +131,7 @@ export default function SessionSetupPage() {
           )}
         </div>
         <div className="mt-4 sm:mt-6">
-          <StartButton title="Start Session" onClick={handleSessionStart} />
+          <StartButton title="Start the Session" onClick={handleSessionStart} />
         </div>
       </div>
     </div>
