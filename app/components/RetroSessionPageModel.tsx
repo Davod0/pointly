@@ -24,7 +24,7 @@ export default function RetroSessionPageModel() {
 
   const authorMap: Record<string, string[]> = {
     Start: ["Sofie", "Anna"],
-    Stop: ["Somin", "Sofie"],
+    Stop: ["Simon", "Sofie"],
     Continue: ["Anna", "David"],
     Improve: ["Sofie", "David"],
   };
